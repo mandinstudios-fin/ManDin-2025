@@ -1,9 +1,13 @@
 import React from 'react';
 import '../styles/WhatWeServe.css';
 
-const WhatWeServe = () => {
+const WhatWeServe = ({ onClose }) => {
   return (
     <div className="what-we-serve-wrapper">
+      <button className="close-button" onClick={onClose}>
+        <span>×</span>
+      </button>
+      
       <section className="serve-section">
         <div className="serve-wrapper">
           <h1 className="serve-title">What We Serve</h1>

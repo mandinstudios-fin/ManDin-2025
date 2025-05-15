@@ -1,24 +1,104 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronRight } from 'lucide-react';
 import Navbar from './components/Navbar';
 import WhatWeDo from './components/WhatWeDo';
+import WhatWeServe from './components/WhatWeServe';
+import Transition from './components/Transition';
 import './styles/HomePage.css';
 
 const HomePage = () => {
   const [isWhatWeDoVisible, setIsWhatWeDoVisible] = useState(false);
+  const [isWhatWeServeVisible, setIsWhatWeServeVisible] = useState(false);
+  const [showTransition, setShowTransition] = useState(false);
+  const [lastScrollTime, setLastScrollTime] = useState(Date.now());
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [hasScrolledToServe, setHasScrolledToServe] = useState(false);
+  const [direction, setDirection] = useState('none');
+  const [isClosing, setIsClosing] = useState(false);
+
+  useEffect(() => {
+    if (isWhatWeServeVisible) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isWhatWeServeVisible]);
+
+  useEffect(() => {
+    const handleScroll = (e) => {
+      if (isTransitioning || isClosing) return;
+      
+      const now = Date.now();
+      if (now - lastScrollTime < 1000) return;
+      
+      const delta = e.deltaY;
+      
+      if (delta > 0 && !isWhatWeServeVisible && !hasScrolledToServe) {
+        setIsTransitioning(true);
+        setShowTransition(true);
+        setLastScrollTime(now);
+        setHasScrolledToServe(true);
+        setDirection('down');
+        setIsClosing(false);
+      } else if (delta < 0 && isWhatWeServeVisible) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('wheel', handleScroll, { passive: false });
+    return () => window.removeEventListener('wheel', handleScroll);
+  }, [isWhatWeServeVisible, hasScrolledToServe, lastScrollTime, isTransitioning, isClosing]);
+
+  const handleTransitionEnd = (e) => {
+    if (e.target.classList.contains('bar') && e.propertyName === 'transform') {
+      const bars = document.querySelectorAll('.bar');
+      const lastBar = bars[bars.length - 1];
+      if (e.target === lastBar) {
+        if (direction === 'down') {
+          setIsWhatWeServeVisible(true);
+          setDirection('none');
+          setIsClosing(false);
+        } else if (direction === 'up') {
+          // Only hide content after closing animation completes
+          setIsWhatWeServeVisible(false);
+          setHasScrolledToServe(false);
+          setDirection('none');
+          setIsClosing(false);
+        }
+        
+        setTimeout(() => {
+          setShowTransition(false);
+          setIsTransitioning(false);
+        }, 100);
+      }
+    }
+  };
 
   const handleMeetUsClick = () => {
-    setIsWhatWeDoVisible(true);
+    if (!isWhatWeServeVisible && !hasScrolledToServe && !isClosing) {
+      setIsTransitioning(true);
+      setShowTransition(true);
+      setHasScrolledToServe(true);
+      setDirection('down');
+      setIsClosing(false);
+    }
   };
 
   const handleClose = () => {
-    setIsWhatWeDoVisible(false);
+    setIsClosing(true);
+    setShowTransition(true);
+    setIsTransitioning(true);
+    setDirection('up');
   };
 
   return (
     <div className="relative w-full overflow-visible bg-transparent">
       {/* Background Video with Overlay */}
-      <div className="video-container">
+      <div className={`video-container ${isWhatWeServeVisible ? 'fade-out' : ''}`}>
         <div className="video-overlay"></div>
         <video
           autoPlay
@@ -35,7 +115,7 @@ const HomePage = () => {
       <Navbar />
 
       {/* Hero Content */}
-      <div className="hero-content">
+      <div className={`hero-content ${isWhatWeServeVisible ? 'fade-out' : ''}`}>
         <div className="text-center w-full max-w-[1300px] mx-auto px-4">
           <div className="hero-title-container">
             <h1 className="hero-title title-unfold">Where expertise meets artistry</h1>
@@ -45,12 +125,18 @@ const HomePage = () => {
       </div>
 
       {/* Meet Us Button */}
-      <button className="button-container" onClick={handleMeetUsClick}>
+      <button 
+        className={`button-container ${isWhatWeServeVisible ? 'fade-out' : ''}`} 
+        onClick={handleMeetUsClick}
+      >
         <h1 className="button-text">Meet Us</h1>
       </button>
 
-      {/* What We Do Section */}
-      <WhatWeDo isVisible={isWhatWeDoVisible} onClose={handleClose} />
+      {/* Transition Effect */}
+      <Transition show={showTransition} onTransitionEnd={handleTransitionEnd} isClosing={isClosing} />
+
+      {/* What We Serve Section */}
+      {isWhatWeServeVisible && <WhatWeServe onClose={handleClose} />}
     </div>
   );
 };
