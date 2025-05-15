@@ -14,7 +14,7 @@
 /* Base styles */
 :root {
   --primary-color: #ffffff;
-  --accent-color: #d3e019;
+  --accent-color: #64ffda;
   --text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -207,7 +207,7 @@ nav {
   width: 180px;
   height: 180px;
   padding: 2rem;
-  background: linear-gradient(135deg, var(--accent-color), #c0f136);
+  background: linear-gradient(135deg, var(--accent-color), #80ffea);
   color: #0a192f;
   border: none;
   border-radius: 50%;
@@ -291,17 +291,15 @@ nav {
   backdrop-filter: blur(5px);
   padding: 1rem 2rem;
   border: none;
-  position: absolute;
-  left: 50%;
-  top: 75%;
-  transform: translate(-50%, -50%);
+  position: absolute; /* Changed from relative */
+  left: 50%; /* Changed from 42% */
+  top: 75%; /* Added to control vertical position */
+  transform: translate(-50%, -50%); /* Changed transform */
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 30px rgba(217, 238, 27, 0.1);
   overflow: visible;
   z-index: 10;
-  opacity: 1;
-  visibility: visible;
 }
 
 .button-container::after {
@@ -348,7 +346,39 @@ nav {
 
 .button-container:hover {
   background: rgba(211, 211, 211, 0.085);
-  transform: translate(-50%, -55%);
+  transform: translate(-50%, -55%); /* Updated transform */
+}
+
+/* Update responsive styles */
+@media (max-width: 1200px) {
+  .button-container {
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .button-container:hover {
+    transform: translate(-50%, -55%);
+  }
+}
+
+@media (max-width: 768px) {
+  .button-container {
+    left: 50%;
+    top: 70%;
+  }
+  .hero-content {
+    height: 80vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .button-container {
+    left: 50%;
+    top: 65%;
+    padding: 0.75rem 1.5rem;
+  }
+  .hero-content {
+    height: 75vh;
+  }
 }
 
 /* Fade transitions */
@@ -381,5 +411,4 @@ nav {
 body.transitioning {
   overflow: hidden;
 }
-
 

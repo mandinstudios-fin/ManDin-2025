@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronRight } from 'lucide-react';
 import Navbar from './components/Navbar';
-import Contact from './components/contact';
+import WhatWeDo from './components/WhatWeDo';
 import WhatWeServe from './components/WhatWeServe';
 import Transition from './components/Transition';
 import './styles/HomePage.css';
@@ -9,7 +9,6 @@ import './styles/HomePage.css';
 const HomePage = () => {
   const [isWhatWeDoVisible, setIsWhatWeDoVisible] = useState(false);
   const [isWhatWeServeVisible, setIsWhatWeServeVisible] = useState(false);
-  const [isContactVisible, setIsContactVisible] = useState(false);
   const [showTransition, setShowTransition] = useState(false);
   const [lastScrollTime, setLastScrollTime] = useState(Date.now());
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -18,7 +17,7 @@ const HomePage = () => {
   const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
-    if (isWhatWeServeVisible || isContactVisible) {
+    if (isWhatWeServeVisible) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -27,11 +26,11 @@ const HomePage = () => {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isWhatWeServeVisible, isContactVisible]);
+  }, [isWhatWeServeVisible]);
 
   useEffect(() => {
     const handleScroll = (e) => {
-      if (isTransitioning || isClosing || isContactVisible) return;
+      if (isTransitioning || isClosing) return;
       
       const now = Date.now();
       if (now - lastScrollTime < 1000) return;
@@ -52,7 +51,7 @@ const HomePage = () => {
 
     window.addEventListener('wheel', handleScroll, { passive: false });
     return () => window.removeEventListener('wheel', handleScroll);
-  }, [isWhatWeServeVisible, hasScrolledToServe, lastScrollTime, isTransitioning, isClosing, isContactVisible]);
+  }, [isWhatWeServeVisible, hasScrolledToServe, lastScrollTime, isTransitioning, isClosing]);
 
   const handleTransitionEnd = (e) => {
     if (e.target.classList.contains('bar') && e.propertyName === 'transform') {
@@ -64,6 +63,7 @@ const HomePage = () => {
           setDirection('none');
           setIsClosing(false);
         } else if (direction === 'up') {
+          // Only hide content after closing animation completes
           setIsWhatWeServeVisible(false);
           setHasScrolledToServe(false);
           setDirection('none');
@@ -79,22 +79,13 @@ const HomePage = () => {
   };
 
   const handleMeetUsClick = () => {
-    if (!isContactVisible && !isWhatWeServeVisible && !isTransitioning) {
+    if (!isWhatWeServeVisible && !hasScrolledToServe && !isClosing) {
       setIsTransitioning(true);
-      
-      // Fade out current content first
-      setTimeout(() => {
-        setIsContactVisible(true);
-        setIsTransitioning(false);
-      }, 300); // Match the transition duration from old version
+      setShowTransition(true);
+      setHasScrolledToServe(true);
+      setDirection('down');
+      setIsClosing(false);
     }
-  };
-
-  const handleContactClose = () => {
-    setIsContactVisible(false);
-    setTimeout(() => {
-      setIsTransitioning(false);
-    }, 1000);
   };
 
   const handleClose = () => {
@@ -107,7 +98,7 @@ const HomePage = () => {
   return (
     <div className="relative w-full overflow-visible bg-transparent">
       {/* Background Video with Overlay */}
-      <div className={`video-container ${(isWhatWeServeVisible || isContactVisible || isTransitioning) ? 'fade-out' : ''}`}>
+      <div className={`video-container ${isWhatWeServeVisible ? 'fade-out' : ''}`}>
         <div className="video-overlay"></div>
         <video
           autoPlay
@@ -124,7 +115,7 @@ const HomePage = () => {
       <Navbar />
 
       {/* Hero Content */}
-      <div className={`hero-content ${(isWhatWeServeVisible || isContactVisible || isTransitioning) ? 'fade-out' : ''}`}>
+      <div className={`hero-content ${isWhatWeServeVisible ? 'fade-out' : ''}`}>
         <div className="text-center w-full max-w-[1300px] mx-auto px-4">
           <div className="hero-title-container">
             <h1 className="hero-title title-unfold">Where expertise meets artistry</h1>
@@ -135,9 +126,8 @@ const HomePage = () => {
 
       {/* Meet Us Button */}
       <button 
-        className={`button-container ${(isWhatWeServeVisible || isContactVisible || isTransitioning) ? 'fade-out' : ''}`} 
+        className={`button-container ${isWhatWeServeVisible ? 'fade-out' : ''}`} 
         onClick={handleMeetUsClick}
-        disabled={isTransitioning || isWhatWeServeVisible}
       >
         <h1 className="button-text">Meet Us</h1>
       </button>
@@ -147,9 +137,6 @@ const HomePage = () => {
 
       {/* What We Serve Section */}
       {isWhatWeServeVisible && <WhatWeServe onClose={handleClose} />}
-
-      {/* Contact Section */}
-      {isContactVisible && <Contact isVisible={isContactVisible} onClose={handleContactClose} />}
     </div>
   );
 };

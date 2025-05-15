@@ -5,7 +5,7 @@ const WhatWeServe = ({ onClose }) => {
   return (
     <div className="what-we-serve-wrapper">
       <button className="close-button" onClick={onClose}>
-        <span>×</span>
+        <span className="close-icon"></span>
       </button>
       
       <section className="serve-section">
