@@ -90,19 +90,20 @@ nav {
 /* Hero content */
 .hero-content {
   position: relative;
-  height: 100vh;
+  height: 85vh; /* Reduced from 100vh to create better spacing */
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: var(--primary-color);
+  padding-top: 2rem; /* Added padding to adjust vertical position */
 }
 
 .hero-title-container {
-  padding: 1.5rem 2rem;
-  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem; /* Reduced from 2rem */
   display: inline-block;
-  transform: translateY(-20%);
+  transform: translateY(-10%); /* Adjusted from -20% */
 }
 
 .hero-title {
@@ -143,7 +144,7 @@ nav {
   text-transform: uppercase;
   color: #e9e9e9;
   text-align: center;
-  margin-bottom: 70px;
+  margin-bottom: 50px; /* Reduced from 70px */
 }
 
 .title-unfold2 {
@@ -155,7 +156,8 @@ nav {
   text-transform: uppercase;
   color: #d3f321;
   text-align: center;
-  margin-top: -54px;
+  margin-top: -40px; /* Adjusted from -54px */
+  margin-bottom: 2rem; /* Added margin bottom */
 }
 
 .hero-title:hover {
@@ -289,16 +291,15 @@ nav {
   backdrop-filter: blur(5px);
   padding: 1rem 2rem;
   border: none;
-  position: relative;
-  left: 42%;
-  transform: translateY(-10%);
+  position: absolute; /* Changed from relative */
+  left: 50%; /* Changed from 42% */
+  top: 75%; /* Added to control vertical position */
+  transform: translate(-50%, -50%); /* Changed transform */
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 30px rgba(217, 238, 27, 0.1);
   overflow: visible;
   z-index: 10;
-  margin-top: 10%;
-  margin-bottom: 10%;
 }
 
 .button-container::after {
@@ -345,164 +346,39 @@ nav {
 
 .button-container:hover {
   background: rgba(211, 211, 211, 0.085);
-  transform: translateY(-55%);
+  transform: translate(-50%, -55%); /* Updated transform */
 }
 
-/* Add to existing responsive styles */
+/* Update responsive styles */
 @media (max-width: 1200px) {
   .button-container {
-    left: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .button-container:hover {
+    transform: translate(-50%, -55%);
   }
 }
 
 @media (max-width: 768px) {
   .button-container {
-    left: 35%;
+    left: 50%;
+    top: 70%;
   }
-  .button-text {
-    font-size: 2rem;
+  .hero-content {
+    height: 80vh;
   }
 }
 
 @media (max-width: 480px) {
   .button-container {
-    left: 30%;
+    left: 50%;
+    top: 65%;
     padding: 0.75rem 1.5rem;
   }
-  .button-text {
-    font-size: 1.5rem;
+  .hero-content {
+    height: 75vh;
   }
 }
 
-/* What We Serve Section */
-.what-we-serve-section {
-  position: relative;
-  min-height: 100vh;
-  width: 100%;
-  background: rgba(10, 25, 47, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 6rem 2rem;
-  margin-top: 0;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  z-index: 5;
-}
 
-.what-we-serve-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.serve-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.serve-title {
-  font-size: 3.5rem;
-  color: #ffffff;
-  margin-bottom: 4rem;
-  text-align: center;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 3rem;
-}
-
-.service-item {
-  background: rgba(211, 211, 211, 0.055);
-  backdrop-filter: blur(5px);
-  padding: 2.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
-}
-
-.service-item:hover {
-  background: rgba(211, 211, 211, 0.085);
-  transform: translateY(-5px);
-}
-
-.service-item h2 {
-  font-size: 1.8rem;
-  color: #64ffda;
-  margin-bottom: 1rem;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.service-item p {
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.6;
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  letter-spacing: 0.05em;
-}
-
-.service-features {
-  list-style: none;
-  padding: 0;
-}
-
-.service-features li {
-  color: #ffffff;
-  margin-bottom: 0.8rem;
-  font-size: 1rem;
-  letter-spacing: 0.05em;
-  padding-left: 1.5rem;
-  position: relative;
-}
-
-.service-features li::before {
-  content: '→';
-  position: absolute;
-  left: 0;
-  color: #64ffda;
-}
-
-@media (max-width: 1024px) {
-  .services-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  
-  .serve-title {
-    font-size: 3rem;
-    margin-bottom: 3rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .serve-title {
-    font-size: 2.5rem;
-  }
-  
-  .service-item h2 {
-    font-size: 1.5rem;
-  }
-  
-  .what-we-serve-section {
-    padding: 4rem 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .serve-title {
-    font-size: 2rem;
-  }
-  
-  .service-item {
-    padding: 1.5rem;
-  }
-  
-  .what-we-serve-section {
-    padding: 3rem 1rem;
-  }
-}
