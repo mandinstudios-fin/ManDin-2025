@@ -6,11 +6,19 @@ const Contact = ({ isVisible, onClose }) => {
 
   const handleClose = () => {
     setIsClosing(true);
+    // Wait for the longest animation to complete (2.2s) before actually closing
     setTimeout(() => {
       setIsClosing(false);
       onClose();
-    }, 600); // Match the transition duration
+    }, 2000);
   };
+
+  // Reset closing state when visibility changes
+  useEffect(() => {
+    if (isVisible) {
+      setIsClosing(false);
+    }
+  }, [isVisible]);
 
   return (
     <div className={`contact-container ${isVisible ? 'visible' : ''} ${isClosing ? 'closing' : ''}`}>

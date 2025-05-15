@@ -355,26 +355,37 @@ nav {
 .fade-out {
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              visibility 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
+}
+
+.fade-in {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              visibility 0s linear;
+  pointer-events: auto;
 }
 
 .video-container {
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+              visibility 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero-content {
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+              visibility 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .button-container {
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Prevent scrolling during transitions */

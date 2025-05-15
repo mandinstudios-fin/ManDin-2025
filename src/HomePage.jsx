@@ -16,12 +16,18 @@ const HomePage = () => {
   const [hasScrolledToServe, setHasScrolledToServe] = useState(false);
   const [direction, setDirection] = useState('none');
   const [isClosing, setIsClosing] = useState(false);
+  const [isHomeContentVisible, setIsHomeContentVisible] = useState(true);
 
   useEffect(() => {
     if (isWhatWeServeVisible || isContactVisible) {
       document.body.style.overflow = 'hidden';
+      setIsHomeContentVisible(false);
     } else {
-      document.body.style.overflow = '';
+      // Delay showing home content to match the closing transition
+      setTimeout(() => {
+        document.body.style.overflow = '';
+        setIsHomeContentVisible(true);
+      }, 1800); // Slightly less than the contact closing animation
     }
 
     return () => {
@@ -30,28 +36,48 @@ const HomePage = () => {
   }, [isWhatWeServeVisible, isContactVisible]);
 
   useEffect(() => {
+    let scrollTimeout;
+    let isScrolling = false;
+
     const handleScroll = (e) => {
-      if (isTransitioning || isClosing || isContactVisible) return;
+      if (isTransitioning || isClosing || isContactVisible) {
+        e.preventDefault();
+        return;
+      }
       
       const now = Date.now();
-      if (now - lastScrollTime < 1000) return;
+      if (now - lastScrollTime < 1000 || isScrolling) {
+        e.preventDefault();
+        return;
+      }
       
       const delta = e.deltaY;
       
       if (delta > 0 && !isWhatWeServeVisible && !hasScrolledToServe) {
+        isScrolling = true;
         setIsTransitioning(true);
         setShowTransition(true);
         setLastScrollTime(now);
         setHasScrolledToServe(true);
         setDirection('down');
         setIsClosing(false);
+
+        // Reset scroll lock after animation
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          isScrolling = false;
+        }, 1500);
       } else if (delta < 0 && isWhatWeServeVisible) {
         e.preventDefault();
       }
     };
 
     window.addEventListener('wheel', handleScroll, { passive: false });
-    return () => window.removeEventListener('wheel', handleScroll);
+    
+    return () => {
+      window.removeEventListener('wheel', handleScroll);
+      clearTimeout(scrollTimeout);
+    };
   }, [isWhatWeServeVisible, hasScrolledToServe, lastScrollTime, isTransitioning, isClosing, isContactVisible]);
 
   const handleTransitionEnd = (e) => {
@@ -70,10 +96,11 @@ const HomePage = () => {
           setIsClosing(false);
         }
         
+        // Add a delay before resetting transition state
         setTimeout(() => {
           setShowTransition(false);
           setIsTransitioning(false);
-        }, 100);
+        }, 300);
       }
     }
   };
@@ -82,32 +109,35 @@ const HomePage = () => {
     if (!isContactVisible && !isWhatWeServeVisible && !isTransitioning) {
       setIsTransitioning(true);
       
-      // Fade out current content first
       setTimeout(() => {
         setIsContactVisible(true);
         setIsTransitioning(false);
-      }, 300); // Match the transition duration from old version
+      }, 300);
     }
   };
 
   const handleContactClose = () => {
     setIsContactVisible(false);
+    setIsTransitioning(true);
+    // Reset transitioning state after content is visible
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 1000);
+    }, 2000);
   };
 
   const handleClose = () => {
-    setIsClosing(true);
-    setShowTransition(true);
-    setIsTransitioning(true);
-    setDirection('up');
+    if (!isTransitioning) {
+      setIsClosing(true);
+      setShowTransition(true);
+      setIsTransitioning(true);
+      setDirection('up');
+    }
   };
 
   return (
     <div className="relative w-full overflow-visible bg-transparent">
       {/* Background Video with Overlay */}
-      <div className={`video-container ${(isWhatWeServeVisible || isContactVisible || isTransitioning) ? 'fade-out' : ''}`}>
+      <div className={`video-container ${(!isHomeContentVisible || isTransitioning) ? 'fade-out' : 'fade-in'}`}>
         <div className="video-overlay"></div>
         <video
           autoPlay
@@ -124,7 +154,7 @@ const HomePage = () => {
       <Navbar />
 
       {/* Hero Content */}
-      <div className={`hero-content ${(isWhatWeServeVisible || isContactVisible || isTransitioning) ? 'fade-out' : ''}`}>
+      <div className={`hero-content ${(!isHomeContentVisible || isTransitioning) ? 'fade-out' : 'fade-in'}`}>
         <div className="text-center w-full max-w-[1300px] mx-auto px-4">
           <div className="hero-title-container">
             <h1 className="hero-title title-unfold">Where expertise meets artistry</h1>
@@ -135,7 +165,7 @@ const HomePage = () => {
 
       {/* Meet Us Button */}
       <button 
-        className={`button-container ${(isWhatWeServeVisible || isContactVisible || isTransitioning) ? 'fade-out' : ''}`} 
+        className={`button-container ${(!isHomeContentVisible || isTransitioning) ? 'fade-out' : 'fade-in'}`} 
         onClick={handleMeetUsClick}
         disabled={isTransitioning || isWhatWeServeVisible}
       >
