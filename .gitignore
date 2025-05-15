@@ -21,6 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
 
 
 public/background.mp4
+=======
+>>>>>>> 6cbe76dc174e5873fe4ddb1e3e0e1cc70a02aea9
