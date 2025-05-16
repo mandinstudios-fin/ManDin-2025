@@ -43,6 +43,41 @@ const HomePage = () => {
 
   return (
     <div className="relative w-full overflow-visible bg-transparent">
+      {/* Contact Slide */}
+      <div className={`contact-slide ${isContactOpen ? 'open' : ''}`}>
+        <button className="close-contact" onClick={toggleContact}>×</button>
+        <div className="contact-content">
+          <h2>Get in Touch</h2>
+          <form className="contact-form">
+            <div className="form-group">
+              <input type="text" placeholder="Your Name" required />
+            </div>
+            <div className="form-group">
+              <input type="email" placeholder="Your Email" required />
+            </div>
+            <div className="form-group">
+              <textarea placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" className="submit-button">Send Message</button>
+          </form>
+          
+          <div className="contact-info">
+            <div className="info-item">
+              <h3>Email</h3>
+              <p>hello@mandinstudios.com</p>
+            </div>
+            <div className="info-item">
+              <h3>Phone</h3>
+              <p>+1 (555) 123-4567</p>
+            </div>
+            <div className="info-item">
+              <h3>Location</h3>
+              <p>New York City, NY</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Home Section */}
       <div className="home-section">
         {/* Background Image with Overlay */}
@@ -72,13 +107,14 @@ const HomePage = () => {
 
       {/* Main Content Sections */}
       <div className="main-content">
-        {/* What We Do Section */}
-        <WhatWeDo />
+        <section className="section-what-we-do">
+          <WhatWeDo />
+        </section>
 
-        {/* Who We Serve Section */}
-        <WhoWeServe />
+        <section className="section-who-we-serve">
+          <WhoWeServe />
+        </section>
 
-        {/* Footer Section */}
         <footer className="footer">
           <div className="footer-content">
             <div className="footer-section">

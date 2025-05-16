@@ -340,6 +340,44 @@ body.transitioning {
   z-index: 2;
 }
 
+/* Component Divider */
+.main-content > * {
+  position: relative;
+  padding: 6rem 0;
+}
+
+.main-content > *:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* Hover effect for sections */
+.main-content > *:hover::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.12),
+    transparent
+  );
+  transition: background 0.3s ease;
+}
+
 /* Removed .content-section styles */
 /* Removed .section-content styles */
 /* Removed .section-content h2 styles */
