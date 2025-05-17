@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
 import '../styles/WhatWeDo.css';
 
 const WhatWeDo = () => {
+  const [hoveredItem, setHoveredItem] = useState(null);
+
+  const setHoveredItemValue = (value) => {
+    setHoveredItem(value)
+  }
+
   return (
-    <section className="what-we-do-section">
+    <section id='what-we-do' className="what-we-do-section">
       <h1 className="heading-title">What We Do</h1>
       <div className="what-we-do-header">
         
@@ -26,7 +32,7 @@ const WhatWeDo = () => {
 
       <div className="cards-grid">
         {/* Feature Card 1 */}
-        <div className="feature-card">
+        <div className={`feature-card ${hoveredItem === 1 ? "hovered" : ""}`} onMouseEnter={() => setHoveredItemValue(1)} onMouseLeave={() => setHoveredItemValue(null)}>
           <div className="card-icon">
             {/* Layered UI visualization */}
             <div style={{ 
@@ -64,18 +70,18 @@ const WhatWeDo = () => {
               }}></div>
             </div>
           </div>
-          <div className="card-bottom">
+          <div className={`card-bottom `}>
             <h3 className="card-title">
-              Branding & Design
+              FinTech Innovation
             </h3>
-            <div className="plus-button">
+            <div className={`plus-button ${hoveredItem === 1 ? "hovered" : ""}`}>
               <Plus size={20} />
             </div>
           </div>
         </div>
 
         {/* Feature Card 2 */}
-        <div className="feature-card">
+        <div className={`feature-card ${hoveredItem === 2 ? "hovered" : ""}`} onMouseEnter={() => setHoveredItemValue(2)} onMouseLeave={() => setHoveredItemValue(null)}>
           <div className="card-icon">
             {/* Performance metrics visualization */}
             <div style={{ position: 'relative', width: '200px', height: '80px' }}>
@@ -102,15 +108,15 @@ const WhatWeDo = () => {
             </div>
           </div>
           <div className="card-bottom">
-            <h3 className="card-title">Expere</h3>
-            <div className="plus-button">
+            <h3 className="card-title">AI-Driven Automation</h3>
+            <div className={`plus-button ${hoveredItem === 2 ? "hovered" : ""}`}>
               <Plus size={20} />
             </div>
           </div>
         </div>
 
         {/* Feature Card 3 */}
-        <div className="feature-card">
+        <div className={`feature-card ${hoveredItem === 3 ? "hovered" : ""}`} onMouseEnter={() => setHoveredItemValue(3)} onMouseLeave={() => setHoveredItemValue(null)}>
           <div className="card-icon">
             {/* Create button visualization */}
             <div style={{
@@ -126,8 +132,8 @@ const WhatWeDo = () => {
             </div>
           </div>
           <div className="card-bottom">
-            <h3 className="card-title">Crafted to perfection</h3>
-            <div className="plus-button">
+            <h3 className="card-title">Mobile & Web Applications</h3>
+            <div className={`plus-button ${hoveredItem === 3 ? "hovered" : ""}`}>
               <Plus size={20} />
             </div>
           </div>

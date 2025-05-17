@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Navbar.css';
+import bgImg from '../assets/BG-mds.png'
 
 const navItems = [
-  { id: 1, title: 'What We Do', path: '/what-we-do' },
-  { id: 2, title: 'Why Us', path: '/why-us' },
-  { id: 3, title: 'Our Work', path: '/our-work' },
-  { id: 4, title: 'Team', path: '/team' },
-  { id: 5, title: 'Contact', path: '/contact' }
+  { id: 1, title: 'What We Do', path: 'what-we-do' },
+  { id: 2, title: 'Why Us', path: 'who-we-serve' },
+  { id: 3, title: 'Our Work', path: 'our-work' },
+  { id: 4, title: 'Team', path: 'team' },
+  { id: 5, title: 'Contact', path: 'contact' }
 ];
 
 const Navbar = () => {
@@ -37,7 +38,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`navbar fixed top-0 left-0 w-full z-30 ${scrolled ? 'scrolled' : ''}`}>
+      <nav className={`navbar fixed top-0 left-0 w-full z-30 `}>
         <div className="navbar-container">
           {/* Brand Logo */}
           <div className="brand-wrapper">
@@ -71,7 +72,7 @@ const Navbar = () => {
           <div className="menu-items">
             {navItems.map((item, index) => (
               <div key={item.id} className="menu-item-wrapper" style={{ transitionDelay: `${index * 0.1}s` }}>
-                <a href={item.path} className="menu-item" onClick={() => setIsMenuOpen(false)}>
+                <a href={`#${item.path}`} className="menu-item" onClick={() => setIsMenuOpen(false)}>
                   <span className="menu-item-number">{String(item.id).padStart(2, '0')}</span>
                   <span className="menu-item-title">{item.title}</span>
                   <span className="menu-item-arrow">→</span>
@@ -87,6 +88,8 @@ const Navbar = () => {
             </div>
           </div>
         </div>
+
+        <img src={bgImg} className='full-page-menu-bg-img'/>
       </div>
     </>
   );

@@ -3,6 +3,11 @@ import Navbar from './components/Navbar';
 import './styles/HomePage.css';
 import WhatWeDo from './components/WhatWeDo';
 import WhoWeServe from './components/whoweserve';
+import Solve from './components/solve';
+
+import bgVideo from './assets/bg3.mp4'
+import Contact from './components/contact';
+import { Instagram, Linkedin } from 'lucide-react';
 
 const HomePage = () => {
   const sectionsRef = useRef([]);
@@ -44,8 +49,8 @@ const HomePage = () => {
   return (
     <div className="relative w-full overflow-visible bg-transparent">
       {/* Contact Slide */}
-      <div className={`contact-slide ${isContactOpen ? 'open' : ''}`}>
-        <button className="close-contact" onClick={toggleContact}>×</button>
+      {/*<div className={`contact-slide ${isContactOpen ? 'open' : ''}`}>
+         <button className="close-contact" onClick={toggleContact}>×</button>
         <div className="contact-content">
           <h2>Get in Touch</h2>
           <form className="contact-form">
@@ -60,7 +65,7 @@ const HomePage = () => {
             </div>
             <button type="submit" className="submit-button">Send Message</button>
           </form>
-          
+
           <div className="contact-info">
             <div className="info-item">
               <h3>Email</h3>
@@ -75,14 +80,20 @@ const HomePage = () => {
               <p>New York City, NY</p>
             </div>
           </div>
-        </div>
-      </div>
+        </div> 
+        
+      </div>*/}
+      <Contact isVisible={isContactOpen} onClose={toggleContact}/>
 
       {/* Home Section */}
       <div className="home-section">
         {/* Background Image with Overlay */}
         <div className="image-background-container">
           <div className="video-overlay"></div>
+
+          <video autoPlay loop muted playsInline className="video-background">
+            <source src={bgVideo} type="video/mp4" />
+          </video>
         </div>
 
         {/* Hero Content */}
@@ -92,7 +103,7 @@ const HomePage = () => {
               <h1 className="hero-title title-unfold">Where expertise meets artistry</h1>
               <h2 className="hero-title title-unfold2">You're witnessing brilliance unfold</h2>
             </div>
-            <button 
+            <button
               className="meet-us-button"
               onClick={toggleContact}
             >
@@ -115,6 +126,8 @@ const HomePage = () => {
           <WhoWeServe />
         </section>
 
+        <Solve />
+
         <footer className="footer">
           <div className="footer-content">
             <div className="footer-section">
@@ -126,9 +139,9 @@ const HomePage = () => {
             <div className="footer-section">
               <h3>Follow Us</h3>
               <div className="social-links">
-                <a href="#" className="social-link">Instagram</a>
+                <a href="#" className="social-link">Instagram  <span><Instagram /></span></a>
                 <a href="#" className="social-link">Twitter</a>
-                <a href="#" className="social-link">LinkedIn</a>
+                <a href="#" className="social-link">LinkedIn <span><Linkedin /></span></a>
               </div>
             </div>
             <div className="footer-section">
