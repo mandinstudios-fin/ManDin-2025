@@ -53,9 +53,9 @@
 }
 .cards-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 1.4rem;
-  width: 60%;
+  max-width: 992px;
   margin: 0 auto;
   height: 45%;
 }
@@ -94,7 +94,7 @@
 .plus-button {
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 50%;
+  border-radius: 100%;
   background-color: #222222;
   display: flex;
   justify-content: center;
@@ -108,9 +108,50 @@
 .card-bottom {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
 }
+
 /* Responsive styles */
+@media (max-width: 768px) {
+  .what-we-do-section {
+    padding: 2rem;
+  }
+
+  .heading-title {
+    font-size: 2rem;
+  }
+
+  .heading {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.what-we-do-header {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0rem;
+  margin-bottom: 15rem;
+  }
+
+  .description-container {
+    width: 100%;
+    border: 1px solid red;
+  }
+
+  .description {
+  color: #a0a0a0;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  text-align: justify;
+  width: 100%;
+}
+
+  .cards-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
 @media (min-width: 768px) {
   .what-we-do-section {
     padding: 5rem 3rem;
@@ -135,4 +176,50 @@
   .description-container {
     width: 45%;
   }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  max-width: 90%;
+}
+
+/* Entry animation - already present */
+.overlay.top-left    { animation: from-top-left 0.5s forwards; }
+.overlay.top         { animation: from-top 0.5s forwards; }
+.overlay.top-right   { animation: from-top-right 0.5s forwards; }
+
+/* Exit animations */
+.overlay.exiting.top-left {
+  animation: to-top-left 0.5s forwards;
+}
+.overlay.exiting.top {
+  animation: to-top 0.5s forwards;
+}
+.overlay.exiting.top-right {
+  animation: to-top-right 0.5s forwards;
+}
+
+/* Keyframes for exit */
+@keyframes to-top-left {
+  from { transform: translate(0, 0) scale(1); opacity: 1; }
+  to   { transform: translate(-200px, -200px) scale(0); opacity: 0; }
+}
+@keyframes to-top {
+  from { transform: translateY(0) scale(1); opacity: 1; }
+  to   { transform: translateY(-300px) scale(0); opacity: 0; }
+}
+@keyframes to-top-right {
+  from { transform: translate(0, 0) scale(1); opacity: 1; }
+  to   { transform: translate(200px, -200px) scale(0); opacity: 0; }
 }

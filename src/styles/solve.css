@@ -3,7 +3,7 @@
   padding: 4rem;
   border-radius: 2rem;
   max-width: 1500px;
-  margin: auto;
+  margin: 2rem;
 }
 
 .heading {
@@ -11,7 +11,7 @@
 
 .heading h2 {
   font-size: 4.8rem;
-  max-width: 50%;
+  max-width: 55%;
 }
 
 .heading p {
@@ -32,4 +32,62 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .section-background {
+  background-color: #111;
+  padding: 2rem;
+  border-radius: 2rem;
+  max-width: 1500px;
+  margin: 2rem;
+}
+
+  .heading h2 {
+  font-size: 2.8rem;
+  max-width: 100%;
+}
+
+.heading p {
+  margin-top: 2rem;
+  font-size: 1rem;
+  font-weight: normal;
+  max-width: 100%;
+}
+
+.grid-cards {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5rem;
+}
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .section-background {
+  background-color: #111;
+  padding: 3rem;
+  border-radius: 2rem;
+  max-width: 1500px;
+  margin: 2rem;
+}
+
+  .heading h2 {
+  font-size: 3.5rem;
+  max-width: 100%;
+}
+
+.heading p {
+  margin-top: 2rem;
+  font-size: 1rem;
+  font-weight: normal;
+  max-width: 100%;
+}
+
+.grid-cards {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5rem;
+}
 }

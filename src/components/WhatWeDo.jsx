@@ -2,12 +2,28 @@ import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
 import '../styles/WhatWeDo.css';
 
+const cards = [
+  { id: 1, title: 'FinTech Innovation', dir: 'top-left' },
+  { id: 2, title: 'AI-Driven Automation', dir: 'top' },
+  { id: 3, title: 'Mobile & Web Applications', dir: 'top-right' }
+];
+
 const WhatWeDo = () => {
+  const [active, setActive] = useState(null);
+  const [exiting, setExiting] = useState(false)
   const [hoveredItem, setHoveredItem] = useState(null);
 
   const setHoveredItemValue = (value) => {
     setHoveredItem(value)
   }
+
+  const handleOverlayClick = () => {
+  setExiting(true);
+  setTimeout(() => {
+    setActive(null);
+    setExiting(false);
+  }, 500); // Must match the CSS animation duration
+};
 
   return (
     <section id='what-we-do' className="what-we-do-section">
@@ -32,7 +48,7 @@ const WhatWeDo = () => {
 
       <div className="cards-grid">
         {/* Feature Card 1 */}
-        <div className={`feature-card ${hoveredItem === 1 ? "hovered" : ""}`} onMouseEnter={() => setHoveredItemValue(1)} onMouseLeave={() => setHoveredItemValue(null)}>
+        <div onClick={() => setActive(1)} className={`feature-card ${hoveredItem === 1 ? "hovered" : ""}`} onMouseEnter={() => setHoveredItemValue(1)} onMouseLeave={() => setHoveredItemValue(null)}>
           <div className="card-icon">
             {/* Layered UI visualization */}
             <div style={{ 
@@ -81,7 +97,7 @@ const WhatWeDo = () => {
         </div>
 
         {/* Feature Card 2 */}
-        <div className={`feature-card ${hoveredItem === 2 ? "hovered" : ""}`} onMouseEnter={() => setHoveredItemValue(2)} onMouseLeave={() => setHoveredItemValue(null)}>
+        <div onClick={() => setActive(2)} className={`feature-card ${hoveredItem === 2 ? "hovered" : ""}`} onMouseEnter={() => setHoveredItemValue(2)} onMouseLeave={() => setHoveredItemValue(null)}>
           <div className="card-icon">
             {/* Performance metrics visualization */}
             <div style={{ position: 'relative', width: '200px', height: '80px' }}>
@@ -116,7 +132,7 @@ const WhatWeDo = () => {
         </div>
 
         {/* Feature Card 3 */}
-        <div className={`feature-card ${hoveredItem === 3 ? "hovered" : ""}`} onMouseEnter={() => setHoveredItemValue(3)} onMouseLeave={() => setHoveredItemValue(null)}>
+        <div onClick={() => setActive(3)} className={`feature-card ${hoveredItem === 3 ? "hovered" : ""}`} onMouseEnter={() => setHoveredItemValue(3)} onMouseLeave={() => setHoveredItemValue(null)}>
           <div className="card-icon">
             {/* Create button visualization */}
             <div style={{
@@ -139,6 +155,26 @@ const WhatWeDo = () => {
           </div>
         </div>
       </div>
+
+      {(active || exiting) && (
+        <div
+          className={[
+            'overlay',
+            cards.find(c => c.id === active)?.dir,
+            exiting ? 'exiting' : '',
+          ]
+            .filter(Boolean)
+            .join(' ')}
+          onClick={handleOverlayClick}
+        >
+          <div className="overlay-content" onClick={e => e.stopPropagation()}>
+            <h2>{cards.find(c => c.id === active)?.title}</h2>
+            <p>Detailed info about {cards.find(c => c.id === active)?.title} goes here.</p>
+          </div>
+        </div>
+      )}
+
+      
     </section>
   );
 };
