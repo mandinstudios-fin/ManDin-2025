@@ -34,7 +34,7 @@ const Blogs = () => {
                     {CARDS.map((card, index) => (
                         <div
                             key={index}
-                            className='bg-[#111111] p-8 rounded-lg transition-all duration-300 hover:scale-[120%] cursor-pointer border border-transparent hover:border-orange'
+                            className='bg-[#111111] p-8 rounded-lg transition-all duration-300 hover:scale-[110%] md:hover:scale-[120%] cursor-pointer border border-transparent hover:border-orange'
                         >
                             <div className='mb-6'>
                                 <h3 className='text-2xl font-medium font-["Denton-Bold"]'>{card.title}</h3>

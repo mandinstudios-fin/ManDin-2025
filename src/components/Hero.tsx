@@ -60,7 +60,7 @@ const Hero = () => {
             <div className="z-[10] fixed top-10 px-[4rem]  w-full">
                 <div className='flex items-center justify-between'>
                     <div>
-                        <img src={logo} className='w-[19rem]' />
+                        <img src={logo} className='w-[19rem] drop-shadow' />
                     </div>
                     <div className="nav-controls " onClick={toggleMenu}>
                         <button className="svalbard-button">

@@ -97,6 +97,9 @@ const WhatWeDo = () => {
 const WhoWeServe = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const carouselRef = useRef<HTMLDivElement>(null)
+    const [cardsPerView, setCardsPerView] = useState(
+    window.innerWidth < 768 ? 1 : 3
+  );
 
     const nextSlide = () => {
         if (currentIndex < CARDS.length - 3) {
@@ -111,14 +114,21 @@ const WhoWeServe = () => {
     }
 
     useEffect(() => {
-        if (carouselRef.current) {
-            const cardWidth = carouselRef.current.offsetWidth / 3
-            carouselRef.current.scrollTo({
-                left: currentIndex * cardWidth,
-                behavior: "smooth",
-            })
-        }
-    }, [currentIndex])
+    if (!carouselRef.current) return;
+    const cardWidth = carouselRef.current.offsetWidth / cardsPerView;
+    carouselRef.current.scrollTo({
+      left: currentIndex * cardWidth,
+      behavior: 'smooth',
+    });
+  }, [currentIndex, cardsPerView]);
+
+    useEffect(() => {
+    const onResize = () => {
+      setCardsPerView(window.innerWidth < 768 ? 1 : 3);
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
     return (
         <div className='max-w-[1300px] mx-auto'>
@@ -131,7 +141,7 @@ const WhoWeServe = () => {
                     {CARDS.map((card, index) => (
                         <div
                             key={index}
-                            className="lg:w-1/3 shrink-0 px-[0.5rem] cursor-pointer"
+                            className="w-full lg:w-1/3 shrink-0 px-[0.5rem] cursor-pointer"
                         >
                             <div className="flex flex-col p-6 border border-orange/40 hover:border-orange transition-all duration-300 ease-in-out rounded-lg h-[30rem] backdrop-blur-sm bg-black/30">
                                 <h3 className="font-['Denton-Bold'] text-[2rem] text-center font-semibold text-orange">{card.title}</h3>
@@ -153,7 +163,7 @@ const WhoWeServe = () => {
 
                 <button
                     onClick={nextSlide}
-                    disabled={currentIndex >= CARDS.length - 3}
+                    disabled={currentIndex >= CARDS.length - cardsPerView}
                     className="absolute right-0 z-20 p-2 -translate-y-1/2 rounded-full text-orange top-1/2 bg-black/50 disabled:opacity-30 disabled:cursor-not-allowed"
                     aria-label="Next slide"
                 >
@@ -175,7 +185,7 @@ const OurNiche = () => {
                     innovations to AI -driven automation, our solutions are
                     engineered for performance, scalability, and real-world impact.</p>
 
-                <div className='grid grid-cols-3 gap-[3rem] mt-[3rem]'>
+                <div className='grid md:grid-cols-3 gap-[3rem] mt-[3rem]'>
                     <div>
                         <h2 className='text-orange text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Branding</h2>
                         <p className='text-white mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital
