@@ -72,38 +72,8 @@ const Contact = ({ isVisible, onClose }) => {
                         <div className="contact-content">
                             <div className="contact-info">
                                 <img src={cimage} className='cimage' />
-                                {/* <h2>Get in Touch</h2>
-                <p>Ready to transform your vision into reality? We're here to help bring your ideas to life.</p>
-                <div className="contact-details">
-                  <div className="contact-item">
-                    <span className="contact-label">Email</span>
-                    <p>hello@mandinstudios.com</p>
-                  </div>
-                  <div className="contact-item">
-                    <span className="contact-label">Phone</span>
-                    <p>+1 (555) 123-4567</p>
-                  </div>
-                  <div className="contact-item">
-                    <span className="contact-label">Location</span>
-                    <p>New York City, NY</p>
-                  </div>
-                </div> */}
                             </div>
-                            {/* <div className="contact-form">
-                <div className="form-group">
-                  <input type="text" placeholder="Name" className="form-input" />
-                </div>
-                <div className="form-group">
-                  <input type="email" placeholder="Email" className="form-input" />
-                </div>
-                <div className="form-group">
-                  <input type="text" placeholder="Subject" className="form-input" />
-                </div>
-                <div className="form-group">
-                  <textarea placeholder="Your Message" className="form-input form-textarea"></textarea>
-                </div>
-                <button className="submit-button">Send Message</button>
-              </div> */}
+
                             <div className="form-container2">
                                 <h1 className="title-normal">Let's build something</h1>
                                 <h2 className="title-bold">great together!</h2>

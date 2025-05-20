@@ -16,6 +16,10 @@ body {
   @apply bg-black;
 }
 
+header {
+  height: 100vh;
+}
+
 @font-face {
   font-family: "Denton-Bold";
   src: url("./assets/fonts/Denton-Bold.otf") format("opentype");
@@ -208,6 +212,16 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  .nav-controls {
+    padding: 0.5rem;
+  }
+
+  .svalbard-button {
+    padding: 0rem;
+  }
+}
+
 .nav-controls {
   display: flex;
   align-items: center;
@@ -289,7 +303,7 @@ body {
   background: rgba(0, 0, 0);
   backdrop-filter: blur(10px);
   z-index: 1000;
-  transition: right 2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: right 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   margin-bottom: 3rem;
 }
 
@@ -308,7 +322,7 @@ body {
   overflow-y: auto;
   opacity: 0;
   transform: translateX(50px);
-  transition: all 2.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 2s cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: 0.3s;
 }
 
@@ -347,6 +361,7 @@ body {
 .content-wrapper {
   max-width: 1536px;
   margin: 0 auto;
+  padding-bottom: 5rem;
 }
 
 .title {
@@ -961,7 +976,6 @@ body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 8rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -988,7 +1002,6 @@ body {
   display: flex;
   align-items: center;
   gap: 2rem;
-  padding: 1.25rem;
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   font-size: 3.5rem;
@@ -1044,7 +1057,6 @@ body {
 .menu-footer {
   margin-top: auto;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 2rem;
 }
 
 .social-links {
@@ -1082,8 +1094,6 @@ body {
 
 .menu-close-button {
   position: fixed;
-  top: 3rem;
-  right: 20rem;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -1100,4 +1110,78 @@ body {
 
 .menu-close-button:hover {
   color: #ffffff;
+}
+
+/* From Uiverse.io by PapaUiiss404 */
+.card {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px 25px;
+  gap: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.055);
+}
+
+/* for all social containers*/
+.socialContainer {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: rgb(44, 44, 44);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition-duration: 0.3s;
+}
+/* instagram*/
+.containerOne:hover {
+  background-color: #d62976;
+  transition-duration: 0.3s;
+}
+/* twitter*/
+.containerTwo:hover {
+  background-color: #00acee;
+  transition-duration: 0.3s;
+}
+/* linkdin*/
+.containerThree:hover {
+  background-color: #0072b1;
+  transition-duration: 0.3s;
+}
+/* Whatsapp*/
+.containerFour:hover {
+  background-color: #128c7e;
+  transition-duration: 0.3s;
+}
+
+.socialContainer:active {
+  transform: scale(0.9);
+  transition-duration: 0.3s;
+}
+
+.socialSvg {
+  width: 17px;
+}
+
+.socialSvg path {
+  fill: rgb(255, 255, 255);
+}
+
+.socialContainer:hover .socialSvg {
+  animation: slide-in-top 0.3s both;
+}
+
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

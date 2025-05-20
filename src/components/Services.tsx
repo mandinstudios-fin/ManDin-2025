@@ -58,7 +58,7 @@ const WhatWeDo = () => {
             <div className='mt-[6rem]'>
                 <h2 className='font-["Denton-Bold"] text-[2.5rem] text-center lg:text-left lg:text-[5rem] leading-[1.1] text-orange font-bold'>We don't just</h2>
                 <h2 className='font-["Denton-Bold"] text-[2.5rem] text-center lg:text-left lg:text-[5rem] leading-[1.1] text-white font-bold'>Build Products</h2>
-                <p className='font-["Gilroy-Regular"] text-center lg:text-left max-w-2xl text-white text-[1.3rem] leading-[1.3] mt-[1rem]'>We create transformative digital solutions. from fintech
+                <p className='font-["Gilroy-Regular"] text-center lg:text-left max-w-2xl text-white lg:text-[1.3rem] leading-[1.3] mt-[1rem]'>We create transformative digital solutions. from fintech
                     innovations to AI -driven automation, our solutions are
                     engineered for performance, scalability, and real-world impact.</p>
                 <div className='mt-[6rem] lg:mt-[3rem] flex gap-[1rem] lg:justify-start justify-center group '>
@@ -98,12 +98,12 @@ const WhoWeServe = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const carouselRef = useRef<HTMLDivElement>(null)
     const [cardsPerView, setCardsPerView] = useState(
-    window.innerWidth < 768 ? 1 : 3
-  );
+        window.innerWidth <= 768 ? 1 : 3
+    );
 
     const nextSlide = () => {
-        if (currentIndex < CARDS.length - 3) {
-            setCurrentIndex(currentIndex + 1)
+        if (currentIndex < CARDS.length - cardsPerView) {
+            setCurrentIndex(currentIndex + 1);
         }
     }
 
@@ -114,21 +114,21 @@ const WhoWeServe = () => {
     }
 
     useEffect(() => {
-    if (!carouselRef.current) return;
-    const cardWidth = carouselRef.current.offsetWidth / cardsPerView;
-    carouselRef.current.scrollTo({
-      left: currentIndex * cardWidth,
-      behavior: 'smooth',
-    });
-  }, [currentIndex, cardsPerView]);
+        if (!carouselRef.current) return;
+        const cardWidth = carouselRef.current.offsetWidth / cardsPerView;
+        carouselRef.current.scrollTo({
+            left: currentIndex * cardWidth,
+            behavior: 'smooth',
+        });
+    }, [currentIndex, cardsPerView]);
 
     useEffect(() => {
-    const onResize = () => {
-      setCardsPerView(window.innerWidth < 768 ? 1 : 3);
-    };
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
+        const onResize = () => {
+            setCardsPerView(window.innerWidth <= 768 ? 1 : 3);
+        };
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
 
     return (
         <div className='max-w-[1300px] mx-auto'>
@@ -179,15 +179,15 @@ const OurNiche = () => {
         <div className='max-w-[1300px] mx-auto'>
             <h2 className='text-center text-white text-[3rem] leading-[1] font-semibold mt-[12rem] font-["Denton-Bold"]'>Our Niche</h2>
             <div className='mt-[4rem] bg-[#111]/50 p-[3rem] pb-[3.7rem] rounded-[2rem]'>
-                <h2 className='text-white text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>Solve your largest</h2>
-                <h2 className='text-orange text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>security headaches</h2>
+                <h2 className='text-white text-[3rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>Solve your largest</h2>
+                <h2 className='text-orange text-[3rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>security headaches</h2>
                 <p className='text-white text-[1.2rem] max-w-xl font-thin mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital solutions. from fintech
                     innovations to AI -driven automation, our solutions are
                     engineered for performance, scalability, and real-world impact.</p>
 
                 <div className='grid md:grid-cols-3 gap-[3rem] mt-[3rem]'>
                     <div>
-                        <h2 className='text-orange text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Branding</h2>
+                        <h2 className='text-orange text-[2rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Branding</h2>
                         <p className='text-white mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital
                             solutions. from fintech innovations to
                             AI-driven automation, our solutions are
@@ -196,7 +196,7 @@ const OurNiche = () => {
                     </div>
 
                     <div>
-                        <h2 className='text-orange text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Products</h2>
+                        <h2 className='text-orange text-[2rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Products</h2>
                         <p className='text-white mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital
                             solutions. from fintech innovations to
                             AI-driven automation, our solutions are
@@ -206,7 +206,7 @@ const OurNiche = () => {
                     </div>
 
                     <div>
-                        <h2 className='text-orange text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Experiences</h2>
+                        <h2 className='text-orange text-[2rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Experiences</h2>
                         <p className='text-white mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital
                             solutions. from fintech innovations to
                             AI-driven automation, our solutions are
