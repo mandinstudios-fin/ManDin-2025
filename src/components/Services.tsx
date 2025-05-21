@@ -71,7 +71,6 @@ const WhatWeDo = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
 
-
     const openModal = (feature) => {
         setSelectedFeature(feature);
         setIsModalOpen(true);
@@ -86,22 +85,22 @@ const WhatWeDo = () => {
         }, 300); // match your animation duration
     };
 
-    // useEffect(() => {
-    //     const body = document.body;
+    useEffect(() => {
+        const body = document.body;
 
-    //     if (isModalOpen) {
-    //         body.style.overflow = 'hidden';
-    //         body.style.touchAction = 'none';
-    //     } else {
-    //         body.style.overflow = '';
-    //         body.style.touchAction = '';
-    //     }
+        if (isModalOpen) {
+            body.style.overflow = 'hidden';
+            body.style.touchAction = 'none';
+        } else {
+            body.style.overflow = '';
+            body.style.touchAction = '';
+        }
 
-    //     return () => {
-    //         body.style.overflow = '';
-    //         body.style.touchAction = '';
-    //     };
-    // }, [isModalOpen]);
+        return () => {
+            body.style.overflow = '';
+            body.style.touchAction = '';
+        };
+    }, [isModalOpen]);
 
     return (
         <div id='what-we-do' className='max-w-[1300px] mx-auto'>
@@ -134,12 +133,18 @@ const WhatWeDo = () => {
                 ))}
             </div>
             {isModalOpen && selectedFeature && (
-                <div className='fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-100 bg-black/80 backdrop-blur-sm'>
+                <div
+                    className="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-100 bg-black/80 backdrop-blur-sm"
+                    onClick={closeModal}
+                >
                     <div
                         className={`relative w-full max-w-lg p-8 text-black bg-[#111] rounded-lg transform transition-all duration-300 m-[1rem] ${isAnimating ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
                             }`}
+                        onClick={(e) => e.stopPropagation()}
                     >
-                        <button onClick={closeModal} className='absolute text-4xl text-white top-3 right-3'>&times;</button>
+                        <button onClick={closeModal} className="absolute text-4xl text-white top-3 right-3">
+                            &times;
+                        </button>
                         <h2 className='text-[2rem] font-bold mb-4 font-["Denton-Bold"] text-white'>{selectedFeature.title}</h2>
                         <p className='text-[1rem] font-["Gilroy-Medium"] text-white'>{selectedFeature.content}</p>
                     </div>
@@ -176,6 +181,40 @@ const WhoWeServe = () => {
             behavior: 'smooth',
         });
     }, [currentIndex, cardsPerView]);
+
+    useEffect(() => {
+        const container = carouselRef.current
+        if (!container) return
+
+        let startX = 0
+        let endX = 0
+
+        const handleTouchStart = (e: TouchEvent) => {
+            startX = e.touches[0].clientX
+        }
+
+        const handleTouchMove = (e: TouchEvent) => {
+            endX = e.touches[0].clientX
+        }
+
+        const handleTouchEnd = () => {
+            const deltaX = startX - endX
+            if (Math.abs(deltaX) > 50) {
+                if (deltaX > 0) nextSlide()
+                else prevSlide()
+            }
+        }
+
+        container.addEventListener("touchstart", handleTouchStart)
+        container.addEventListener("touchmove", handleTouchMove)
+        container.addEventListener("touchend", handleTouchEnd)
+
+        return () => {
+            container.removeEventListener("touchstart", handleTouchStart)
+            container.removeEventListener("touchmove", handleTouchMove)
+            container.removeEventListener("touchend", handleTouchEnd)
+        }
+    }, [currentIndex, cardsPerView])
 
     useEffect(() => {
         const onResize = () => {
@@ -231,8 +270,8 @@ const WhoWeServe = () => {
 
 const OurNiche = () => {
     return (
-        <div id='why-us' className='max-w-[1300px] mx-auto'>
-            <h2 className='text-center text-white text-[2rem] lg:text-[3rem] leading-[1] font-semibold mt-[4rem] lg:mt-[12rem] font-["Denton-Bold"]'>Our Niche</h2>
+        <div id='our-niche' className='max-w-[1300px] mx-auto'>
+            <h2 className='text-center text-white text-[2rem] lg:text-[3rem] leading-[1] font-semibold mt-[4rem] lg:mt-[11rem] font-["Denton-Bold"]'>Our Niche</h2>
             <div className='mt-[4rem] bg-[#111]/50 p-[2rem] lg:p-[3rem] pb-[3.7rem] rounded-[2rem]'>
                 <h2 className='text-white text-[1.7rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>Solve your largest</h2>
                 <h2 className='text-orange text-[1.7rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>security headaches</h2>

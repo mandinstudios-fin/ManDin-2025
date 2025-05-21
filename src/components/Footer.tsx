@@ -1,6 +1,23 @@
 import { Instagram, Linkedin } from 'lucide-react'
 import React from 'react'
 
+const navItems = [
+    { id: 1, title: 'What We Do', path: 'what-we-do' },
+    { id: 2, title: 'Who We Serve', path: 'who-we-serve' },
+    { id: 3, title: 'Our Niche', path: 'our-niche' },
+];
+
+const handleScroll = (id: string) => {
+
+        const element = document.getElementById(id);
+        if (element) {
+            const yOffset = -60;
+            const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+    };
+
 const Footer = () => {
   return (
     <footer id='footer' className="footer">
@@ -29,10 +46,11 @@ const Footer = () => {
         </div>
         <div className="footer-section">
           <h3>Quick Links</h3>
-          <a className='section-link' href="#what-we-do">What We Do</a>
+          {navItems.map((item) => <p className='section-link cursor-pointer' onClick={() => handleScroll(item.path)}>{item.title}</p>)}
+          {/* <a className='section-link' href="#what-we-do">What We Do</a>
           <a className='section-link' href="#who-we-serve">Who We Serve</a>
           <a className='section-link' href="#our-niche">Our Niche</a>
-          <a className='section-link' href="#blogs">Blogs</a>
+          <a className='section-link' href="#blogs">Blogs</a> */}
         </div>
       </div>
       <div className="footer-bottom font-['Gilroy-Medium']">

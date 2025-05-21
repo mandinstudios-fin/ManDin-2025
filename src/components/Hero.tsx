@@ -6,10 +6,9 @@ import Contact from './Contact';
 
 const navItems = [
     { id: 1, title: 'What We Do', path: 'what-we-do' },
-    { id: 2, title: 'Why Us', path: 'why-us' },
-    { id: 3, title: 'Our Work', path: 'who-we-serve' },
-    { id: 4, title: 'Team', path: 'team' },
-    { id: 5, title: 'Contact', path: 'footer' }
+    { id: 2, title: 'Who We Serve', path: 'who-we-serve' },
+    { id: 3, title: 'Our Niche', path: 'our-niche' },
+    { id: 5, title: 'Contact', path: 'contact' }
 ];
 
 const Hero = () => {
@@ -42,6 +41,24 @@ const Hero = () => {
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const handleScroll = (id: string) => {
+        if(id === 'contact') {
+            toggleContact();
+            setIsMenuOpen(false);
+
+            return;
+        }
+
+        const element = document.getElementById(id);
+        if (element) {
+            const yOffset = -60;
+            const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+            window.scrollTo({ top: y, behavior: 'smooth' });
+            setIsMenuOpen(false);
+        }
     };
 
     return (
@@ -97,14 +114,15 @@ const Hero = () => {
                     <div className="menu-items">
                         {navItems.map((item, index) => (
                             <div key={item.id} className="menu-item-wrapper" style={{ transitionDelay: `${index * 0.1}s` }}>
-                                <a href={`#${item.path}`} className="menu-item p-[0rem] lg:p-[1rem]" onClick={() => setIsMenuOpen(false)}>
+                                <p className="menu-item p-[0rem] lg:p-[1rem] cursor-pointer" onClick={() => handleScroll(item.path)}>
                                     <span className="menu-item-number text-[1.3rem] lg:text-[3rem] font-['Gilroy-Regular']">{String(item.id).padStart(2, '0')}</span>
                                     <span className="menu-item-title text-[1.3rem] lg:text-[3rem] font-['Gilroy-Regular']">{item.title}</span>
                                     <span className="menu-item-arrow">→</span>
-                                </a>
+                                </p>
                             </div>
                         ))}
                     </div>
+
                     <div className="menu-footer">
                         {/* <div className="social-links">
                             <a href="#" className="social-link">Instagram</a>

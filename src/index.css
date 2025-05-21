@@ -12,6 +12,10 @@ html::-webkit-scrollbar {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   @apply bg-black;
 }
@@ -1058,7 +1062,7 @@ header {
   left: 0;
   bottom: -2px;
   width: 0;
-  height: 2px;
+  height: 1px;
   background-color: #fff;
   transition: width 0.3s ease;
 }
@@ -1081,6 +1085,7 @@ header {
 
 .menu-footer {
   margin-top: auto;
+  margin-bottom: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
