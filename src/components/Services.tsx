@@ -3,6 +3,21 @@ import bg from '../assets/final i.jpg'
 import plus from '../assets/plus.png'
 import { ArrowRight, ChevronLeft, ChevronRight, Plus } from 'lucide-react'
 
+const FEATURES = [
+    {
+        title: 'Fintech Innovation',
+        content: 'We develop cutting-edge financial solutions that revolutionize transactions and user experience.',
+    },
+    {
+        title: 'AI-Driven Automation',
+        content: 'Harness the power of AI to automate workflows, reduce costs, and increase efficiency.',
+    },
+    {
+        title: 'Mobile & Applications',
+        content: 'From native apps to cross-platform experiences, we build mobile solutions that scale.',
+    },
+];
+
 const CARDS = [
     {
         title: "Radio Maria",
@@ -52,6 +67,42 @@ const Services = () => {
 }
 
 const WhatWeDo = () => {
+    const [selectedFeature, setSelectedFeature] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isAnimating, setIsAnimating] = useState(false);
+
+
+    const openModal = (feature) => {
+        setSelectedFeature(feature);
+        setIsModalOpen(true);
+        setTimeout(() => setIsAnimating(true), 10);
+    };
+
+    const closeModal = () => {
+        setIsAnimating(false);
+        setTimeout(() => {
+            setIsModalOpen(false);
+            setSelectedFeature(null);
+        }, 300); // match your animation duration
+    };
+
+    // useEffect(() => {
+    //     const body = document.body;
+
+    //     if (isModalOpen) {
+    //         body.style.overflow = 'hidden';
+    //         body.style.touchAction = 'none';
+    //     } else {
+    //         body.style.overflow = '';
+    //         body.style.touchAction = '';
+    //     }
+
+    //     return () => {
+    //         body.style.overflow = '';
+    //         body.style.touchAction = '';
+    //     };
+    // }, [isModalOpen]);
+
     return (
         <div id='what-we-do' className='max-w-[1300px] mx-auto'>
             <h2 className='text-center text-white text-[2rem] lg:text-[3rem] leading-[1] font-semibold mt-[6rem] font-["Denton-Bold"]'>What We Do</h2>
@@ -61,35 +112,39 @@ const WhatWeDo = () => {
                 <p className='font-["Gilroy-Regular"] text-center lg:text-left max-w-2xl text-white lg:text-[1.3rem] leading-[1.3] mt-[1rem]'>We create transformative digital solutions. from fintech
                     innovations to AI -driven automation, our solutions are
                     engineered for performance, scalability, and real-world impact.</p>
-                <div className='mt-[6rem] lg:mt-[3rem] flex gap-[1rem] lg:justify-start justify-center group '>
+                <div className='mt-[3.7rem] lg:mt-[3rem] flex gap-[1rem] lg:justify-start justify-center group '>
                     <div className='flex items-center gap-[1rem] cursor-pointer'>
-                        <p className='text-orange text-[1.3rem] font-["Denton"]'>Make the Switch</p>
-                        <ArrowRight className='text-orange size-7 animate-arrow-move' />
+                        <p className='text-orange text-[1.3rem] font-["Denton-Bold"] ml-[1.75rem]'>Make the Switch</p>
+                        <ArrowRight className='text-white size-7 animate-arrow-move' />
                     </div>
                 </div>
             </div>
             <div className='mt-[4rem] lg:mt-[6rem] grid lg:grid-cols-3 gap-[1rem]'>
-                <div className='cursor-pointer flex flex-col justify-between h-[21rem] p-[1.2rem] bg-[#111] rounded-lg border border-orange/30 hover:border-orange transition-all duration-300'>
-                    <p className='text-orange font-["Denton-Bold"] text-[1.3rem]'>Fintech Innovation</p>
-                    <div className='p-[0.5rem] bg-orange w-fit ml-auto rounded-full flex justify-center items-center'>
-                        <img src={plus} className='size-5' />
+                {FEATURES.map((feature, index) => (
+                    <div
+                        key={index}
+                        className='cursor-pointer flex flex-col justify-between h-[21rem] p-[1.2rem] bg-[#111] rounded-lg border border-orange/30 hover:border-orange transition-all duration-300'
+                        onClick={() => openModal(feature)}
+                    >
+                        <p className='text-orange font-["Denton-Bold"] text-[1.3rem]'>{feature.title}</p>
+                        <div className='p-[0.5rem] bg-orange w-fit ml-auto rounded-full flex justify-center items-center'>
+                            <img src={plus} className='size-5' />
+                        </div>
                     </div>
-                </div>
-
-                <div className='cursor-pointer flex flex-col justify-between h-[21rem] p-[1.2rem] bg-[#111] rounded-lg border border-orange/30 hover:border-orange transition-all duration-300'>
-                    <p className='text-orange font-["Denton-Bold"] text-[1.3rem]'>AI-Driven Automation</p>
-                    <div className='p-[0.5rem] bg-orange w-fit ml-auto rounded-full'>
-                        <img src={plus} className='size-5' />
-                    </div>
-                </div>
-
-                <div className='cursor-pointer flex flex-col justify-between h-[21rem] p-[1.2rem] bg-[#111] rounded-lg border border-orange/30 hover:border-orange transition-all duration-300'>
-                    <p className='text-orange font-["Denton-Bold"] text-[1.3rem]'>Mobile & Applications</p>
-                    <div className='p-[0.5rem] bg-orange w-fit ml-auto rounded-full'>
-                        <img src={plus} className='size-5' />
-                    </div>
-                </div>
+                ))}
             </div>
+            {isModalOpen && selectedFeature && (
+                <div className='fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-100 bg-black/80 backdrop-blur-sm'>
+                    <div
+                        className={`relative w-full max-w-lg p-8 text-black bg-[#111] rounded-lg transform transition-all duration-300 m-[1rem] ${isAnimating ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
+                            }`}
+                    >
+                        <button onClick={closeModal} className='absolute text-4xl text-white top-3 right-3'>&times;</button>
+                        <h2 className='text-[2rem] font-bold mb-4 font-["Denton-Bold"] text-white'>{selectedFeature.title}</h2>
+                        <p className='text-[1rem] font-["Gilroy-Medium"] text-white'>{selectedFeature.content}</p>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
@@ -132,7 +187,7 @@ const WhoWeServe = () => {
 
     return (
         <div id='who-we-serve' className='max-w-[1300px] mx-auto'>
-            <h2 className='font-["Denton-Bold"] text-center text-white text-[3rem] leading-[1] font-semibold mt-[12rem]'>Who We Serve</h2>
+            <h2 className='font-["Denton-Bold"] text-center text-white text-[2rem] lg:text-[3rem] leading-[1] font-semibold mt-[4rem] lg:mt-[12rem]'>Who We Serve</h2>
             <div className='relative mt-[4rem] mx-auto'>
                 <div
                     ref={carouselRef}
@@ -177,17 +232,17 @@ const WhoWeServe = () => {
 const OurNiche = () => {
     return (
         <div id='why-us' className='max-w-[1300px] mx-auto'>
-            <h2 className='text-center text-white text-[3rem] leading-[1] font-semibold mt-[12rem] font-["Denton-Bold"]'>Our Niche</h2>
-            <div className='mt-[4rem] bg-[#111]/50 p-[3rem] pb-[3.7rem] rounded-[2rem]'>
-                <h2 className='text-white text-[3rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>Solve your largest</h2>
-                <h2 className='text-orange text-[3rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>security headaches</h2>
-                <p className='text-white text-[1.2rem] max-w-xl font-thin mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital solutions. from fintech
+            <h2 className='text-center text-white text-[2rem] lg:text-[3rem] leading-[1] font-semibold mt-[4rem] lg:mt-[12rem] font-["Denton-Bold"]'>Our Niche</h2>
+            <div className='mt-[4rem] bg-[#111]/50 p-[2rem] lg:p-[3rem] pb-[3.7rem] rounded-[2rem]'>
+                <h2 className='text-white text-[1.7rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>Solve your largest</h2>
+                <h2 className='text-orange text-[1.7rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>security headaches</h2>
+                <p className='text-white lg:text-[1.2rem] max-w-xl font-thin mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital solutions. from fintech
                     innovations to AI -driven automation, our solutions are
                     engineered for performance, scalability, and real-world impact.</p>
 
                 <div className='grid md:grid-cols-3 gap-[3rem] mt-[3rem]'>
                     <div>
-                        <h2 className='text-orange text-[2rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Branding</h2>
+                        <h2 className='text-orange text-[1.7rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Branding</h2>
                         <p className='text-white mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital
                             solutions. from fintech innovations to
                             AI-driven automation, our solutions are
@@ -196,7 +251,7 @@ const OurNiche = () => {
                     </div>
 
                     <div>
-                        <h2 className='text-orange text-[2rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Products</h2>
+                        <h2 className='text-orange text-[1.7rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Products</h2>
                         <p className='text-white mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital
                             solutions. from fintech innovations to
                             AI-driven automation, our solutions are
@@ -206,7 +261,7 @@ const OurNiche = () => {
                     </div>
 
                     <div>
-                        <h2 className='text-orange text-[2rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Experiences</h2>
+                        <h2 className='text-orange text-[1.7rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Experiences</h2>
                         <p className='text-white mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital
                             solutions. from fintech innovations to
                             AI-driven automation, our solutions are

@@ -25,8 +25,8 @@ const CARDS = [
 const Blogs = () => {
     return (
         <section id='blogs' className='text-white bg-black'>
-            <div className='max-w-[1280px] mx-auto py-[6rem] px-4'>
-                <h2 className='text-center text-[3rem] leading-[1] font-semibold mt-[6rem] font-["Denton-Bold"]'>
+            <div className='max-w-[1280px] mx-auto py-[3rem] lg:py-[6rem] px-4'>
+                <h2 className='text-center text-[2rem] lg:text-[3rem] leading-[1] font-semibold mt-[0rem] lg:mt-[6rem] font-["Denton-Bold"]'>
                     Blogs
                 </h2>
 

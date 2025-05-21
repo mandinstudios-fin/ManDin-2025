@@ -68,19 +68,19 @@ const Contact = ({ isVisible, onClose }) => {
 
                 <section className="content-section">
                     <div className="content-wrapper">
-                        <h1 className="title">Let's Create Something Amazing</h1>
-                        <div className="contact-content">
+                        <h1 className="mt-[2rem] text-white text-center text-[2rem] lg:text-[3.5rem] font-['Denton-Bold']">Let's Create<br className='block md:hidden' /> Something Amazing!</h1>
+                        <div className="contact-content mt-[1rem] lg:gap-[4rem] gap-0">
                             <div className="contact-info">
                                 <img src={cimage} className='cimage' />
                             </div>
 
                             <div className="form-container2">
-                                <h1 className="title-normal">Let's build something</h1>
-                                <h2 className="title-bold">great together!</h2>
-                                <p className="subtitle">Give us a nudge with the basics, and we'll make magic happen!</p>
+                                <h1 className="title-normal font-['Denton-Bold']">Have a project in mind?</h1>
+                                <h2 className="title-normal font-[Denton-Bold]">We’d love to hear from you.</h2>
+                                <p className="subtitle font-['Gilroy-Regular'] opacity-60">Give us a nudge with the basics, and we'll make magic happen!</p>
 
-                                <form className="form" onSubmit={handleSubmit}>
-                                    <div className="form-group">
+                                <form className="form font-['Gilroy-Regular']" onSubmit={handleSubmit}>
+                                    <div className="form-group font-['Gilroy-Regular']">
                                         <label htmlFor="firstName">
                                             First Name <span className="required">*</span>
                                         </label>
@@ -91,11 +91,12 @@ const Contact = ({ isVisible, onClose }) => {
                                             required
                                             value={formData.firstName}
                                             onChange={handleChange}
+                                            className='text-white bg-transparent border-none outline-none bg-opacity-40'
                                         />
                                     </div>
 
                                     <div className="form-group">
-                                        <label htmlFor="lastName">
+                                        <label htmlFor="lastName font-['Gilroy-Regular']">
                                             Last Name <span className="required">*</span>
                                         </label>
                                         <input
@@ -105,10 +106,11 @@ const Contact = ({ isVisible, onClose }) => {
                                             required
                                             value={formData.lastName}
                                             onChange={handleChange}
+                                            className='text-white bg-transparent border-none outline-none bg-opacity-40'
                                         />
                                     </div>
 
-                                    <div className="form-group">
+                                    <div className="form-group font-['Gilroy-Regular']">
                                         <label htmlFor="email">
                                             Email <span className="required">*</span>
                                         </label>
@@ -119,10 +121,11 @@ const Contact = ({ isVisible, onClose }) => {
                                             required
                                             value={formData.email}
                                             onChange={handleChange}
+                                            className='text-white bg-transparent border-none outline-none bg-opacity-40'
                                         />
                                     </div>
 
-                                    <div className="form-group">
+                                    <div className="form-group font-['Gilroy-Regular']">
                                         <label htmlFor="phone">
                                             Phone Number <span className="required">*</span>
                                         </label>
@@ -133,10 +136,11 @@ const Contact = ({ isVisible, onClose }) => {
                                             required
                                             value={formData.phone}
                                             onChange={handleChange}
+                                            className='text-white bg-transparent border-none outline-none bg-opacity-40'
                                         />
                                     </div>
 
-                                    <div className="submit-wrapper">
+                                    <div className="submit-wrapper font-['Gilroy-Bold']">
                                         <button type="submit" className="submit-btn">
                                             Send Message
                                         </button>

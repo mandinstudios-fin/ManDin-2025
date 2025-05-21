@@ -196,6 +196,26 @@ header {
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/fonts/Poppins-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins-Thin";
+  src: url("./assets/fonts/Poppins-Thin.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins-Light";
+  src: url("./assets/fonts/Poppins-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins-ExtraLight";
+  src: url("./assets/fonts/Poppins-ExtraLight.ttf") format("truetype");
+}
+
 @layer utilities {
   @keyframes arrow-move {
     0%,
@@ -367,10 +387,9 @@ header {
 .title {
   font-size: 3.5rem;
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   color: #fff;
   font-weight: 300;
-  letter-spacing: 0.2em;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.5s ease;
@@ -558,7 +577,6 @@ header {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
   background: rgba(255, 255, 255, 0.03);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -733,7 +751,7 @@ header {
 @media (max-width: 1024px) {
   .contact-content {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2rem;
   }
 }
 
@@ -744,16 +762,9 @@ header {
 
   .why-us-grid,
   .work-grid,
-  .team-grid,
-  .contact-content {
+  .team-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-  }
-
-  .contact-content {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    padding: 2rem;
   }
 
   .title {
@@ -870,29 +881,43 @@ header {
 }
 
 .title-normal {
-  margin-bottom: 0.5rem;
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   font-weight: normal;
   color: #ffff;
 }
 
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .title-normal {
+    font-size: 1.3rem;
+  }
+
+  .title-bold {
+    font-size: 2rem;
+  }
+}
+
 @media (min-width: 1024px) {
   .title-normal {
-    font-size: 3.75rem;
+    font-size: 3.5rem;
   }
 }
 
 .title-bold {
-  margin-bottom: 1.5rem;
   font-size: 2.5rem;
   font-weight: bold;
   color: #fff;
   text-align: left;
+  line-height: 1;
+  margin-bottom: 1.5rem;
 }
 
 @media (min-width: 1024px) {
   .title-bold {
-    font-size: 3.75rem;
+    font-size: 3.5rem;
   }
 }
 
@@ -934,11 +959,12 @@ header {
 .submit-btn {
   padding: 1rem 2rem;
   color: white;
-  background-color: #000;
+  background-color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 0.125rem;
   cursor: pointer;
   transition: background-color 0.3s;
+  color: black;
 }
 
 .submit-btn:hover {
@@ -984,7 +1010,6 @@ header {
 
 .menu-items {
   margin-top: 2rem;
-  margin-bottom: 4rem;
 }
 
 .menu-item-wrapper {
@@ -1016,9 +1041,9 @@ header {
 
 .menu-item-number {
   font-size: 1rem;
-  color: var(--accent-color);
+  color: #fff;
   font-weight: 400;
-  opacity: 0.8;
+  opacity: 0.5;
   min-width: 2.5rem;
 }
 
@@ -1034,7 +1059,7 @@ header {
   bottom: -2px;
   width: 0;
   height: 2px;
-  background-color: var(--accent-color);
+  background-color: #fff;
   transition: width 0.3s ease;
 }
 
@@ -1185,7 +1210,6 @@ header {
   }
 }
 
-
 /* FOOTER */
 .footer {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), #000000);
@@ -1222,7 +1246,7 @@ header {
 }
 
 .footer-section h3 {
-  color: var(--accent-color);
+  color: white;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   font-weight: 300;
@@ -1261,7 +1285,7 @@ header {
 
 @media (max-width: 768px) {
   .footer-content {
-  grid-template-columns: repeat(1, 1fr);
-  gap: 0rem;
-}
+    grid-template-columns: repeat(1, 1fr);
+    gap: 4rem;
+  }
 }
