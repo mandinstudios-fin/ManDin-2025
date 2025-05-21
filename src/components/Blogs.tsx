@@ -24,10 +24,10 @@ const CARDS = [
 
 const Blogs = () => {
     return (
-        <section className='text-white bg-black'>
+        <section id='blogs' className='text-white bg-black'>
             <div className='max-w-[1280px] mx-auto py-[6rem] px-4'>
                 <h2 className='text-center text-[3rem] leading-[1] font-semibold mt-[6rem] font-["Denton-Bold"]'>
-                    Our Niche
+                    Blogs
                 </h2>
 
                 <div className='mt-[4rem] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[1rem]'>

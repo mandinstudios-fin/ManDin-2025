@@ -6,10 +6,10 @@ import Contact from './Contact';
 
 const navItems = [
     { id: 1, title: 'What We Do', path: 'what-we-do' },
-    { id: 2, title: 'Why Us', path: 'who-we-serve' },
-    { id: 3, title: 'Our Work', path: 'our-work' },
+    { id: 2, title: 'Why Us', path: 'why-us' },
+    { id: 3, title: 'Our Work', path: 'who-we-serve' },
     { id: 4, title: 'Team', path: 'team' },
-    { id: 5, title: 'Contact', path: 'contact' }
+    { id: 5, title: 'Contact', path: 'footer' }
 ];
 
 const Hero = () => {

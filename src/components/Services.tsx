@@ -53,7 +53,7 @@ const Services = () => {
 
 const WhatWeDo = () => {
     return (
-        <div className='max-w-[1300px] mx-auto'>
+        <div id='what-we-do' className='max-w-[1300px] mx-auto'>
             <h2 className='text-center text-white text-[2rem] lg:text-[3rem] leading-[1] font-semibold mt-[6rem] font-["Denton-Bold"]'>What We Do</h2>
             <div className='mt-[6rem]'>
                 <h2 className='font-["Denton-Bold"] text-[2.5rem] text-center lg:text-left lg:text-[5rem] leading-[1.1] text-orange font-bold'>We don't just</h2>
@@ -131,7 +131,7 @@ const WhoWeServe = () => {
     }, []);
 
     return (
-        <div className='max-w-[1300px] mx-auto'>
+        <div id='who-we-serve' className='max-w-[1300px] mx-auto'>
             <h2 className='font-["Denton-Bold"] text-center text-white text-[3rem] leading-[1] font-semibold mt-[12rem]'>Who We Serve</h2>
             <div className='relative mt-[4rem] mx-auto'>
                 <div
@@ -176,7 +176,7 @@ const WhoWeServe = () => {
 
 const OurNiche = () => {
     return (
-        <div className='max-w-[1300px] mx-auto'>
+        <div id='why-us' className='max-w-[1300px] mx-auto'>
             <h2 className='text-center text-white text-[3rem] leading-[1] font-semibold mt-[12rem] font-["Denton-Bold"]'>Our Niche</h2>
             <div className='mt-[4rem] bg-[#111]/50 p-[3rem] pb-[3.7rem] rounded-[2rem]'>
                 <h2 className='text-white text-[3rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>Solve your largest</h2>
