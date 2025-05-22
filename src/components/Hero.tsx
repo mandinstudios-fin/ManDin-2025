@@ -82,9 +82,13 @@ const Hero = () => {
             {/* <video
                 className="z-[-1] absolute top-0 left-0 object-cover lg:object-[center_-150px] w-full h-full"
                 autoPlay
-                loop
                 muted
                 playsInline
+                loop={false}
+  onEnded={(e) => {
+    e.target.currentTime = 0;
+    e.target.play();
+  }}
             >
                 <source src={bgVideo} type="video/mp4" />
                 Your browser does not support the video tag.
