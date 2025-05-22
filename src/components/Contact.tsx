@@ -68,8 +68,8 @@ const Contact = ({ isVisible, onClose }) => {
 
                 <section className="content-section">
                     <div className="content-wrapper">
-                        <h1 className="mt-[2rem] text-white text-center text-[2rem] lg:text-[3.5rem] font-['Denton-Bold']">Let's Create<br className='block md:hidden' /> Something Amazing!</h1>
-                        <div className="contact-content mt-[1rem] lg:gap-[4rem] gap-0">
+                        <h1 className="mt-[2rem] lg:-mt-[3rem] text-white text-center text-[2rem] lg:text-[3.5rem] font-['Denton-Bold']">Let's Create<br className='block md:hidden' /> Something Amazing!</h1>
+                        <div className="contact-content mt-[1rem] lg:mt-[3rem] lg:gap-[4rem] gap-0">
                             <div className="contact-info">
                                 <img src={cimage} className='cimage' />
                             </div>

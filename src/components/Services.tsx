@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import bg from '../assets/final i.jpg'
 import plus from '../assets/plus.png'
 import { ArrowRight, ChevronLeft, ChevronRight, Plus } from 'lucide-react'
+import { useContact } from '../hooks/contactHook';
 
 const FEATURES = [
     {
@@ -13,7 +14,7 @@ const FEATURES = [
         content: 'Harness the power of AI to automate workflows, reduce costs, and increase efficiency.',
     },
     {
-        title: 'Mobile & Applications',
+        title: 'Web & Mobile Applications',
         content: 'From native apps to cross-platform experiences, we build mobile solutions that scale.',
     },
 ];
@@ -31,16 +32,6 @@ const CARDS = [
     },
     {
         title: "Neon Pay",
-        description:
-            "We create transformative digital solutions from fintech innovations to AI-driven automation, our solutions are engineered for performance, scalability, and real-world impact.",
-    },
-    {
-        title: "Digital Creators",
-        description:
-            "We create transformative digital solutions from fintech innovations to AI-driven automation, our solutions are engineered for performance, scalability, and real-world impact.",
-    },
-    {
-        title: "Tech Startups",
         description:
             "We create transformative digital solutions from fintech innovations to AI-driven automation, our solutions are engineered for performance, scalability, and real-world impact.",
     },
@@ -70,6 +61,8 @@ const WhatWeDo = () => {
     const [selectedFeature, setSelectedFeature] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
+
+    const { toggleContact } = useContact();
 
     const openModal = (feature) => {
         setSelectedFeature(feature);
@@ -104,16 +97,16 @@ const WhatWeDo = () => {
 
     return (
         <div id='what-we-do' className='max-w-[1300px] mx-auto'>
-            <h2 className='text-center text-white text-[2rem] lg:text-[3rem] leading-[1] font-semibold mt-[6rem] font-["Denton-Bold"]'>What We Do</h2>
-            <div className='mt-[6rem]'>
-                <h2 className='font-["Denton-Bold"] text-[2.5rem] text-center lg:text-left lg:text-[5rem] leading-[1.1] text-orange font-bold'>We don't just</h2>
-                <h2 className='font-["Denton-Bold"] text-[2.5rem] text-center lg:text-left lg:text-[5rem] leading-[1.1] text-white font-bold'>Build Products</h2>
+            <h2 className='text-center text-white text-[2rem] md:text-[3rem] lg:text-[3rem] leading-[1] font-semibold mt-[4rem] lg:mt-[6rem] font-["Denton-Bold"]'>What We Do</h2>
+            <div className='mt-[4rem]'>
+                <h2 className='font-["Denton-Bold"] text-[2.5rem] md:text-[3.2rem] text-center lg:text-left lg:text-[5rem] leading-[1.1] text-orange font-bold'>We don't just</h2>
+                <h2 className='font-["Denton-Bold"] text-[2.5rem] md:text-[3.2rem] text-center lg:text-left lg:text-[5rem] leading-[1.1] text-white font-bold'>Build Products</h2>
                 <p className='font-["Gilroy-Regular"] text-center lg:text-left max-w-2xl text-white lg:text-[1.3rem] leading-[1.3] mt-[1rem]'>We create transformative digital solutions. from fintech
                     innovations to AI -driven automation, our solutions are
                     engineered for performance, scalability, and real-world impact.</p>
                 <div className='mt-[3.7rem] lg:mt-[3rem] flex gap-[1rem] lg:justify-start justify-center group '>
-                    <div className='flex items-center gap-[1rem] cursor-pointer'>
-                        <p className='text-orange text-[1.3rem] font-["Denton-Bold"] ml-[1.75rem]'>Make the Switch</p>
+                    <div className='flex items-center gap-[1rem] cursor-pointer' onClick={() => toggleContact()}>
+                        <p className='text-orange text-[1.3rem] font-["Denton-Bold"] ml-[1.75rem] lg:ml-0'>Make the Switch</p>
                         <ArrowRight className='text-white size-7 animate-arrow-move' />
                     </div>
                 </div>
@@ -183,38 +176,52 @@ const WhoWeServe = () => {
     }, [currentIndex, cardsPerView]);
 
     useEffect(() => {
-        const container = carouselRef.current
-        if (!container) return
+        const container = carouselRef.current;
+        if (!container) return;
 
-        let startX = 0
-        let endX = 0
+        let startX = 0;
+        let startY = 0;
+        let endX = 0;
+        let endY = 0;
+        let isHorizontalSwipe = false;
 
         const handleTouchStart = (e: TouchEvent) => {
-            startX = e.touches[0].clientX
-        }
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            isHorizontalSwipe = false;
+        };
 
         const handleTouchMove = (e: TouchEvent) => {
-            endX = e.touches[0].clientX
-        }
+            endX = e.touches[0].clientX;
+            endY = e.touches[0].clientY;
+
+            const deltaX = Math.abs(endX - startX);
+            const deltaY = Math.abs(endY - startY);
+
+            if (deltaX > deltaY && deltaX > 10) {
+                isHorizontalSwipe = true;
+                e.preventDefault();
+            }
+        };
 
         const handleTouchEnd = () => {
-            const deltaX = startX - endX
+            const deltaX = startX - endX;
             if (Math.abs(deltaX) > 50) {
-                if (deltaX > 0) nextSlide()
-                else prevSlide()
+                if (deltaX > 0) nextSlide();
+                else prevSlide();
             }
-        }
+        };
 
-        container.addEventListener("touchstart", handleTouchStart)
-        container.addEventListener("touchmove", handleTouchMove)
-        container.addEventListener("touchend", handleTouchEnd)
+        container.addEventListener("touchstart", handleTouchStart, { passive: false });
+        container.addEventListener("touchmove", handleTouchMove, { passive: false });
+        container.addEventListener("touchend", handleTouchEnd);
 
         return () => {
-            container.removeEventListener("touchstart", handleTouchStart)
-            container.removeEventListener("touchmove", handleTouchMove)
-            container.removeEventListener("touchend", handleTouchEnd)
-        }
-    }, [currentIndex, cardsPerView])
+            container.removeEventListener("touchstart", handleTouchStart);
+            container.removeEventListener("touchmove", handleTouchMove);
+            container.removeEventListener("touchend", handleTouchEnd);
+        };
+    }, [currentIndex, cardsPerView]);
 
     useEffect(() => {
         const onResize = () => {
@@ -225,8 +232,8 @@ const WhoWeServe = () => {
     }, []);
 
     return (
-        <div id='who-we-serve' className='max-w-[1300px] mx-auto'>
-            <h2 className='font-["Denton-Bold"] text-center text-white text-[2rem] lg:text-[3rem] leading-[1] font-semibold mt-[4rem] lg:mt-[12rem]'>Who We Serve</h2>
+        <div id='who-we-serve' className='max-w-[1300px] mx-auto border-b border-white/10 pb-[4rem] lg:pb-[7rem]'>
+            <h2 className='font-["Denton-Bold"] text-center text-white text-[2rem] md:text-[3rem] lg:text-[3rem] leading-[1] font-semibold mt-[4rem] lg:mt-[7rem]'>Who We Serve</h2>
             <div className='relative mt-[4rem] mx-auto'>
                 <div
                     ref={carouselRef}
@@ -236,6 +243,9 @@ const WhoWeServe = () => {
                         <div
                             key={index}
                             className="w-full lg:w-1/3 shrink-0 px-[0.5rem] cursor-pointer"
+                            style={{
+                                transition: 'transform 0.3s ease-in-out',
+                            }}
                         >
                             <div className="flex flex-col p-6 border border-orange/40 hover:border-orange transition-all duration-300 ease-in-out rounded-lg h-[30rem] backdrop-blur-sm bg-black/30">
                                 <h3 className="font-['Denton-Bold'] text-[2rem] text-center font-semibold text-orange">{card.title}</h3>
@@ -270,18 +280,18 @@ const WhoWeServe = () => {
 
 const OurNiche = () => {
     return (
-        <div id='our-niche' className='max-w-[1300px] mx-auto'>
-            <h2 className='text-center text-white text-[2rem] lg:text-[3rem] leading-[1] font-semibold mt-[4rem] lg:mt-[11rem] font-["Denton-Bold"]'>Our Niche</h2>
+        <div id='our-niche' className='max-w-[1300px] mx-auto border-b border-white/10 pb-[4rem] lg:pb-[7rem]'>
+            <h2 className='text-center text-white text-[2rem] md:text-[3rem] lg:text-[3rem] leading-[1] font-semibold mt-[4rem] lg:mt-[7rem] font-["Denton-Bold"]'>Our Niche</h2>
             <div className='mt-[4rem] bg-[#111]/50 p-[2rem] lg:p-[3rem] pb-[3.7rem] rounded-[2rem]'>
-                <h2 className='text-white text-[1.7rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>Solve your largest</h2>
-                <h2 className='text-orange text-[1.7rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>security headaches</h2>
+                <h2 className='text-white text-[1.7rem] md:text-[2.2rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>Solve your largest</h2>
+                <h2 className='text-orange text-[1.7rem] md:text-[2.2rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>security headaches</h2>
                 <p className='text-white lg:text-[1.2rem] max-w-xl font-thin mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital solutions. from fintech
                     innovations to AI -driven automation, our solutions are
                     engineered for performance, scalability, and real-world impact.</p>
 
                 <div className='grid md:grid-cols-3 gap-[3rem] mt-[3rem]'>
                     <div>
-                        <h2 className='text-orange text-[1.7rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Branding</h2>
+                        <h2 className='text-orange text-[1.7rem] md:text-[2.2rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Branding</h2>
                         <p className='text-white mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital
                             solutions. from fintech innovations to
                             AI-driven automation, our solutions are
@@ -290,7 +300,7 @@ const OurNiche = () => {
                     </div>
 
                     <div>
-                        <h2 className='text-orange text-[1.7rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Products</h2>
+                        <h2 className='text-orange text-[1.7rem] md:text-[2.2rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Products</h2>
                         <p className='text-white mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital
                             solutions. from fintech innovations to
                             AI-driven automation, our solutions are
@@ -300,7 +310,7 @@ const OurNiche = () => {
                     </div>
 
                     <div>
-                        <h2 className='text-orange text-[1.7rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Experiences</h2>
+                        <h2 className='text-orange text-[1.7rem] md:text-[2.2rem] lg:text-[2.7rem] leading-[1] font-semibold font-["Denton-Bold"]'>Experiences</h2>
                         <p className='text-white mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital
                             solutions. from fintech innovations to
                             AI-driven automation, our solutions are
