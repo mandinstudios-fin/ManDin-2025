@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import logo from '../assets/Logo.png'
 import bg2 from '../assets/final 2 (1).jpg'
-import bgVideo from '../assets/bg-video.mp4'
+import bgVideo from '../assets/v_2S.mp4'
 import { ArrowRight, Menu, X } from 'lucide-react';
 import Contact from './Contact';
 import { useContact } from '../hooks/contactHook';
@@ -79,26 +79,22 @@ const Hero = () => {
 
     return (
         <header className='w-full ' style={{ height: `${height}px` }}>
-            {/* <video
-                className="z-[-1] absolute top-0 left-0 object-cover lg:object-[center_-150px] w-full h-full"
+            <video
+                className="z-[-1] absolute top-0 left-0 w-full h-full object-cover object-center"
                 autoPlay
                 muted
                 playsInline
-                loop={false}
-  onEnded={(e) => {
-    e.target.currentTime = 0;
-    e.target.play();
-  }}
+                loop={true}
             >
                 <source src={bgVideo} type="video/mp4" />
                 Your browser does not support the video tag.
-            </video> */}
-            <img
+            </video>
+            {/* <img
                 className="z-[-2] absolute top-0 left-0 object-cover w-full h-full  lg:object-[center_-142px] "
                 src={bg2}
-            />
+            /> */}
 
-            <div className="z-[10] fixed top-10 lg:px-[4rem] px-[1rem] w-full mix-blend-difference lg:mix-blend-normal">
+            <div className="z-[100] fixed top-10 lg:px-[4rem] px-[1rem] w-full mix-blend-difference lg:mix-blend-normal">
                 <div className='flex items-center justify-between'>
                     <div>
                         <img src={logo} className='hidden lg:block w-[10rem] lg:w-[15rem] drop-shadow-2xl cursor-pointer mix-blend-difference lg:mix-blend-normal' onClick={() => {
@@ -122,7 +118,7 @@ const Hero = () => {
                     <h2 className='text-[2rem] md:text-[3.5rem] lg:text-[4rem] leading-[1.1] font-["Denton-Bold"] font-extrabold text-center '><span className='hidden lg:block'>Where Expertise Meets Artistry</span><span className='block lg:hidden'>Expertise in Action.</span></h2>
                     <h2 className='text-[2rem] md:text-[3.5rem] lg:text-[4rem] leading-[1.1] font-["Denton-Bold"] font-extrabold text-center'><span className='hidden lg:block'>You're Witnessing Brillliance Unfold.</span><span className='block lg:hidden'>Brilliance Unfolds.</span></h2>
                     <p className='text-[1rem] lg:text-[2.5rem] mt-[0.5rem] text-center font-["Gilroy-Regular"]'><span className='block lg:hidden'>You’re witnessing a Master at Work</span><span className='hidden lg:block'> You’re watching Master at Work</span></p>
-                    <div className='flex justify-center mt-[2.3rem] font-["Gilroy-Regular"]'><button onClick={toggleContact} className='cursor-pointer px-[3rem] py-[0.7rem] border border-black text-[1.2rem] flex items-center gap-[0.5rem] bg-black text-white hover:bg-transparent hover:text-black transition-all duration-300 ease-in-out'>Meet Us <span><ArrowRight /></span></button></div>
+                    <div className='flex justify-center mt-[2.3rem] font-["Gilroy-Regular"]'><button onClick={toggleContact} className='cursor-pointer px-[2rem] py-[0.5rem] lg:px-[3rem] lg:py-[0.7rem] border border-black lg:text-[1.2rem] flex items-center gap-[0.5rem] bg-black text-white hover:bg-transparent hover:text-black transition-all duration-300 ease-in-out shadow-[0_10px_25px_rgba(0,0,0,0.9),0_4px_6px_rgba(0,0,0,0.1)]'>Meet Us <span><ArrowRight /></span></button></div>
                 </div>
             </div>
 

@@ -85,19 +85,19 @@ const Blogs = () => {
 
     return (
         <section id='blogs' className='text-white bg-black'>
-            <div className='max-w-[1280px] mx-auto mt-[4rem] pb-[4rem] px-4'>
+            <div className='max-w-[1280px] mx-auto mt-[4rem] pb-[4rem]'>
                 <h2 className='text-center text-[2rem] md:text-[3rem] font-semibold font-["Denton-Bold"]'>Blogs</h2>
 
-                <div className='relative mt-16 flex justify-center items-center overflow-hidden'>
+                <div className='relative flex items-center justify-center mt-16 overflow-hidden'>
                     <button
                         onClick={handlePrev}
-                        className='absolute left-0 z-10 bg-[#111] hover:bg-[#222] p-2 rounded-full text-orange'
+                        className='absolute left-0 lg:left-[0rem] z-[50] bg-[#111] hover:bg-[#222] p-2 rounded-full text-white'
                         aria-label='Previous'
                     >
                         <ChevronLeft size={24} />
                     </button>
 
-                    <div className='relative w-full h-[400px] flex items-center justify-center'
+                    <div className='relative flex items-center justify-center w-full h-[500px]'
                         onTouchStart={handleTouchStart}
                         onTouchMove={handleTouchMove}
                         onTouchEnd={handleTouchEnd}
@@ -120,19 +120,19 @@ const Blogs = () => {
                                 position = 'z-20 transform scale-100 translate-z-[0px] opacity-100'
                                 translate = ''
                             } else if (index === (activeIndex + 1) % CARDS.length) {
-                                position = 'z-10 transform translate-x-[180px] rotate-y-[-20deg]'
+                                position = 'z-10 transform translate-x-[150px] md:translate-x-[250px] lg:translate-x-[250px] rotate-y-[-20deg] opacity-20'
                             } else if (index === (activeIndex - 1 + CARDS.length) % CARDS.length) {
-                                position = 'z-10 transform -translate-x-[180px] rotate-y-[20deg]'
+                                position = 'z-10 transform -translate-x-[150px] md:-translate-x-[250px] lg:-translate-x-[250px] rotate-y-[20deg] opacity-20'
                             } else {
                                 position = 'hidden'
                             }
 
                             return (
                                 <div
-                                onClick={() => setActiveIndex(index)}
+                                    onClick={() => setActiveIndex(index)}
                                     key={index}
                                     className={clsx(
-                                        'absolute bg-[#111] p-8 rounded-lg border border-transparent hover:border-orange transition-all duration-500 ease-in-out cursor-pointer w-[350px] lg:w-[400px] lg:h-[400px]',
+                                        'absolute bg-[#111] p-8 rounded-lg border border-orange transition-all duration-500 ease-in-out cursor-pointer w-[300px] md:w-[400px] lg:w-[850px] lg:h-[500px] shadow-[0_20px_35px_rgba(0,0,0,0.9),0_14px_16px_rgba(0,0,0,0.1)]',
                                         position,
                                         translate
                                     )}
@@ -162,7 +162,7 @@ const Blogs = () => {
 
                     <button
                         onClick={handleNext}
-                        className='absolute right-0 z-10 bg-[#111] hover:bg-[#222] p-2 rounded-full text-orange'
+                        className='absolute right-0 lg:right-[0rem] z-[50] bg-[#111] hover:bg-[#222] p-2 rounded-full text-white'
                         aria-label='Next'
                     >
                         <ChevronRight size={24} />

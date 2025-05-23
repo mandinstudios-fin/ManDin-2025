@@ -61,6 +61,8 @@ const WhatWeDo = () => {
     const [selectedFeature, setSelectedFeature] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
+    const [isIntroVisible, setIsIntroVisible] = useState(false);
+    const introRef = useRef<HTMLDivElement>(null);
 
     const { toggleContact } = useContact();
 
@@ -95,16 +97,32 @@ const WhatWeDo = () => {
         };
     }, [isModalOpen]);
 
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsIntroVisible(true);
+                    observer.unobserve(entry.target); // trigger once
+                }
+            },
+            { threshold: 0.3 }
+        );
+
+        if (introRef.current) observer.observe(introRef.current);
+
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <div id='what-we-do' className='max-w-[1300px] mx-auto'>
+        <div ref={introRef} id='what-we-do' className='max-w-[1300px] mx-auto'>
             <h2 className='text-center text-white text-[2rem] md:text-[3rem] lg:text-[3rem] leading-[1] font-semibold mt-[4rem] lg:mt-[6rem] font-["Denton-Bold"]'>What We Do</h2>
             <div className='mt-[4rem]'>
-                <h2 className='font-["Denton-Bold"] text-[2.5rem] md:text-[3.2rem] text-center lg:text-left lg:text-[5rem] leading-[1.1] text-orange font-bold'>We don't just</h2>
-                <h2 className='font-["Denton-Bold"] text-[2.5rem] md:text-[3.2rem] text-center lg:text-left lg:text-[5rem] leading-[1.1] text-white font-bold'>Build Products</h2>
-                <p className='font-["Gilroy-Regular"] text-center lg:text-left max-w-2xl text-white lg:text-[1.3rem] leading-[1.3] mt-[1rem]'>We create transformative digital solutions. from fintech
+                <h2 className={`font-["Denton-Bold"] text-[2.5rem] md:text-[3.2rem] text-center lg:text-left lg:text-[5rem] leading-[1.1] text-orange font-bold`}>We don't just</h2>
+                <h2 className={`font-["Denton-Bold"] text-[2.5rem] md:text-[3.2rem] text-center lg:text-left lg:text-[5rem] leading-[1.1] text-white font-bold`}>Build Products</h2>
+                <p className={`font-["Gilroy-Regular"] text-center lg:text-left max-w-2xl text-white lg:text-[1.3rem] leading-[1.3] mt-[1rem]`}>We create transformative digital solutions. from fintech
                     innovations to AI -driven automation, our solutions are
                     engineered for performance, scalability, and real-world impact.</p>
-                <div className='mt-[3.7rem] lg:mt-[3rem] flex gap-[1rem] lg:justify-start justify-center group '>
+                <div className={`mt-[3.7rem] lg:mt-[3rem] flex gap-[1rem] lg:justify-start justify-center group `}>
                     <div className='flex items-center gap-[1rem] cursor-pointer' onClick={() => toggleContact()}>
                         <p className='text-orange text-[1.3rem] font-["Denton-Bold"] ml-[1.75rem] lg:ml-0'>Make the Switch</p>
                         <ArrowRight className='text-white size-7 animate-arrow-move' />
@@ -115,7 +133,7 @@ const WhatWeDo = () => {
                 {FEATURES.map((feature, index) => (
                     <div
                         key={index}
-                        className='cursor-pointer flex flex-col justify-between h-[21rem] p-[1.2rem] bg-[#111] rounded-lg border border-orange/30 hover:border-orange transition-all duration-300'
+                        className='cursor-pointer flex flex-col justify-between h-[21rem] p-[1.2rem] bg-[#111] rounded-lg border border-orange/30 hover:border-orange transition-all duration-300 transform hover:-translate-y-[0.7rem] shadow-[0_30px_45px_rgba(0,0,0,0.9),0_24px_26px_rgba(0,0,0,0.1)]'
                         onClick={() => openModal(feature)}
                     >
                         <p className='text-orange font-["Denton-Bold"] text-[1.3rem]'>{feature.title}</p>
@@ -153,18 +171,23 @@ const WhoWeServe = () => {
     const [cardsPerView, setCardsPerView] = useState(
         window.innerWidth <= 768 ? 1 : 3
     );
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     const nextSlide = () => {
-        if (currentIndex < CARDS.length - cardsPerView) {
-            setCurrentIndex(currentIndex + 1);
+        if (isMobile) {
+            setCurrentIndex(prev => prev + 1);
+        } else if (currentIndex < CARDS.length - cardsPerView) {
+            setCurrentIndex(prev => prev + 1);
         }
-    }
+    };
 
     const prevSlide = () => {
-        if (currentIndex > 0) {
-            setCurrentIndex(currentIndex - 1)
+        if (isMobile) {
+            setCurrentIndex(prev => prev - 1);
+        } else if (currentIndex > 0) {
+            setCurrentIndex(prev => prev - 1);
         }
-    }
+    };
 
     useEffect(() => {
         if (!carouselRef.current) return;
@@ -176,6 +199,57 @@ const WhoWeServe = () => {
     }, [currentIndex, cardsPerView]);
 
     useEffect(() => {
+        const onResize = () => {
+            const mobile = window.innerWidth <= 768;
+            setIsMobile(mobile);
+            setCardsPerView(mobile ? 1 : 3);
+        };
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
+
+    useEffect(() => {
+        if (!carouselRef.current) return;
+
+        const container = carouselRef.current;
+        const cardWidth = container.offsetWidth / cardsPerView;
+
+        container.scrollTo({
+            left: currentIndex * cardWidth,
+            behavior: 'smooth',
+        });
+
+        if (!isMobile) return;
+
+        const handleScrollEnd = () => {
+            if (currentIndex === 0) {
+                setTimeout(() => {
+                    container.scrollTo({ left: CARDS.length * cardWidth, behavior: 'auto' });
+                    setCurrentIndex(CARDS.length);
+                }, 300);
+            }
+            if (currentIndex === CARDS.length + 1) {
+                setTimeout(() => {
+                    container.scrollTo({ left: cardWidth, behavior: 'auto' });
+                    setCurrentIndex(1);
+                }, 300);
+            }
+        };
+
+        const timer = setTimeout(handleScrollEnd, 300);
+        return () => clearTimeout(timer);
+
+    }, [currentIndex, cardsPerView, isMobile]);
+
+    useEffect(() => {
+        const onResize = () => {
+            setCardsPerView(window.innerWidth <= 768 ? 1 : 3);
+        };
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
+
+    useEffect(() => {
         const container = carouselRef.current;
         if (!container) return;
 
@@ -183,12 +257,12 @@ const WhoWeServe = () => {
         let startY = 0;
         let endX = 0;
         let endY = 0;
-        let isHorizontalSwipe = false;
+        let isSwiping = false;
 
         const handleTouchStart = (e: TouchEvent) => {
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
-            isHorizontalSwipe = false;
+            isSwiping = false;
         };
 
         const handleTouchMove = (e: TouchEvent) => {
@@ -199,12 +273,14 @@ const WhoWeServe = () => {
             const deltaY = Math.abs(endY - startY);
 
             if (deltaX > deltaY && deltaX > 10) {
-                isHorizontalSwipe = true;
-                e.preventDefault();
+                isSwiping = true;
+                e.preventDefault(); // prevent vertical scroll
             }
         };
 
         const handleTouchEnd = () => {
+            if (!isSwiping) return;
+
             const deltaX = startX - endX;
             if (Math.abs(deltaX) > 50) {
                 if (deltaX > 0) nextSlide();
@@ -221,15 +297,37 @@ const WhoWeServe = () => {
             container.removeEventListener("touchmove", handleTouchMove);
             container.removeEventListener("touchend", handleTouchEnd);
         };
-    }, [currentIndex, cardsPerView]);
+    }, [currentIndex, isMobile]);
 
     useEffect(() => {
-        const onResize = () => {
-            setCardsPerView(window.innerWidth <= 768 ? 1 : 3);
-        };
-        window.addEventListener('resize', onResize);
-        return () => window.removeEventListener('resize', onResize);
-    }, []);
+        if (!carouselRef.current) return;
+        const container = carouselRef.current;
+        const cardWidth = container.offsetWidth / cardsPerView;
+
+        container.scrollTo({
+            left: currentIndex * cardWidth,
+            behavior: 'smooth',
+        });
+
+        if (isMobile) {
+            const timeout = setTimeout(() => {
+                if (currentIndex === 0) {
+                    container.scrollTo({ left: CARDS.length * cardWidth, behavior: 'auto' });
+                    setCurrentIndex(CARDS.length);
+                }
+                if (currentIndex === CARDS.length + 1) {
+                    container.scrollTo({ left: cardWidth, behavior: 'auto' });
+                    setCurrentIndex(1);
+                }
+            }, 350);
+
+            return () => clearTimeout(timeout);
+        }
+    }, [currentIndex, cardsPerView, isMobile]);
+
+    const visibleCards = isMobile
+        ? [CARDS[CARDS.length - 1], ...CARDS, CARDS[0]]
+        : CARDS;
 
     return (
         <div id='who-we-serve' className='max-w-[1300px] mx-auto border-b border-white/10 pb-[4rem] lg:pb-[7rem]'>
@@ -239,10 +337,10 @@ const WhoWeServe = () => {
                     ref={carouselRef}
                     className="flex overflow-hidden max-w-[1200px] mx-auto"
                 >
-                    {CARDS.map((card, index) => (
+                    {visibleCards.map((card, index) => (
                         <div
                             key={index}
-                            className="w-full lg:w-1/3 shrink-0 px-[0.5rem] cursor-pointer"
+                            className="w-full lg:w-1/3 shrink-0 px-[0.5rem] cursor-pointer "
                             style={{
                                 transition: 'transform 0.3s ease-in-out',
                             }}
@@ -258,8 +356,7 @@ const WhoWeServe = () => {
                 {/* Navigation Buttons */}
                 <button
                     onClick={prevSlide}
-                    disabled={currentIndex === 0}
-                    className="absolute left-0 z-20 p-2 -translate-y-1/2 rounded-full text-orange top-1/2 bg-black/50 disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="absolute -left-[2rem] lg:left-0 z-20 p-2 text-white -translate-y-1/2 rounded-full top-1/2 bg-[#111] disabled:opacity-30 disabled:cursor-not-allowed"
                     aria-label="Previous slide"
                 >
                     <ChevronLeft size={24} />
@@ -267,8 +364,7 @@ const WhoWeServe = () => {
 
                 <button
                     onClick={nextSlide}
-                    disabled={currentIndex >= CARDS.length - cardsPerView}
-                    className="absolute right-0 z-20 p-2 -translate-y-1/2 rounded-full text-orange top-1/2 bg-black/50 disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="absolute -right-[2rem] lg:right-0 z-20 p-2 text-white -translate-y-1/2 rounded-full top-1/2 bg-[#111] disabled:opacity-30 disabled:cursor-not-allowed"
                     aria-label="Next slide"
                 >
                     <ChevronRight size={24} />
@@ -282,7 +378,7 @@ const OurNiche = () => {
     return (
         <div id='our-niche' className='max-w-[1300px] mx-auto border-b border-white/10 pb-[4rem] lg:pb-[7rem]'>
             <h2 className='text-center text-white text-[2rem] md:text-[3rem] lg:text-[3rem] leading-[1] font-semibold mt-[4rem] lg:mt-[7rem] font-["Denton-Bold"]'>Our Niche</h2>
-            <div className='mt-[4rem] bg-[#111]/50 p-[2rem] lg:p-[3rem] pb-[3.7rem] rounded-[2rem]'>
+            <div className='mt-[4rem] bg-[#111]/50 p-[2rem] lg:p-[3rem] pb-[3.7rem] rounded-[2rem] shadow-[0_20px_35px_rgba(0,0,0,0.9),0_14px_16px_rgba(0,0,0,0.1)]'>
                 <h2 className='text-white text-[1.7rem] md:text-[2.2rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>Solve your largest</h2>
                 <h2 className='text-orange text-[1.7rem] md:text-[2.2rem] lg:text-[4rem] leading-[1.1] font-semibold font-["Denton-Bold"]'>security headaches</h2>
                 <p className='text-white lg:text-[1.2rem] max-w-xl font-thin mt-[1rem] font-["Gilroy-Regular"]'>We create transformative digital solutions. from fintech
