@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  @apply bg-black;
+  background-color: #111b21;
 }
 
 header {
@@ -993,7 +993,7 @@ header {
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 1);
+  background-color: rgba(17, 27, 33, 1);
   z-index: 999;
   opacity: 0;
   visibility: hidden;
@@ -1166,7 +1166,7 @@ header {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background-color: rgb(44, 44, 44);
+  background-color: #111b21;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1225,7 +1225,7 @@ header {
 
 /* FOOTER */
 .footer {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 1), #000000);
+  background: linear-gradient(to bottom, rgba(17, 27, 33, 1), #111b21);
   padding: 2rem 2rem 2rem;
   margin-top: 4rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -1361,7 +1361,7 @@ header {
 
 /* NEW PROFESSIONAL FOOTER STYLES */
 .footer-new {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+  background: linear-gradient(135deg, #0e1620 0%, #111b21 50%, #0f181e 100%);
   position: relative;
   margin-top: 4rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -1626,11 +1626,7 @@ header {
 .footer-bottom-new {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding: 1.5rem 0;
-<<<<<<< HEAD
-  background: rgba(0, 0, 0, 0.3);
-=======
-  background: transparent;
->>>>>>> 07fe806 (Initial commit on june-version branch)
+  /* background: rgba(0, 0, 0, 0.3); */
   backdrop-filter: blur(10px);
 }
 
@@ -1649,12 +1645,8 @@ header {
 }
 
 .footer-bottom-links {
-<<<<<<< HEAD
   display: flex;
   gap: 2rem;
-=======
-  display: block;
->>>>>>> 07fe806 (Initial commit on june-version branch)
 }
 
 .bottom-link {
@@ -1801,7 +1793,6 @@ header {
 
   .footer-bottom-links {
     flex-direction: column;
-    gap: 0.75rem;
   }
 
   .company-stats {
@@ -1819,69 +1810,3 @@ header {
     font-size: clamp(4rem, 45vw, 10rem);
   }
 }
-<<<<<<< HEAD
-=======
-
-/* Mobile Footer Specific Styles */
-.footer-content-mobile {
-  padding: 2rem 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-section-mobile {
-  margin-bottom: 1.5rem;
-}
-
-.company-mobile {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 2rem;
-  margin-bottom: 2rem;
-}
-
-.contact-mobile {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 2rem;
-}
-
-/* Enhanced Mobile Responsiveness */
-@media (max-width: 640px) {
-  .footer-content-mobile {
-    padding: 1.5rem 0.75rem;
-  }
-  
-  .footer-content-mobile .grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    text-align: center;
-  }
-  
-  .footer-section-mobile h3 {
-    justify-content: center;
-  }
-  
-  .footer-section-mobile .space-y-2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer-content-mobile .flex.justify-center.gap-6 {
-    gap: 1rem;
-  }
-  
-  .footer-content-mobile .flex.justify-center.gap-4 {
-    flex-direction: column;
-    gap: 0.75rem;
-    align-items: center;
-  }
-  
-  .footer-content-mobile .grid.grid-cols-2 {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    text-align: center;
-  }
-}
->>>>>>> 07fe806 (Initial commit on june-version branch)

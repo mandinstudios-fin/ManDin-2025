@@ -53,7 +53,7 @@ const BLOG_POSTS = [
 
 const Blogs = () => {
     return (
-        <section id='blogs' className='text-white bg-black px-[1rem] md:px-[2rem]'>
+        <section id='blogs' className='text-white px-[1rem] md:px-[2rem]' style={{backgroundColor: '#111b21'}}>
             <div className='max-w-[1400px] mx-auto pb-[3rem] md:pb-[5rem] lg:pb-[7rem]'>
                 {/* Enhanced Header Section */}
                 <div className='mt-[4rem] md:mt-[6rem] lg:mt-[10rem] mb-[3rem] md:mb-[4rem] lg:mb-[6rem]'>
@@ -82,7 +82,8 @@ const Blogs = () => {
                     {BLOG_POSTS.map((post, index) => (
                         <div
                             key={index}
-                            className='group bg-black/40 backdrop-blur-sm p-[1.5rem] md:p-[2rem] lg:p-[2.5rem] hover:bg-black/60 transition-all duration-300 cursor-pointer border-r border-b border-white/5 last:border-r-0 md:last:border-r md:nth-last-child(2):border-r-0 lg:nth-last-child(2):border-r lg:last:border-r-0 min-h-[320px] md:min-h-[350px] lg:min-h-[380px] flex flex-col'
+                            className='group backdrop-blur-sm p-[1.5rem] md:p-[2rem] lg:p-[2.5rem] hover:bg-[#1a2429] transition-all duration-300 cursor-pointer border-r border-b border-white/5 last:border-r-0 md:last:border-r md:nth-last-child(2):border-r-0 lg:nth-last-child(2):border-r lg:last:border-r-0 min-h-[320px] md:min-h-[350px] lg:min-h-[380px] flex flex-col'
+                            style={{backgroundColor: 'rgba(17, 27, 33, 0.4)'}}
                         >
                             {/* Post Number and Category */}
                             <div className='flex items-center justify-between mb-[1rem] md:mb-[1.5rem]'>

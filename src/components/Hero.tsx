@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import logo from '../assets/Logo.png'
-import bg2 from '../assets/final 2 (1).jpg'
+import bg2 from '../assets/1130.mp4'
 import { ArrowRight, Menu, X } from 'lucide-react';
 import Contact from './Contact';
 import { useContact } from '../hooks/contactHook';
@@ -16,6 +16,7 @@ const navItems = [
 const Hero = () => {
     const [height, setHeight] = useState(window.innerHeight);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [videoLoaded, setVideoLoaded] = useState(false);
 
     const { isContactOpen, toggleContact } = useContact();
 
@@ -39,6 +40,22 @@ const Hero = () => {
             window.scrollTo({ top: y, behavior: 'smooth' });
             setIsMenuOpen(false);
         }
+    };
+
+    // Handle smooth video looping
+    const handleVideoEnd = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+        const video = e.currentTarget;
+        video.currentTime = 0;
+        video.play();
+    };
+
+    const handleVideoLoaded = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+        const video = e.currentTarget;
+        video.playbackRate = 1;
+        setVideoLoaded(true);
+        
+        // Ensure smooth playback
+        video.play().catch(console.log);
     };
 
     useEffect(() => {
@@ -68,12 +85,131 @@ const Hero = () => {
 
     return (
         <header className='relative w-full overflow-hidden' style={{ height: `${height}px`, minHeight: '100vh' }}>
-            <img
-                className="absolute top-0 left-0 w-full h-full object-cover z-[-1]"
+            {/* Video Background */}
+            <video
+                className={`absolute top-0 left-0 w-full h-full object-cover z-[-1] transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
                 src={bg2}
-                alt="Background"
-                style={{ minHeight: '100vh' }}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                style={{ 
+                    minHeight: '100vh',
+                    filter: 'brightness(0.6) contrast(1.3) saturate(1.2) sepia(0.1)',
+                    transform: 'scale(1.05)' // Slight scale to avoid edge artifacts
+                }}
+                onLoadedData={handleVideoLoaded}
+                onCanPlayThrough={() => setVideoLoaded(true)}
+                onEnded={handleVideoEnd}
+                onError={(e) => {
+                    console.log('Video failed to load, falling back to background color');
+                    // Fallback styling if video fails to load
+                    (e.target as HTMLVideoElement).style.backgroundColor = '#111b21';
+                    setVideoLoaded(true);
+                }}
             />
+            
+            {/* Video loading fallback */}
+            <div 
+                className={`absolute top-0 left-0 w-full h-full z-[-2] transition-opacity duration-500 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}
+                style={{ backgroundColor: '#111b21' }}
+            ></div>
+            
+            {/* Enhanced warm overlay with deeper shadows */}
+            <div className="absolute top-0 left-0 w-full h-full z-0" style={{
+                background: `
+                    linear-gradient(
+                        135deg, 
+                        rgba(17, 27, 33, 0.6) 0%, 
+                        rgba(17, 27, 33, 0.3) 20%, 
+                        rgba(0, 0, 0, 0.1) 40%, 
+                        rgba(17, 27, 33, 0.4) 70%, 
+                        rgba(17, 27, 33, 0.7) 100%
+                    ),
+                    radial-gradient(
+                        ellipse at center, 
+                        rgba(17, 27, 33, 0.2) 0%, 
+                        rgba(17, 27, 33, 0.5) 60%, 
+                        rgba(17, 27, 33, 0.8) 100%
+                    )
+                `,
+                boxShadow: `
+                    inset 0 0 300px rgba(17, 27, 33, 0.7), 
+                    inset 0 0 200px rgba(17, 27, 33, 0.5)
+                `
+            }}></div>
+            
+            {/* Additional warm atmospheric layers */}
+            <div className="absolute top-0 left-0 w-full h-full z-0" style={{
+                background: `
+                    radial-gradient(
+                        circle at 25% 35%, 
+                        rgba(17, 27, 33, 0.3) 0%, 
+                        transparent 60%
+                    ),
+                    radial-gradient(
+                        circle at 75% 85%, 
+                        rgba(17, 27, 33, 0.25) 0%, 
+                        transparent 60%
+                    ),
+                    linear-gradient(
+                        45deg,
+                        rgba(17, 27, 33, 0.1) 0%,
+                        transparent 30%,
+                        rgba(17, 27, 33, 0.15) 100%
+                    )
+                `
+            }}></div>
+
+            {/* Enhanced bottom transition gradient - Much larger and more dramatic */}
+            <div className="absolute bottom-0 left-0 w-full h-[350px] z-[1]" style={{
+                background: `
+                    linear-gradient(
+                        to bottom,
+                        transparent 0%,
+                        rgba(17, 27, 33, 0.1) 15%,
+                        rgba(17, 27, 33, 0.3) 30%,
+                        rgba(17, 27, 33, 0.5) 45%,
+                        rgba(17, 27, 33, 0.7) 60%,
+                        rgba(17, 27, 33, 0.85) 75%,
+                        rgba(17, 27, 33, 0.95) 90%,
+                        #111b21 100%
+                    )
+                `
+            }}></div>
+
+            {/* Multiple layered bottom fades for ultra-smooth blending */}
+            <div className="absolute bottom-0 left-0 w-full h-[200px] z-[2]" style={{
+                background: `
+                    linear-gradient(
+                        to bottom,
+                        transparent 0%,
+                        rgba(17, 27, 33, 0.1) 10%,
+                        rgba(17, 27, 33, 0.3) 25%,
+                        rgba(17, 27, 33, 0.6) 50%,
+                        rgba(17, 27, 33, 0.85) 75%,
+                        #111b21 100%
+                    )
+                `,
+                filter: 'blur(2px)'
+            }}></div>
+
+            {/* Final clean shadow layer at bottom */}
+            <div className="absolute bottom-0 left-0 w-full h-[120px] z-[3]" style={{
+                background: `
+                    linear-gradient(
+                        to bottom,
+                        transparent 0%,
+                        rgba(17, 27, 33, 0.2) 20%,
+                        rgba(17, 27, 33, 0.4) 40%,
+                        rgba(17, 27, 33, 0.8) 70%,
+                        #111b21 100%
+                    )
+                `,
+                filter: 'blur(1px)'
+            }}></div>
+            
             <div className="z-[100] fixed top-10 lg:px-[4rem] px-[1rem] w-full mix-blend-difference lg:mix-blend-normal">
                 <div className='flex items-center justify-between'>
                     <div>
@@ -94,18 +230,18 @@ const Hero = () => {
 
             <div className='relative z-2 max-w-[1280px] mx-auto p-[2rem] h-full flex flex-col justify-center'>
                 <div className='text-center'>
-                    <h2 className='block font-["Poppins-ExtraLight"] lg:hidden mb-[0.5rem]'>ManDin Studios</h2>
-                    <h2 className='text-[2rem] md:text-[3.5rem] lg:text-[4rem] leading-[1.1] font-["Denton-Bold"] font-extrabold'><span className='hidden lg:block'>Where Expertise Meets Artistry</span><span className='block lg:hidden'>Expertise in Action.</span></h2>
-                    <h2 className='text-[2rem] md:text-[3.5rem] lg:text-[4rem] leading-[1.1] font-["Denton-Bold"] font-extrabold'><span className='hidden lg:block'>You're Witnessing Brillliance Unfold.</span><span className='block lg:hidden'>Brilliance Unfolds.</span></h2>
-                    <p className='text-[1rem] lg:text-[2.5rem] mt-[0.5rem] font-["Gilroy-Regular"]'><span className='block lg:hidden'>You're witnessing a Master at Work</span><span className='hidden lg:block'> You're watching Master at Work</span></p>
+                    <h2 className='block font-["Poppins-ExtraLight"] lg:hidden mb-[0.5rem] text-white'>ManDin Studios</h2>
+                    <h2 className='text-[2rem] md:text-[3.5rem] lg:text-[5.5rem] leading-[1.1] font-["Denton-Bold"] font-extrabold text-white' ><span className='hidden lg:block'>Where Expertise Meets Artistry</span><span className='block lg:hidden'>Expertise in Action.</span></h2>
+                    <h2 className='text-[2rem] md:text-[3.5rem] lg:text-[3.5rem] leading-[1.1] font-["Denton-Bold"] font-extrabold text-white'><span className='hidden lg:block'>You're Witnessing Brillliance Unfold.</span><span className='block lg:hidden'>Brilliance Unfolds.</span></h2>
+                    <p className='text-[1rem] lg:text-[2.5rem] mt-[0.5rem] font-["Gilroy-Regular"] text-white'><span className='block lg:hidden'>You're witnessing a Master at Work</span><span className='hidden lg:block'> You're watching Master at Work</span></p>
                     <div className='flex justify-center mt-[2.3rem] font-["Gilroy-Regular"]'>
                         <button 
                             onClick={toggleContact} 
-                            className='relative cursor-pointer px-[2rem] py-[0.5rem] lg:px-[3rem] lg:py-[0.7rem] border border-black lg:text-[1.2rem] flex items-center gap-[0.5rem] bg-black text-white overflow-hidden shadow-[0_10px_25px_rgba(0,0,0,0.9),0_4px_6px_rgba(0,0,0,0.1)] group hover:border-white transform-none'
+                            className='relative cursor-pointer px-[2rem] py-[0.5rem] lg:px-[3rem] lg:py-[0.7rem] border border-[#111b21] lg:text-[1.2rem] flex items-center gap-[0.5rem] bg-[#111b21] text-white overflow-hidden shadow-[0_10px_25px_rgba(17,27,33,0.9),0_4px_6px_rgba(17,27,33,0.1)] group hover:border-white transform-none'
                         >
                             <span className='absolute inset-0 bg-white transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0 z-0'></span>
-                            <span className='relative z-10 transition-colors duration-300 group-hover:text-black'>Meet Us</span>
-                            <span className='relative z-10 transition-colors duration-300 group-hover:text-black'>
+                            <span className='relative z-10 transition-colors duration-300 group-hover:text-[#111b21]'>Meet Us</span>
+                            <span className='relative z-10 transition-colors duration-300 group-hover:text-[#111b21]'>
                                 <ArrowRight />
                             </span>
                         </button>

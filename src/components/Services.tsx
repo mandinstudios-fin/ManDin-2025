@@ -74,7 +74,7 @@ const EnhancedDivider = () => (
 
 const Services = () => {
     return (
-        <section className='relative min-h-screen bg-black'>
+        <section className='relative min-h-screen' style={{backgroundColor: '#111b21'}}>
             <div className='p-[2rem]'>
                 <div>
                     <WhatWeDo />
@@ -216,12 +216,14 @@ const WhatWeDo = () => {
             </div>
             {isModalOpen && selectedFeature && (
                 <div
-                    className="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-100 bg-black/80 backdrop-blur-sm"
+                    className="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-100 backdrop-blur-sm"
+                    style={{backgroundColor: 'rgba(17, 27, 33, 0.8)'}}
                     onClick={closeModal}
                 >
                     <div
-                        className={`relative w-full max-w-lg p-8 text-black bg-[#111] rounded-lg transform transition-all duration-300 m-[1rem] ${isAnimating ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
+                        className={`relative w-full max-w-lg p-8 text-black rounded-lg transform transition-all duration-300 m-[1rem] ${isAnimating ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
                             }`}
+                        style={{backgroundColor: '#111b21'}}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <button onClick={closeModal} className="absolute text-4xl text-white top-3 right-3">
@@ -265,8 +267,21 @@ const WhoWeServe = () => {
                                 <div
                                     key={index}
                                     className={`group cursor-pointer transition-all duration-300 ease-in-out relative flex-shrink-0 w-[280px] snap-start ${
-                                        index === 2 ? 'bg-gradient-to-br from-blue-900/50 to-blue-800/30' : 'bg-black/30'
-                                    } hover:bg-black/50 border border-white/20 rounded-lg overflow-hidden backdrop-blur-sm`}
+                                        index === 2 ? 'bg-gradient-to-br from-blue-900/50 to-blue-800/30' : ''
+                                    } border border-white/20 rounded-lg overflow-hidden backdrop-blur-sm`}
+                                    style={{
+                                        backgroundColor: index === 2 ? '' : 'rgba(17, 27, 33, 0.4)'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (index !== 2) {
+                                            e.currentTarget.style.backgroundColor = 'rgba(17, 27, 33, 0.6)';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (index !== 2) {
+                                            e.currentTarget.style.backgroundColor = 'rgba(17, 27, 33, 0.4)';
+                                        }
+                                    }}
                                 >
                                     <div className="flex flex-col p-[1.5rem] h-[320px]">
                                         {/* Metrics */}
@@ -386,14 +401,27 @@ const WhoWeServe = () => {
                                 <div
                                     key={index}
                                     className={`group cursor-pointer transition-all duration-300 ease-in-out relative ${
-                                        index === 2 ? 'bg-gradient-to-br from-blue-900/50 to-blue-800/30' : 'bg-black/30'
+                                        index === 2 ? 'bg-gradient-to-br from-blue-900/50 to-blue-800/30' : ''
                                     } ${
                                         // Enhanced border system for desktop grid
                                         index === 0 ? 'border-r border-b border-white/20' : 
                                         index === 1 ? 'border-b border-white/20' :
                                         index === 2 ? 'border-r border-white/20' :
                                         ''
-                                    } hover:bg-black/50`}
+                                    }`}
+                                    style={{
+                                        backgroundColor: index === 2 ? '' : 'rgba(17, 27, 33, 0.4)'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (index !== 2) {
+                                            e.currentTarget.style.backgroundColor = 'rgba(17, 27, 33, 0.6)';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (index !== 2) {
+                                            e.currentTarget.style.backgroundColor = 'rgba(17, 27, 33, 0.4)';
+                                        }
+                                    }}
                                 >
                                     <div className="flex flex-col p-[2.5rem] min-h-[28rem]">
                                         {/* Metrics */}
@@ -508,17 +536,20 @@ const WhoWeServe = () => {
 
 const OurNiche = () => {
     return (
-        <div id='our-niche' className='max-w-[1500px] mx-auto pb-[3rem] md:pb-[5rem] lg:pb-[7rem] px-[1rem] md:px-[2rem]'>
+        <div id='our-niche' className='max-w-[1600px] mx-auto pb-[3rem] md:pb-[5rem] lg:pb-[7rem] px-[1rem] md:px-[2rem]'>
             <h2 className='text-center text-white text-[1.8rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[3rem] leading-[1.1] font-semibold mt-[3rem] md:mt-[4rem] lg:mt-[7rem] font-["Denton-Bold"] mb-[2rem] md:mb-[3rem] lg:mb-[4rem]'>Our Niche</h2>
-            <div className='relative overflow-hidden rounded-lg shadow-[0_15px_35px_rgba(0,0,0,0.8),0_10px_20px_rgba(0,0,0,0.15)]'>
+            <div className='relative overflow-hidden'>
                 {/* Background Image */}
                 <div 
                     className='absolute inset-0 bg-cover bg-center bg-no-repeat'
-                    style={{ backgroundImage: `url(${nicheImg})` }}
+                    style={{ 
+                        backgroundImage: `url(${nicheImg})`,
+                        transform: 'scaleX(-1)'
+                    }}
                 ></div>
                 
                 {/* Enhanced Overlay for better text readability */}
-                <div className='absolute inset-0 bg-gradient-to-br from-black/80 via-black/75 to-black/70'></div>
+                <div className='absolute inset-0' style={{background: 'linear-gradient(to bottom right, rgba(17, 27, 33, 0.8), rgba(17, 27, 33, 0.75), rgba(17, 27, 33, 0.7))'}}></div>
                 
                 {/* Content */}
                 <div className='relative z-10 p-[1.5rem] md:p-[2rem] lg:p-[3rem] pb-[2rem] md:pb-[2.5rem] lg:pb-[3.7rem]'>
