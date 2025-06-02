@@ -69,23 +69,51 @@ const Hero = () => {
     }, [isMenuOpen]);
 
     return (
-        <header className='relative w-full overflow-hidden' style={{ height: `${height}px`, minHeight: '100vh' }}>
+        <>
+            <style>
+                {`
+                    @media (min-width: 1024px) {
+                        .hero-bg-image {
+                            width: 130% !important;
+                            height: 140% !important;
+                            object-fit: fill !important;
+                            left: 50% !important;
+                            top: 67% !important;
+                            transform: translate(-50%, -50%) !important;
+                        }
+                    }
+                    
+                    @media (max-width: 1023px) {
+                        .hero-bg-image {
+                            width: 100vw !important;
+                            height: 100vh !important;
+                            object-fit: cover !important;
+                            object-position: center center !important;
+                            left: 0 !important;
+                            top: 0 !important;
+                            transform: none !important;
+                        }
+                    }
+                `}
+            </style>
+            <header className='relative w-full overflow-hidden' style={{ height: `${height}px`, minHeight: '100vh' }}>
             {/* Image Background */}
             <img
-                className="absolute top-0 left-0 z-[-1]"
+                className="absolute top-0 left-0 z-[-1] hero-bg-image"
                 src={bg2}
                 alt="Hero Background"
                 style={{ 
-                    width: '130%', // Adjust this to control width (e.g., 100%, 120%, 150%)
-                    height: '140%', // Adjust this to control height (e.g., 100%, 120%, 150%)
+                    width: '100vw',
+                    height: '100vh',
                     minHeight: '100vh',
                     minWidth: '100vw',
-                    objectFit: 'fill', // Allows custom sizing without maintaining aspect ratio
-                    left: '50%',
-                    top: '67%',
-                    transform: 'translate(-50%, -50%)', // Centers the image
+                    objectFit: 'cover',
+                    objectPosition: 'center center',
+                    left: '0',
+                    top: '0',
+                    transform: 'none',
                     filter: 'brightness(0.6) contrast(1.3) saturate(1.2) sepia(0.1)',
-                    imageRendering: 'auto' // Maintains quality during scaling
+                    imageRendering: 'auto'
                 }}
             />
             
@@ -171,6 +199,7 @@ const Hero = () => {
 
             <Contact isVisible={isContactOpen} onClose={toggleContact} />
         </header>
+        </>
     )
 }
 
