@@ -48,8 +48,8 @@ const CARDS = [
     {
         title: "Neon Pay",
         description: "Next-generation fintech solution providing seamless payment processing and digital wallet services.",
-        metrics: "$10M+ transactions processed",
-        impact: "99.9% uptime achieved",
+        metrics: "",
+        impact: "upcoming Genz-friendly app",
         website: "https://neonpay.com",
         appStore: "coming-soon",
         playStore: "coming-soon"

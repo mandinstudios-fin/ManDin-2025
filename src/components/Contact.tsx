@@ -9,6 +9,9 @@ interface ContactProps {
 const Contact = ({ isVisible, onClose }: ContactProps) => {
     const [showVisibleClass, setShowVisibleClass] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+    const [submitError, setSubmitError] = useState('');
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -25,16 +28,53 @@ const Contact = ({ isVisible, onClose }: ContactProps) => {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-        // Reset form (optional)
-        setFormData({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-        });
+        setIsSubmitting(true);
+        setSubmitError('');
+
+        try {
+            const response = await fetch('https://formspree.io/f/xwpvwdyb', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    email: formData.email,
+                    phone: formData.phone,
+                    message: `New contact form submission from ${formData.firstName} ${formData.lastName}`,
+                }),
+            });
+
+            if (response.ok) {
+                // Reset form
+                setFormData({
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    phone: '',
+                });
+                // Show success popup
+                setShowSuccessPopup(true);
+            } else {
+                throw new Error('Failed to send message');
+            }
+        } catch (error) {
+            setSubmitError('Failed to send message. Please try again.');
+            console.error('Error submitting form:', error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const handleSuccessPopupClose = () => {
+        setShowSuccessPopup(false);
+        // Close the main contact modal after success
+        setTimeout(() => {
+            handleClose();
+        }, 300);
     };
 
 
@@ -79,6 +119,21 @@ const Contact = ({ isVisible, onClose }: ContactProps) => {
                                 <h1 className="title-normal font-['Denton-Bold']">Have a project in mind?</h1>
                                 <h2 className="title-normal font-[Denton-Bold]">We'd love to hear from you.</h2>
                                 <p className="subtitle font-['Gilroy-Regular'] opacity-60">Give us a nudge with the basics, and we'll make magic happen!</p>
+
+                                {submitError && (
+                                    <div className="error-message" style={{
+                                        color: '#ff6b6b',
+                                        backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                                        border: '1px solid rgba(255, 107, 107, 0.3)',
+                                        padding: '0.75rem',
+                                        borderRadius: '4px',
+                                        marginBottom: '1rem',
+                                        fontSize: '0.9rem',
+                                        fontFamily: 'Gilroy-Regular'
+                                    }}>
+                                        {submitError}
+                                    </div>
+                                )}
 
                                 <form className="form font-['Gilroy-Regular']" onSubmit={handleSubmit}>
                                     <div className="form-group font-['Gilroy-Regular']">
@@ -142,8 +197,16 @@ const Contact = ({ isVisible, onClose }: ContactProps) => {
                                     </div>
 
                                     <div className="submit-wrapper font-['Gilroy-Bold']">
-                                        <button type="submit" className="submit-btn">
-                                            Send Message
+                                        <button 
+                                            type="submit" 
+                                            className="submit-btn" 
+                                            disabled={isSubmitting}
+                                            style={{
+                                                opacity: isSubmitting ? 0.7 : 1,
+                                                cursor: isSubmitting ? 'not-allowed' : 'pointer'
+                                            }}
+                                        >
+                                            {isSubmitting ? 'Sending...' : 'Send Message'}
                                         </button>
                                     </div>
                                 </form>
@@ -152,6 +215,140 @@ const Contact = ({ isVisible, onClose }: ContactProps) => {
                     </div>
                 </section>
             </div>
+
+            {/* Success Popup */}
+            {showSuccessPopup && (
+                <div className="success-popup-overlay" style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 10000,
+                    animation: 'fadeIn 0.3s ease-out'
+                }}>
+                    <div className="success-popup" style={{
+                        backgroundColor: '#000000',
+                        border: '2px solid #ffffff',
+                        borderRadius: '0',
+                        padding: '2.5rem',
+                        maxWidth: '420px',
+                        width: '90%',
+                        textAlign: 'center',
+                        position: 'relative',
+                        animation: 'slideUp 0.3s ease-out'
+                    }}>
+                        {/* Success Icon */}
+                        <div style={{
+                            width: '70px',
+                            height: '70px',
+                            backgroundColor: '#ffffff',
+                            borderRadius: '0',
+                            border: '2px solid #ffffff',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            margin: '0 auto 1.5rem',
+                            animation: 'bounceIn 0.6s ease-out'
+                        }}>
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="20,6 9,17 4,12"></polyline>
+                            </svg>
+                        </div>
+
+                        <h3 style={{
+                            fontFamily: 'Denton-Bold',
+                            fontSize: '1.5rem',
+                            color: '#ffffff',
+                            marginBottom: '1rem',
+                            lineHeight: '1.2'
+                        }}>
+                            Message Sent Successfully!
+                        </h3>
+
+                        <p style={{
+                            fontFamily: 'Gilroy-Regular',
+                            fontSize: '1rem',
+                            color: 'rgba(255, 255, 255, 0.8)',
+                            marginBottom: '1.5rem',
+                            lineHeight: '1.5'
+                        }}>
+                            Thank you for reaching out! We'll get back to you within 24 hours.
+                        </p>
+
+                        <button
+                            onClick={handleSuccessPopupClose}
+                            style={{
+                                backgroundColor: '#ffffff',
+                                color: '#000000',
+                                border: '2px solid #ffffff',
+                                padding: '0.875rem 2.5rem',
+                                borderRadius: '0',
+                                fontSize: '1rem',
+                                fontFamily: 'Gilroy-Bold',
+                                fontWeight: '600',
+                                cursor: 'pointer',
+                                transition: 'all 0.3s ease',
+                                outline: 'none',
+                                letterSpacing: '0.5px'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = '#000000';
+                                e.currentTarget.style.color = '#ffffff';
+                                e.currentTarget.style.transform = 'translateY(-1px)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = '#ffffff';
+                                e.currentTarget.style.color = '#000000';
+                                e.currentTarget.style.transform = 'translateY(0)';
+                            }}
+                        >
+                            Thank You!
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+
+                @keyframes slideUp {
+                    from { 
+                        opacity: 0;
+                        transform: translateY(30px);
+                    }
+                    to { 
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                @keyframes bounceIn {
+                    0% {
+                        opacity: 0;
+                        transform: scale(0.3);
+                    }
+                    50% {
+                        transform: scale(1.05);
+                    }
+                    70% {
+                        transform: scale(0.9);
+                    }
+                    100% {
+                        opacity: 1;
+                        transform: scale(1);
+                    }
+                }
+                `
+            }} />
         </div>
     );
 };
