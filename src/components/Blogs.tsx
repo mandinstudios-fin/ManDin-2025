@@ -53,7 +53,7 @@ const BLOG_POSTS = [
 
 const Blogs = () => {
     return (
-        <section id='blogs' className='text-white px-[1rem] md:px-[2rem]' style={{backgroundColor: '#111b21'}}>
+        <section id='blogs' className='text-white px-[1rem] md:px-[2rem]' style={{backgroundColor: '#000000'}}>
             <div className='max-w-[1400px] mx-auto pb-[3rem] md:pb-[5rem] lg:pb-[7rem]'>
                 {/* Enhanced Header Section */}
                 <div className='mt-[4rem] md:mt-[6rem] lg:mt-[10rem] mb-[3rem] md:mb-[4rem] lg:mb-[6rem]'>
@@ -78,12 +78,12 @@ const Blogs = () => {
                 </div>
 
                 {/* Enhanced Blog Grid */}
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-white/10 rounded-lg overflow-hidden shadow-lg'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-white/10  overflow-hidden shadow-lg'>
                     {BLOG_POSTS.map((post, index) => (
                         <div
                             key={index}
                             className='group backdrop-blur-sm p-[1.5rem] md:p-[2rem] lg:p-[2.5rem] hover:bg-[#1a2429] transition-all duration-300 cursor-pointer border-r border-b border-white/5 last:border-r-0 md:last:border-r md:nth-last-child(2):border-r-0 lg:nth-last-child(2):border-r lg:last:border-r-0 min-h-[320px] md:min-h-[350px] lg:min-h-[380px] flex flex-col'
-                            style={{backgroundColor: 'rgba(17, 27, 33, 0.4)'}}
+                            style={{backgroundColor: 'rgba(21, 21, 21, 0.4)'}}
                         >
                             {/* Post Number and Category */}
                             <div className='flex items-center justify-between mb-[1rem] md:mb-[1.5rem]'>
@@ -126,22 +126,6 @@ const Blogs = () => {
                         </div>
                     ))}
                 </div>
-
-                {/* Enhanced Bottom CTA Section */}
-                {/* <div className='mt-[3rem] md:mt-[4rem] lg:mt-[6rem] text-center'>
-                    <div className='max-w-[500px] lg:max-w-[600px] mx-auto backdrop-blur-sm bg-white/5 p-[2rem] md:p-[2.5rem] lg:p-[3rem] rounded-lg border border-white/10'>
-                        <h3 className='text-white text-[1.5rem] md:text-[1.8rem] lg:text-[2.2rem] font-semibold font-["Denton-Bold"] mb-[0.8rem] md:mb-[1rem] leading-tight'>
-                            Want to Stay Updated?
-                        </h3>
-                        <p className='text-gray-300 text-[0.9rem] md:text-[1rem] lg:text-[1.1rem] leading-relaxed font-["Gilroy-Regular"] mb-[1.5rem] md:mb-[2rem] max-w-[400px] mx-auto'>
-                            Subscribe to our newsletter for the latest insights and industry trends.
-                        </p>
-                        <button className='bg-orange hover:bg-orange/90 text-white px-[1.5rem] md:px-[2rem] py-[0.7rem] md:py-[0.8rem] font-["Gilroy-Medium"] transition-colors duration-300 flex items-center gap-[0.5rem] mx-auto text-[0.9rem] md:text-[1rem] rounded-md shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300'>
-                            Subscribe Now
-                            <ArrowRight size={14} className='md:w-[16px] md:h-[16px]' />
-                        </button>
-                    </div>
-                </div> */}
             </div>
         </section>
     )

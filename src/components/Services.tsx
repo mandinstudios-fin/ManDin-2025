@@ -67,19 +67,18 @@ const CARDS = [
 
 // Enhanced Divider for Our Niche section
 const EnhancedDivider = () => (
-    <div className="w-full max-w-[1600px] mx-auto px-[2rem] py-[rem] lg:py-[6rem]">
+    <div className="w-full max-w-[1600px] mx-auto px-[2rem] py-[rem] lg:py-[6rem] mb-[-10rem]">
         <div className="w-full max-w-[1200px] mx-auto h-[2px] bg-gradient-to-r from-transparent via-white/25 to-transparent"></div>
     </div>
 )
 
 const Services = () => {
     return (
-        <section className='relative min-h-screen' style={{backgroundColor: '#111b21'}}>
+        <section className='relative min-h-screen' style={{backgroundColor: '#000000'}}>
             <div className='p-[2rem]'>
                 <div>
                     <WhatWeDo />
                     <WhoWeServe />
-                    <EnhancedDivider />
                     <OurNiche />
                 </div>
             </div>
@@ -223,7 +222,7 @@ const WhatWeDo = () => {
                     <div
                         className={`relative w-full max-w-lg p-8 text-black rounded-lg transform transition-all duration-300 m-[1rem] ${isAnimating ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
                             }`}
-                        style={{backgroundColor: '#111b21'}}
+                        style={{backgroundColor: '#000000'}}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <button onClick={closeModal} className="absolute text-4xl text-white top-3 right-3">
@@ -268,7 +267,7 @@ const WhoWeServe = () => {
                                     key={index}
                                     className={`group cursor-pointer transition-all duration-300 ease-in-out relative flex-shrink-0 w-[280px] snap-start ${
                                         index === 2 ? 'bg-gradient-to-br from-blue-900/50 to-blue-800/30' : ''
-                                    } border border-white/20 rounded-lg overflow-hidden backdrop-blur-sm`}
+                                    } border border-white/20 overflow-hidden backdrop-blur-sm`}
                                     style={{
                                         backgroundColor: index === 2 ? '' : 'rgba(17, 27, 33, 0.4)'
                                     }}
@@ -377,7 +376,7 @@ const WhoWeServe = () => {
                                         {/* Read Story Button (for featured card) */}
                                         {index === 2 && (
                                             <div className="mt-[0.8rem] flex items-center justify-center">
-                                                <button className="bg-white/10 hover:bg-white/20 transition-colors duration-300 px-[1rem] py-[0.5rem] flex items-center gap-[0.4rem] text-white font-['Gilroy-Medium'] text-[0.8rem] rounded-md">
+                                                <button className="bg-white/10 hover:bg-white/20 transition-colors duration-300 px-[1rem] py-[0.5rem] flex items-center gap-[0.4rem] text-white font-['Gilroy-Medium'] text-[0.8rem]">
                                                     Read story
                                                     <ArrowRight size={12} />
                                                 </button>
@@ -396,7 +395,7 @@ const WhoWeServe = () => {
 
                     {/* Desktop Grid (Original Design) */}
                     <div className='hidden lg:block'>
-                        <div className='grid grid-cols-2 max-w-[900px] mx-auto border border-white/20 rounded-lg overflow-hidden backdrop-blur-sm'>
+                        <div className='grid grid-cols-2 max-w-[900px] mx-auto border border-white/20 overflow-hidden backdrop-blur-sm'>
                             {CARDS.map((card, index) => (
                                 <div
                                     key={index}
@@ -517,7 +516,7 @@ const WhoWeServe = () => {
                                         {/* Read Story Button (for featured card) */}
                                         {index === 2 && (
                                             <div className="mt-[1rem] flex items-center justify-start">
-                                                <button className="bg-white/10 hover:bg-white/20 transition-colors duration-300 px-[1.5rem] py-[0.7rem] flex items-center gap-[0.5rem] text-white font-['Gilroy-Medium'] text-[1rem] rounded-md">
+                                                <button className="bg-white/10 hover:bg-white/20 transition-colors duration-300 px-[1.5rem] py-[0.7rem] flex items-center gap-[0.5rem] text-white font-['Gilroy-Medium'] text-[1rem]">
                                                     Read story
                                                     <ArrowRight size={16} />
                                                 </button>

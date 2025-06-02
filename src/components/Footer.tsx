@@ -117,7 +117,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* Mobile Layout - Concise and Professional */}
+                {/* Mobile Layout - Classic & Elegant */}
                 <div className="footer-mobile lg:hidden">
                     {/* Company Section */}
                     <div className="footer-mobile-company">
@@ -128,13 +128,13 @@ const Footer = () => {
                     {/* Contact Info */}
                     <div className="footer-mobile-contact">
                         <div className="mobile-contact-grid">
-                            <a href="mailto:info@mandinstudios.com" className="mobile-contact-item">
-                                <Mail size={18} />
-                                <span>Email</span>
+                            <a href="mailto:info@mandinstudios.com" className="mobile-contact-item" aria-label="Send us an email">
+                                <Mail size={20} />
+                                <span>Email Us</span>
                             </a>
-                            <a href="tel:+919115962222" className="mobile-contact-item">
-                                <Phone size={18} />
-                                <span>Call</span>
+                            <a href="tel:+919115962222" className="mobile-contact-item" aria-label="Call us">
+                                <Phone size={20} />
+                                <span>Call Us</span>
                             </a>
                         </div>
                         <div className="mobile-location">
@@ -147,10 +147,22 @@ const Footer = () => {
                     <div className="footer-mobile-social">
                         <span className="mobile-follow-text">Follow Us</span>
                         <div className="mobile-social-links">
-                            <a href="https://www.instagram.com/mandin_studios/" target="_blank" rel="noopener noreferrer" className="mobile-social-link">
+                            <a 
+                                href="https://www.instagram.com/mandin_studios/" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="mobile-social-link"
+                                aria-label="Follow us on Instagram"
+                            >
                                 <Instagram size={20} />
                             </a>
-                            <a href="https://www.linkedin.com/in/mdstudios/" target="_blank" rel="noopener noreferrer" className="mobile-social-link">
+                            <a 
+                                href="https://www.linkedin.com/in/mdstudios/" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="mobile-social-link"
+                                aria-label="Connect with us on LinkedIn"
+                            >
                                 <Linkedin size={20} />
                             </a>
                         </div>
