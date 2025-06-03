@@ -4,10 +4,74 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Performance optimizations -->
+    <meta name="theme-color" content="#000000" />
+    <meta name="color-scheme" content="dark" />
+    
+    <!-- Preload critical resources for faster loading -->
+    <link rel="preload" href="/src/assets/3311.jpg" as="image" type="image/jpeg" />
+    <link rel="preload" href="/src/assets/Logo.png" as="image" type="image/png" />
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="/src/assets/fonts/Denton-Bold.otf" as="font" type="font/otf" crossorigin />
+    <link rel="preload" href="/src/assets/fonts/Gilroy-Regular.ttf" as="font" type="font/truetype" crossorigin />
+    <link rel="preload" href="/src/assets/fonts/Poppins-ExtraLight.ttf" as="font" type="font/truetype" crossorigin />
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//www.instagram.com" />
+    <link rel="dns-prefetch" href="//www.linkedin.com" />
+    <link rel="dns-prefetch" href="//wa.me" />
+    
+    <!-- Preconnect for faster external connections -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
     <title>ManDin Studios</title>
+    
+    <!-- Inline critical CSS for instant rendering -->
+    <style>
+      /* Critical CSS for immediate rendering */
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #000000;
+        font-family: system-ui, -apple-system, sans-serif;
+        overflow-x: hidden;
+      }
+      
+      #root {
+        min-height: 100vh;
+      }
+      
+      /* Loading optimization */
+      img {
+        content-visibility: auto;
+        contain-intrinsic-size: 1px 1000px;
+      }
+      
+      /* Prevent layout shift */
+      header {
+        height: 100vh;
+        position: relative;
+        contain: layout style paint;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Service Worker for caching (optional) -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {
+            // Service worker registration failed, continue without it
+          });
+        });
+      }
+    </script>
   </body>
 </html>
