@@ -41,7 +41,7 @@ const Navbar = () => {
         <div className="navbar-container">
           {/* Brand Logo */}
           <div className="brand-wrapper">
-            <img src="/Logo.png" alt="ManDin Studios" className="brand-logo" />
+            <img src="/Logo.png" alt="ManDin Studios" className="brand-logo" loading="lazy" />
           </div>
 
           {/* Right side navigation */}
