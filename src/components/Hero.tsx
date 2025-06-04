@@ -17,6 +17,9 @@ const Hero = () => {
     const [height, setHeight] = useState(window.innerHeight);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [videoLoaded, setVideoLoaded] = useState(false);
+    const [componentMounted, setComponentMounted] = useState(true);
+    const [textLoaded, setTextLoaded] = useState(false);
+    const [animationStarted, setAnimationStarted] = useState(false);
 
     const { isContactOpen, toggleContact } = useContact();
 
@@ -42,12 +45,52 @@ const Hero = () => {
         }
     };
 
-    // Preload video for faster loading
+    // Text loading and animation trigger
+    useEffect(() => {
+        // Immediate text loading
+        setTextLoaded(true);
+        
+        // Start animations after a slight delay for smoother experience
+        const animationTimer = setTimeout(() => {
+            setAnimationStarted(true);
+        }, 200);
+
+        return () => clearTimeout(animationTimer);
+    }, []);
+
+    // Improved video preloading for faster loading
     useEffect(() => {
         const video = document.createElement('video');
-        video.onloadeddata = () => setVideoLoaded(true);
+        video.muted = true;
+        video.playsInline = true;
+        video.preload = 'metadata';
+        
+        video.onloadstart = () => {
+            if (video.readyState >= 3) {
+                setVideoLoaded(true);
+            }
+        };
+        
+        video.onloadedmetadata = () => {
+            video.preload = 'auto';
+            if (video.readyState >= 3) {
+                setVideoLoaded(true);
+            }
+        };
+        
+        video.oncanplaythrough = () => setVideoLoaded(true);
+        video.onerror = () => setVideoLoaded(true);
+        
         video.src = bg2;
         video.load();
+        
+        const timeoutId = setTimeout(() => {
+            setVideoLoaded(true);
+        }, 1500);
+
+        return () => {
+            clearTimeout(timeoutId);
+        };
     }, []);
 
     useEffect(() => {
@@ -55,7 +98,7 @@ const Hero = () => {
             setHeight(window.innerHeight);
         };
         
-        updateHeight(); // Set initial height
+        updateHeight();
         window.addEventListener('resize', updateHeight);
         window.addEventListener('orientationchange', updateHeight);
         document.addEventListener('fullscreenchange', updateHeight);
@@ -92,6 +135,100 @@ const Hero = () => {
                         transition: opacity 0.3s ease-in-out;
                     }
                     
+                    /* Professional Text Animation - Unified Style */
+                    .hero-text-container {
+                        opacity: 0;
+                        transform: translateY(40px);
+                        transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+                    }
+                    
+                    .hero-text-container.loaded {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                    
+                    /* Unified Professional Animation for All Text Elements */
+                    .hero-title {
+                        opacity: 0;
+                        transform: translateY(30px);
+                        transition: all 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+                        transition-delay: 0.2s;
+                    }
+                    
+                    .hero-title.animate {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                    
+                    .hero-subtitle {
+                        opacity: 0;
+                        transform: translateY(30px);
+                        transition: all 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+                        transition-delay: 0.5s;
+                    }
+                    
+                    .hero-subtitle.animate {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                    
+                    .hero-description {
+                        opacity: 0;
+                        transform: translateY(30px);
+                        transition: all 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+                        transition-delay: 0.8s;
+                    }
+                    
+                    .hero-description.animate {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                    
+                    .hero-button {
+                        opacity: 0;
+                        transform: translateY(30px) scale(0.98);
+                        transition: all 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+                        transition-delay: 1.1s;
+                    }
+                    
+                    .hero-button.animate {
+                        opacity: 1;
+                        transform: translateY(0) scale(1);
+                    }
+                    
+                    /* Elegant fade-in for text elements */
+                    .fade-in-up {
+                        opacity: 0;
+                        transform: translateY(30px);
+                        animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    }
+                    
+                    @keyframes fadeInUp {
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+                    
+                    /* Staggered animation delays */
+                    .animate-delay-1 { animation-delay: 0.2s; }
+                    .animate-delay-2 { animation-delay: 0.5s; }
+                    .animate-delay-3 { animation-delay: 0.8s; }
+                    .animate-delay-4 { animation-delay: 1.1s; }
+                    
+                    /* Professional loading skeleton */
+                    .text-skeleton {
+                        background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+                        background-size: 200% 100%;
+                        animation: shimmer 1.5s infinite;
+                        border-radius: 4px;
+                    }
+                    
+                    @keyframes shimmer {
+                        0% { background-position: -200% 0; }
+                        100% { background-position: 200% 0; }
+                    }
+                    
                     /* Desktop: Keep current behavior */
                     @media (min-width: 1024px) {
                         .hero-bg-video {
@@ -119,6 +256,14 @@ const Hero = () => {
                             left: 0;
                             top: 0;
                         }
+                        
+                        .hero-text-container {
+                            transform: translateY(20px);
+                        }
+                        
+                        .hero-title, .hero-subtitle, .hero-description {
+                            transform: translateY(15px);
+                        }
                     }
                     
                     /* Very small mobile devices */
@@ -140,33 +285,40 @@ const Hero = () => {
                     }
                 `}
             </style>
-            <header className='relative w-full h-screen overflow-visible'>
+            <header className='relative w-full h-screen overflow-visible' style={{ backgroundColor: '#000000' }}>
                 {/* Loading placeholder */}
-                {!videoLoaded && (
+                {!videoLoaded && componentMounted && (
                     <div 
-                        className="absolute inset-0 w-full h-full bg-black"
-                        style={{ zIndex: -3 }}
+                        className="absolute inset-0 w-full h-full"
+                        style={{ 
+                            background: 'linear-gradient(to bottom, #000000, #111111)',
+                            opacity: 0.9,
+                            zIndex: -3 
+                        }}
                     />
                 )}
                 
-                {/* Background Video - Extended downward */}
+                {/* Background Video */}
                 <video
                     src={bg2}
                     className="hero-bg-video"
                     style={{
-                        opacity: videoLoaded ? 1 : 0,
-                        height: 'calc(100vh + 300px)', // Extend 300px below
+                        opacity: videoLoaded ? 0.9 : 0.4,
+                        height: 'calc(100vh + 300px)',
                         minHeight: 'calc(100vh + 300px)',
-                        zIndex: -2
+                        zIndex: -2,
+                        transition: 'opacity 0.8s ease-in-out'
                     }}
                     autoPlay
                     muted
                     loop
                     playsInline
                     onLoadedData={() => setVideoLoaded(true)}
+                    onCanPlay={() => setVideoLoaded(true)}
+                    onError={() => setVideoLoaded(true)}
                 />
                 
-                {/* Gradient overlay - extends down as well */}
+                {/* Gradient overlay */}
                 <div 
                     className="absolute inset-0 w-full"
                     style={{
@@ -202,13 +354,26 @@ const Hero = () => {
                     </div>
                 </div>
 
-                {/* Main Content */}
+                {/* Main Content with Enhanced Text Transitions */}
                 <div className='relative z-10 w-full mx-auto px-[0.5rem] sm:px-[1rem] md:px-[2rem] lg:px-[3rem] h-full flex flex-col justify-center'>
-                    <div className='text-center'>
-                        <h1 className='text-[1.6rem] sm:text-[2rem] md:text-[2.6rem] lg:text-[3.2rem] xl:text-[3.7rem] leading-[1.1] font-["Denton-Bold"] font-extrabold text-white mb-[0.5rem] lg:mb-[1rem]'>Where Expertise Meets Artistry</h1>
-                        <h2 className='text-[1.4rem] sm:text-[1.7rem] md:text-[2.1rem] lg:text-[2.5rem] xl:text-[2.8rem] leading-[1.2] font-["Denton-Bold"] font-extrabold text-white mb-[1rem] lg:mb-[1.5rem]'>You're Witnessing Brilliance Unfold.</h2>
-                        <p className='text-[0.85rem] sm:text-[0.95rem] md:text-[1.1rem] lg:text-[1.3rem] xl:text-[1.5rem] leading-[1.4] font-["Gilroy-Regular"] text-white opacity-90'>You're watching Master at Work</p>
-                        <div className='flex justify-center mt-[2.3rem] font-["Gilroy-Regular"]'>
+                    <div className={`text-center hero-text-container ${textLoaded ? 'loaded' : ''}`}>
+                        {/* Main Title with Fade-in Animation */}
+                        <h1 className={`hero-title ${animationStarted ? 'animate' : ''} text-[1.6rem] sm:text-[2rem] md:text-[2.6rem] lg:text-[3.2rem] xl:text-[3.7rem] leading-[1.1] font-["Denton-Bold"] font-extrabold text-white mb-[0.5rem] lg:mb-[1rem]`}>
+                            Where Expertise Meets Artistry
+                        </h1>
+                        
+                        {/* Subtitle with Professional Fade-in */}
+                        <h2 className={`hero-subtitle ${animationStarted ? 'animate' : ''} text-[1.4rem] sm:text-[1.7rem] md:text-[2.1rem] lg:text-[2.5rem] xl:text-[2.8rem] leading-[1.2] font-["Denton-Bold"] font-extrabold text-white mb-[1rem] lg:mb-[1.5rem]`}>
+                            You're Witnessing Brilliance Unfold.
+                        </h2>
+                        
+                        {/* Description with Elegant Fade */}
+                        <p className={`hero-description ${animationStarted ? 'animate' : ''} text-[0.85rem] sm:text-[0.95rem] md:text-[1.1rem] lg:text-[1.3rem] xl:text-[1.5rem] leading-[1.4] font-["Gilroy-Regular"] text-white opacity-90`}>
+                            You're watching Master at Work
+                        </p>
+                        
+                        {/* Button with Scale Animation */}
+                        <div className={`hero-button ${animationStarted ? 'animate' : ''} flex justify-center mt-[2.3rem] font-["Gilroy-Regular"]`}>
                             <button 
                                 onClick={toggleContact} 
                                 className='relative cursor-pointer px-[2rem] py-[0.5rem] lg:px-[3rem] lg:py-[0.7rem] border border-[#FFFFFFF] lg:text-[1.2rem] flex items-center gap-[0.5rem] bg-transparent text-white overflow-hidden shadow-[0_10px_25px_rgba(17,27,33,0.9),0_4px_6px_rgba(17,27,33,0.1)] group hover:border-white transform-none'

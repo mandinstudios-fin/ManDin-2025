@@ -7,7 +7,9 @@
     
     <!-- Performance optimizations -->
     <meta name="theme-color" content="#000000" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="dark only" />
+    <meta name="msapplication-navbutton-color" content="#000000" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     
     <!-- Preload critical resources for faster loading -->
     <link rel="preload" href="/src/assets/3311.jpg" as="image" type="image/jpeg" />
@@ -16,7 +18,7 @@
     <!-- Preload background video with high priority -->
     <link rel="preload" href="/src/assets/2288.mp4" as="video" type="video/mp4" crossorigin />
     
-    <!-- Preload critical fonts -->
+    <!-- Preload critical fonts with font-display swap for immediate text rendering -->
     <link rel="preload" href="/src/assets/fonts/Denton-Bold.otf" as="font" type="font/otf" crossorigin />
     <link rel="preload" href="/src/assets/fonts/Gilroy-Regular.ttf" as="font" type="font/truetype" crossorigin />
     <link rel="preload" href="/src/assets/fonts/Poppins-ExtraLight.ttf" as="font" type="font/truetype" crossorigin />
@@ -33,24 +35,82 @@
     
     <title>ManDin Studios</title>
     
-    <!-- Inline critical CSS for instant rendering -->
+    <!-- Inline critical CSS for immediate rendering -->
     <style>
-      /* Critical CSS for immediate rendering */
+      /* Critical CSS for immediate rendering - ENHANCED FOR TEXT PERFORMANCE */
+      html {
+        margin: 0;
+        padding: 0;
+        background-color: #000000 !important;
+        overflow-x: hidden;
+      }
+      
       body {
         margin: 0;
         padding: 0;
-        background-color: #000000;
+        background-color: #000000 !important;
         font-family: system-ui, -apple-system, sans-serif;
         overflow-x: hidden;
+        min-height: 100vh;
+        /* Optimize text rendering for better performance */
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-synthesis: weight;
       }
       
       #root {
         min-height: 100vh;
+        background-color: #000000 !important;
+      }
+      
+      /* Prevent any flash of unstyled content */
+      * {
+        box-sizing: border-box;
+      }
+      
+      /* Enhanced font loading with immediate fallbacks */
+      @font-face {
+        font-family: 'Denton-Bold';
+        src: url('/src/assets/fonts/Denton-Bold.otf') format('opentype');
+        font-display: swap; /* Immediate text rendering with fallback */
+        font-weight: bold;
+        font-style: normal;
+      }
+      
+      @font-face {
+        font-family: 'Gilroy-Regular';
+        src: url('/src/assets/fonts/Gilroy-Regular.ttf') format('truetype');
+        font-display: swap; /* Immediate text rendering with fallback */
+        font-weight: normal;
+        font-style: normal;
+      }
+      
+      @font-face {
+        font-family: 'Poppins-ExtraLight';
+        src: url('/src/assets/fonts/Poppins-ExtraLight.ttf') format('truetype');
+        font-display: swap; /* Immediate text rendering with fallback */
+        font-weight: 200;
+        font-style: normal;
+      }
+      
+      /* Immediate text rendering with system font fallbacks */
+      .hero-title, .hero-subtitle, .hero-description {
+        font-family: 'Denton-Bold', 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+        color: #ffffff !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        will-change: transform, opacity;
+        contain: layout style paint;
+      }
+      
+      .hero-text-container {
+        will-change: transform, opacity;
+        contain: layout style paint;
       }
       
       /* Loading optimization with hero background fallback */
       .hero-loading-bg {
-        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%) !important;
         background-size: 400% 400%;
         animation: gradientShift 3s ease infinite;
       }
@@ -66,6 +126,7 @@
         height: 100vh;
         position: relative;
         contain: layout style paint;
+        background-color: #000000 !important;
       }
       
       /* Video optimization */
@@ -80,24 +141,70 @@
         contain-intrinsic-size: 1px 1000px;
       }
       
-      /* Skeleton loading for better UX */
-      .skeleton {
-        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 37%, #f0f0f0 63%);
+      /* Enhanced skeleton loading for better UX */
+      .text-skeleton {
+        background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 37%, #1a1a1a 63%);
         background-size: 400% 100%;
         animation: skeleton-loading 1.4s ease-in-out infinite;
+        border-radius: 4px;
+        min-height: 1em;
+        margin: 0.5em 0;
       }
       
       @keyframes skeleton-loading {
         0% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
       }
+      
+      /* Immediate loading styles to prevent flash */
+      .App {
+        background-color: #000000 !important;
+        min-height: 100vh;
+      }
+      
+      /* Prevent any gray color flashes */
+      .bg-gray-800, .bg-gray-900, .from-gray-800, .to-gray-900 {
+        background-color: #000000 !important;
+      }
+      
+      /* Critical animation styles for immediate loading */
+      .hero-text-animate {
+        animation: heroTextFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      
+      @keyframes heroTextFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      /* Improve text readability during loading */
+      .text-render-optimized {
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-kerning: auto;
+        font-variant-ligatures: common-ligatures;
+      }
+      
+      /* Responsive text optimization */
+      @media (max-width: 768px) {
+        .hero-title, .hero-subtitle, .hero-description {
+          transform: translateZ(0); /* Force GPU acceleration on mobile */
+        }
+      }
     </style>
   </head>
-  <body>
-    <div id="root"></div>
+  <body style="background-color: #000000 !important; margin: 0; padding: 0;">
+    <div id="root" style="background-color: #000000 !important; min-height: 100vh;"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Video preload script for immediate loading -->
+    <!-- Enhanced video preload script for immediate loading -->
     <script>
       // Aggressive video preloading
       document.addEventListener('DOMContentLoaded', () => {
@@ -110,6 +217,31 @@
         video.addEventListener('canplaythrough', () => {
           sessionStorage.setItem('videoPreloaded', 'true');
         });
+      });
+      
+      // Font loading optimization
+      if ('fonts' in document) {
+        // Preload critical fonts
+        const fontPromises = [
+          new FontFace('Denton-Bold', 'url(/src/assets/fonts/Denton-Bold.otf)').load(),
+          new FontFace('Gilroy-Regular', 'url(/src/assets/fonts/Gilroy-Regular.ttf)').load(),
+          new FontFace('Poppins-ExtraLight', 'url(/src/assets/fonts/Poppins-ExtraLight.ttf)').load()
+        ];
+        
+        Promise.all(fontPromises).then(fonts => {
+          fonts.forEach(font => document.fonts.add(font));
+          // Mark fonts as loaded for immediate text rendering
+          sessionStorage.setItem('fontsLoaded', 'true');
+        }).catch(() => {
+          // Fallback to system fonts if custom fonts fail
+          console.log('Custom fonts failed to load, using system fonts');
+        });
+      }
+      
+      // Performance monitoring
+      window.addEventListener('load', () => {
+        // Mark page as loaded for performance tracking
+        sessionStorage.setItem('pageLoaded', Date.now());
       });
     </script>
     

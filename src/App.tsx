@@ -31,7 +31,7 @@ const SectionDivider = ({ variant = 'default' }: { variant?: 'default' | 'thin' 
 function App() {
   return (
     <ContactProvider>
-      <div className="App">
+      <div className="App" style={{ backgroundColor: '#000000', minHeight: '100vh' }}>
         <Hero />
         <Services />
         <SectionDivider variant="thin" />
