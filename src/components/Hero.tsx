@@ -58,39 +58,21 @@ const Hero = () => {
         return () => clearTimeout(animationTimer);
     }, []);
 
-    // Improved video preloading for faster loading
+    // Non-blocking video loading for faster initial render
     useEffect(() => {
-        const video = document.createElement('video');
-        video.muted = true;
-        video.playsInline = true;
-        video.preload = 'metadata';
+        // Set video as loaded immediately to prevent blocking
+        setVideoLoaded(true);
         
-        video.onloadstart = () => {
-            if (video.readyState >= 3) {
-                setVideoLoaded(true);
-            }
-        };
-        
-        video.onloadedmetadata = () => {
-            video.preload = 'auto';
-            if (video.readyState >= 3) {
-                setVideoLoaded(true);
-            }
-        };
-        
-        video.oncanplaythrough = () => setVideoLoaded(true);
-        video.onerror = () => setVideoLoaded(true);
-        
-        video.src = bg2;
-        video.load();
-        
-        const timeoutId = setTimeout(() => {
-            setVideoLoaded(true);
-        }, 1500);
+        // Optional: Background video preloading after initial render
+        const timer = setTimeout(() => {
+            const video = document.createElement('video');
+            video.muted = true;
+            video.playsInline = true;
+            video.preload = 'none'; // Don't block initial load
+            video.src = bg2;
+        }, 2000); // Load video after page is ready
 
-        return () => {
-            clearTimeout(timeoutId);
-        };
+        return () => clearTimeout(timer);
     }, []);
 
     useEffect(() => {

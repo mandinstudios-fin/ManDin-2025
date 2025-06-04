@@ -18,20 +18,26 @@
     <!-- Preload background video with high priority -->
     <link rel="preload" href="/src/assets/2288.mp4" as="video" type="video/mp4" crossorigin />
     
-    <!-- Preload critical fonts with font-display swap for immediate text rendering -->
+    <!-- Preload ONLY critical fonts for immediate text rendering -->
     <link rel="preload" href="/src/assets/fonts/Denton-Bold.otf" as="font" type="font/otf" crossorigin />
     <link rel="preload" href="/src/assets/fonts/Gilroy-Regular.ttf" as="font" type="font/truetype" crossorigin />
-    <link rel="preload" href="/src/assets/fonts/Poppins-ExtraLight.ttf" as="font" type="font/truetype" crossorigin />
     
-    <!-- DNS prefetch for external resources -->
+    <!-- CDN and Performance Optimization -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+    <link rel="dns-prefetch" href="//unpkg.com" />
     <link rel="dns-prefetch" href="//www.instagram.com" />
     <link rel="dns-prefetch" href="//www.linkedin.com" />
     <link rel="dns-prefetch" href="//wa.me" />
     
-    <!-- Preconnect for faster external connections -->
+    <!-- Preconnect for instant external connections -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    
+    <!-- CDN Fallbacks for Critical Libraries -->
+    <link rel="modulepreload" href="https://unpkg.com/react@18/umd/react.production.min.js" />
+    <link rel="modulepreload" href="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" />
     
     <title>ManDin Studios</title>
     
@@ -204,45 +210,80 @@
     <div id="root" style="background-color: #000000 !important; min-height: 100vh;"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Enhanced video preload script for immediate loading -->
+    <!-- Enterprise Performance Script -->
     <script>
-      // Aggressive video preloading
-      document.addEventListener('DOMContentLoaded', () => {
-        const video = document.createElement('video');
-        video.src = '/src/assets/2288.mp4';
-        video.preload = 'auto';
-        video.load();
+      // Instant Performance Optimizations
+      (function() {
+        // 1. Critical Resource Hints
+        const addResourceHint = (href, rel, as) => {
+          const link = document.createElement('link');
+          link.rel = rel;
+          link.href = href;
+          if (as) link.as = as;
+          link.crossOrigin = 'anonymous';
+          document.head.appendChild(link);
+        };
         
-        // Store in cache for immediate access
-        video.addEventListener('canplaythrough', () => {
-          sessionStorage.setItem('videoPreloaded', 'true');
-        });
-      });
-      
-      // Font loading optimization
-      if ('fonts' in document) {
-        // Preload critical fonts
-        const fontPromises = [
-          new FontFace('Denton-Bold', 'url(/src/assets/fonts/Denton-Bold.otf)').load(),
-          new FontFace('Gilroy-Regular', 'url(/src/assets/fonts/Gilroy-Regular.ttf)').load(),
-          new FontFace('Poppins-ExtraLight', 'url(/src/assets/fonts/Poppins-ExtraLight.ttf)').load()
-        ];
+        // 2. Intelligent Preloading Based on Connection
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
         
-        Promise.all(fontPromises).then(fonts => {
-          fonts.forEach(font => document.fonts.add(font));
-          // Mark fonts as loaded for immediate text rendering
-          sessionStorage.setItem('fontsLoaded', 'true');
-        }).catch(() => {
-          // Fallback to system fonts if custom fonts fail
-          console.log('Custom fonts failed to load, using system fonts');
+        if (!isSlowConnection) {
+          // Fast connection - preload aggressively
+          addResourceHint('/src/assets/2288.mp4', 'prefetch');
+          addResourceHint('/src/components/Services.tsx', 'prefetch');
+        }
+        
+        // 3. Critical Font Loading with System Fallback
+        if ('fonts' in document) {
+          const criticalFonts = [
+            new FontFace('Denton-Bold', 'url(/src/assets/fonts/Denton-Bold.otf)'),
+            new FontFace('Gilroy-Regular', 'url(/src/assets/fonts/Gilroy-Regular.ttf)')
+          ];
+          
+          Promise.allSettled(criticalFonts.map(font => font.load())).then(results => {
+            results.forEach((result, index) => {
+              if (result.status === 'fulfilled') {
+                document.fonts.add(result.value);
+              }
+            });
+            sessionStorage.setItem('fontsLoaded', 'true');
+          });
+        }
+        
+        // 4. Prefetch Next-Page Resources on Idle
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => {
+            const nextPageResources = [
+              '/src/index.css',
+              '/src/components/Blogs.tsx',
+              '/src/components/Footer.tsx'
+            ];
+            
+            nextPageResources.forEach(href => {
+              addResourceHint(href, 'prefetch');
+            });
+          });
+        }
+        
+        // 5. Performance Monitoring
+        window.addEventListener('load', () => {
+          if (window.performance) {
+            const perfData = performance.timing;
+            const loadTime = perfData.loadEventEnd - perfData.navigationStart;
+            const firstPaint = performance.getEntriesByType('paint')[0];
+            
+            console.log(`Load: ${loadTime}ms, FCP: ${firstPaint ? firstPaint.startTime : 'N/A'}ms`);
+            
+            // Store metrics for optimization
+            sessionStorage.setItem('perfMetrics', JSON.stringify({
+              loadTime,
+              firstPaint: firstPaint?.startTime,
+              timestamp: Date.now()
+            }));
+          }
         });
-      }
-      
-      // Performance monitoring
-      window.addEventListener('load', () => {
-        // Mark page as loaded for performance tracking
-        sessionStorage.setItem('pageLoaded', Date.now());
-      });
+      })();
     </script>
     
     <!-- Service Worker for caching (optional) -->

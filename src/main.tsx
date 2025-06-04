@@ -5,7 +5,7 @@ import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { ContactProvider } from './hooks/contactHook.tsx'
 
-// Ensure immediate black background before React renders
+// Ensure immediate black background
 document.body.style.backgroundColor = '#000000';
 document.documentElement.style.backgroundColor = '#000000';
 
