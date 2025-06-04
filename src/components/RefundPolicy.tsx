@@ -80,8 +80,8 @@ const RefundPolicy = () => {
                 If you have any questions about this Refund Policy, please contact us at:
               </p>
               <div className="mt-3 space-y-1">
-                <p><span className="text-orange">Email:</span> contact@mandinstudios.com</p>
-                <p><span className="text-orange">Phone:</span> +1 (234) 567-890</p>
+                <p><span className="text-orange">Email:</span> info@mandinstudios.com</p>
+                <p><span className="text-orange">Phone:</span> +91-9115962222</p>
                 <p><span className="text-orange">Address:</span> Hyderabad, India</p>
               </div>
             </div>

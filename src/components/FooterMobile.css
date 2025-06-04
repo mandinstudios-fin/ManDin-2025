@@ -9,6 +9,24 @@
     .footer-mobile {
         display: flex !important;
     }
+    
+    /* Ensure watermark is visible on mobile */
+    .footer-watermark {
+        z-index: 3 !important;
+        opacity: 1 !important;
+        pointer-events: none !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    .watermark-text {
+        -webkit-text-stroke: 3px rgba(255, 149, 0, 0.4) !important;
+        text-stroke: 3px rgba(255, 149, 0, 0.4) !important;
+        font-size: clamp(3rem, 25vw, 8rem) !important;
+        color: rgba(255, 149, 0, 0.08) !important;
+        transform: rotate(-15deg) !important;
+    }
 }
 
 @media (min-width: 1024px) {
@@ -47,25 +65,36 @@
     max-width: 100%;
     width: 100%;
     margin: 0 auto;
-    background: #0f0f0f !important;
+    background: rgba(15, 15, 15, 0.85) !important;
     border-top: 1px solid rgba(255, 149, 0, 0.1);
     position: relative;
     overflow: hidden;
+    z-index: 2;
+    backdrop-filter: blur(8px);
 }
 
 
 
 /* Ensure parent container also has subtle background */
-.footer-new {
-    background: #0f0f0f !important;
+@media (max-width: 1023.98px) {
+    .footer-new {
+        background: rgba(15, 15, 15, 0.95) !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .footer-new {
+        background: #0f0f0f !important;
+    }
 }
 
 /* Footer Bottom Section - Mobile Responsive */
 @media (max-width: 1023.98px) {
     .footer-bottom-new {
-        background: #0f0f0f !important;
+        background: rgba(15, 15, 15, 0.9) !important;
         padding: 1.5rem 1rem 1rem;
         border-top: 1px solid rgba(255, 149, 0, 0.05);
+        backdrop-filter: blur(8px);
     }
     
     .footer-bottom-content {
@@ -136,11 +165,12 @@
     text-align: center;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    background: rgba(255, 149, 0, 0.04);
-    border: 1px solid rgba(255, 149, 0, 0.1);
+    background: rgba(255, 149, 0, 0.06);
+    border: 1px solid rgba(255, 149, 0, 0.15);
     border-radius: 12px;
     position: relative;
-    z-index: 2;
+    z-index: 5;
+    backdrop-filter: blur(4px);
 }
 
 .mobile-company-name {
@@ -169,7 +199,7 @@
     gap: 1rem;
     align-items: center;
     position: relative;
-    z-index: 2;
+    z-index: 5;
 }
 
 .mobile-contact-grid {
@@ -187,8 +217,8 @@
     justify-content: center;
     gap: 0.5rem;
     padding: 0.875rem 0.5rem;
-    background: rgba(255, 149, 0, 0.03);
-    border: 1px solid rgba(255, 149, 0, 0.1);
+    background: rgba(255, 149, 0, 0.05);
+    border: 1px solid rgba(255, 149, 0, 0.15);
     border-radius: 8px;
     text-decoration: none;
     color: #ffffff;
@@ -197,6 +227,7 @@
     font-size: 0.85rem;
     font-weight: 400;
     min-height: 80px;
+    backdrop-filter: blur(4px);
 }
 
 .mobile-contact-item:hover {
@@ -244,7 +275,7 @@
     padding-top: 1.5rem;
     border-top: 1px solid rgba(255, 149, 0, 0.2);
     position: relative;
-    z-index: 2;
+    z-index: 5;
 }
 
 .mobile-follow-text {
@@ -267,12 +298,13 @@
     justify-content: center;
     width: 44px;
     height: 44px;
-    background: rgba(255, 149, 0, 0.05);
+    background: rgba(255, 149, 0, 0.08);
     border: 1px solid rgba(255, 149, 0, 0.3);
     border-radius: 8px;
     color: #ffffff;
     text-decoration: none;
     transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
 }
 
 .mobile-social-link:hover {

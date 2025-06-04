@@ -177,7 +177,8 @@ const Footer = () => {
                         </div>
                         <div className="footer-bottom-links">
                             <Link to="/privacy-policy" className="bottom-link">Privacy Policy</Link> <span style={{marginRight: '20px' , color: 'gray',marginLeft: '10px'}}>|</span>
-                            <Link to="/refund-policy" className="bottom-link">Refund Policy</Link>
+                            <Link to="/refund-policy" className="bottom-link">Refund Policy</Link> <span style={{marginRight: '20px' , color: 'gray',marginLeft: '10px'}}>|</span>
+                            <Link to="/terms-conditions" className="bottom-link">Terms & Conditions</Link>
                         </div>
                         <div className="made-with-love">
                             <span>Andhra Dreams ❤️ Hyderabad Hands</span>

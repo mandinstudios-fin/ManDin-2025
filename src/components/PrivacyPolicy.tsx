@@ -188,8 +188,8 @@ const PrivacyPolicy = () => {
                 If you have any questions about this Privacy Policy or our data practices, please contact us at:
               </p>
               <div className="space-y-1">
-                <p><span className="text-orange">Email:</span> privacy@mandinstudios.com</p>
-                <p><span className="text-orange">Phone:</span> +1 (234) 567-890</p>
+                <p><span className="text-orange">Email:</span> info@mandinstudios.com</p>
+                <p><span className="text-orange">Phone:</span> +91-9115962222</p>
                 <p><span className="text-orange">Address:</span> Hyderabad, India</p>
               </div>
             </div>

@@ -1,8 +1,12 @@
 import React from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Hero from './components/Hero'
 import Services from './components/Services'
 import Blogs from './components/Blogs'
 import Footer from './components/Footer'
+import TermsAndConditions from './components/TermsAndConditions'
+import RefundPolicy from './components/RefundPolicy'
+import PrivacyPolicy from './components/PrivacyPolicy'
 import { ContactProvider } from './hooks/contactHook'
 
 // Clean Classic Divider Component
@@ -28,16 +32,28 @@ const SectionDivider = ({ variant = 'default' }: { variant?: 'default' | 'thin' 
   return dividerStyles[variant]
 }
 
+// Home Page Component
+const HomePage = () => {
+  return (
+    <div className="App" style={{ backgroundColor: '#000000', minHeight: '100vh' }}>
+      <Hero />
+      <Services />
+      <SectionDivider variant="thin" />
+      <Blogs />
+      <Footer />
+    </div>
+  )
+}
+
 function App() {
   return (
     <ContactProvider>
-      <div className="App" style={{ backgroundColor: '#000000', minHeight: '100vh' }}>
-        <Hero />
-        <Services />
-        <SectionDivider variant="thin" />
-        <Blogs />
-        <Footer />
-      </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/terms-conditions" element={<TermsAndConditions />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      </Routes>
     </ContactProvider>
   )
 }
