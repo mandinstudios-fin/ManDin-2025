@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import logo from '../assets/Logo.png'
-import bg2 from '../assets/3311.jpg'
+import bg2 from '../assets/2288.mp4'
 import { ArrowRight, Menu, X } from 'lucide-react';
 import Contact from './Contact';
 import { useContact } from '../hooks/contactHook';
@@ -16,7 +16,7 @@ const navItems = [
 const Hero = () => {
     const [height, setHeight] = useState(window.innerHeight);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [imageLoaded, setImageLoaded] = useState(false);
+    const [videoLoaded, setVideoLoaded] = useState(false);
 
     const { isContactOpen, toggleContact } = useContact();
 
@@ -42,11 +42,12 @@ const Hero = () => {
         }
     };
 
-    // Preload image for faster loading
+    // Preload video for faster loading
     useEffect(() => {
-        const img = new Image();
-        img.onload = () => setImageLoaded(true);
-        img.src = bg2;
+        const video = document.createElement('video');
+        video.onloadeddata = () => setVideoLoaded(true);
+        video.src = bg2;
+        video.load();
     }, []);
 
     useEffect(() => {
@@ -78,7 +79,7 @@ const Hero = () => {
         <>
             <style>
                 {`
-                    .hero-bg-image {
+                    .hero-bg-video {
                         position: absolute;
                         top: 0;
                         left: 0;
@@ -87,14 +88,13 @@ const Hero = () => {
                         object-fit: cover;
                         object-position: center center;
                         filter: brightness(0.85);
-                        image-rendering: auto;
                         z-index: -2;
                         transition: opacity 0.3s ease-in-out;
                     }
                     
                     /* Desktop: Keep current behavior */
                     @media (min-width: 1024px) {
-                        .hero-bg-image {
+                        .hero-bg-video {
                             object-fit: cover;
                             object-position: center center;
                         }
@@ -102,7 +102,7 @@ const Hero = () => {
                     
                     /* Tablet: Adjust positioning */
                     @media (max-width: 1023px) and (min-width: 768px) {
-                        .hero-bg-image {
+                        .hero-bg-video {
                             object-fit: cover;
                             object-position: center top;
                         }
@@ -110,7 +110,7 @@ const Hero = () => {
                     
                     /* Mobile: Optimize for mobile screens */
                     @media (max-width: 767px) {
-                        .hero-bg-image {
+                        .hero-bg-video {
                             object-fit: cover;
                             object-position: center center;
                             height: 100vh;
@@ -123,7 +123,7 @@ const Hero = () => {
                     
                     /* Very small mobile devices */
                     @media (max-width: 480px) {
-                        .hero-bg-image {
+                        .hero-bg-video {
                             object-fit: cover;
                             object-position: center 30%;
                         }
@@ -131,7 +131,7 @@ const Hero = () => {
                     
                     /* Landscape mobile */
                     @media (max-width: 767px) and (orientation: landscape) {
-                        .hero-bg-image {
+                        .hero-bg-video {
                             object-fit: cover;
                             object-position: center center;
                             width: 100vw;
@@ -140,34 +140,38 @@ const Hero = () => {
                     }
                 `}
             </style>
-            <header className='relative w-full h-screen overflow-hidden'>
+            <header className='relative w-full h-screen overflow-visible'>
                 {/* Loading placeholder */}
-                {!imageLoaded && (
+                {!videoLoaded && (
                     <div 
                         className="absolute inset-0 w-full h-full bg-black"
                         style={{ zIndex: -3 }}
                     />
                 )}
                 
-                {/* Background Image - Mobile Responsive */}
-                <img
+                {/* Background Video - Extended downward */}
+                <video
                     src={bg2}
-                    alt="Hero Background"
-                    className="hero-bg-image"
+                    className="hero-bg-video"
                     style={{
-                        opacity: imageLoaded ? 1 : 0,
+                        opacity: videoLoaded ? 1 : 0,
+                        height: 'calc(100vh + 300px)', // Extend 300px below
+                        minHeight: 'calc(100vh + 300px)',
+                        zIndex: -2
                     }}
-                    loading="eager"
-                    fetchPriority="high"
-                    decoding="async"
-                    onLoad={() => setImageLoaded(true)}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    onLoadedData={() => setVideoLoaded(true)}
                 />
                 
-                {/* Light overlay for text readability only */}
+                {/* Gradient overlay - extends down as well */}
                 <div 
-                    className="absolute inset-0 w-full h-full"
+                    className="absolute inset-0 w-full"
                     style={{
-                        background: 'rgba(0, 0, 0, 0.15)',
+                        height: 'calc(100vh + 300px)',
+                        background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0.8) 90%, rgba(0, 0, 0, 1) 100%)',
                         zIndex: -1
                     }}
                 />
@@ -199,12 +203,11 @@ const Hero = () => {
                 </div>
 
                 {/* Main Content */}
-                <div className='relative z-10 max-w-[1280px] mx-auto p-[2rem] h-full flex flex-col justify-center'>
+                <div className='relative z-10 w-full mx-auto px-[0.5rem] sm:px-[1rem] md:px-[2rem] lg:px-[3rem] h-full flex flex-col justify-center'>
                     <div className='text-center'>
-                        <h2 className='block font-["Poppins-ExtraLight"] lg:hidden mb-[0.5rem] text-white'>ManDin Studios</h2>
-                        <h2 className='text-[2rem] md:text-[3.5rem] lg:text-[3.7rem] leading-[1.1] font-["Denton-Bold"] font-extrabold text-white' ><span className='hidden lg:block'>Where Expertise Meets Artistry</span><span className='block lg:hidden'>Expertise in Action.</span></h2>
-                        <h2 className='text-[2rem] md:text-[3.5rem] lg:text-[2.7rem] leading-[1.1] font-["Denton-Bold"] font-extrabold text-white'><span className='hidden lg:block'>You're Witnessing Brillliance Unfold.</span><span className='block lg:hidden'>Brilliance Unfolds.</span></h2>
-                        <p className='text-[1rem] lg:text-[2.0rem] mt-[0.5rem] font-["Gilroy-Regular"] text-white '><span className='block lg:hidden'>You're witnessing a Master at Work</span><span className='hidden lg:block'> You're watching Master at Work</span></p>
+                        <h1 className='text-[1.6rem] sm:text-[2rem] md:text-[2.6rem] lg:text-[3.2rem] xl:text-[3.7rem] leading-[1.1] font-["Denton-Bold"] font-extrabold text-white mb-[0.5rem] lg:mb-[1rem]'>Where Expertise Meets Artistry</h1>
+                        <h2 className='text-[1.4rem] sm:text-[1.7rem] md:text-[2.1rem] lg:text-[2.5rem] xl:text-[2.8rem] leading-[1.2] font-["Denton-Bold"] font-extrabold text-white mb-[1rem] lg:mb-[1.5rem]'>You're Witnessing Brilliance Unfold.</h2>
+                        <p className='text-[0.85rem] sm:text-[0.95rem] md:text-[1.1rem] lg:text-[1.3rem] xl:text-[1.5rem] leading-[1.4] font-["Gilroy-Regular"] text-white opacity-90'>You're watching Master at Work</p>
                         <div className='flex justify-center mt-[2.3rem] font-["Gilroy-Regular"]'>
                             <button 
                                 onClick={toggleContact} 

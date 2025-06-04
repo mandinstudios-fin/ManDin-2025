@@ -13,6 +13,9 @@
     <link rel="preload" href="/src/assets/3311.jpg" as="image" type="image/jpeg" />
     <link rel="preload" href="/src/assets/Logo.png" as="image" type="image/png" />
     
+    <!-- Preload background video with high priority -->
+    <link rel="preload" href="/src/assets/2288.mp4" as="video" type="video/mp4" crossorigin />
+    
     <!-- Preload critical fonts -->
     <link rel="preload" href="/src/assets/fonts/Denton-Bold.otf" as="font" type="font/otf" crossorigin />
     <link rel="preload" href="/src/assets/fonts/Gilroy-Regular.ttf" as="font" type="font/truetype" crossorigin />
@@ -45,10 +48,17 @@
         min-height: 100vh;
       }
       
-      /* Loading optimization */
-      img {
-        content-visibility: auto;
-        contain-intrinsic-size: 1px 1000px;
+      /* Loading optimization with hero background fallback */
+      .hero-loading-bg {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+        background-size: 400% 400%;
+        animation: gradientShift 3s ease infinite;
+      }
+      
+      @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
       }
       
       /* Prevent layout shift */
@@ -57,11 +67,51 @@
         position: relative;
         contain: layout style paint;
       }
+      
+      /* Video optimization */
+      video {
+        content-visibility: auto;
+        contain-intrinsic-size: 1920px 1080px;
+      }
+      
+      /* Image optimization */
+      img {
+        content-visibility: auto;
+        contain-intrinsic-size: 1px 1000px;
+      }
+      
+      /* Skeleton loading for better UX */
+      .skeleton {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 37%, #f0f0f0 63%);
+        background-size: 400% 100%;
+        animation: skeleton-loading 1.4s ease-in-out infinite;
+      }
+      
+      @keyframes skeleton-loading {
+        0% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
     </style>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Video preload script for immediate loading -->
+    <script>
+      // Aggressive video preloading
+      document.addEventListener('DOMContentLoaded', () => {
+        const video = document.createElement('video');
+        video.src = '/src/assets/2288.mp4';
+        video.preload = 'auto';
+        video.load();
+        
+        // Store in cache for immediate access
+        video.addEventListener('canplaythrough', () => {
+          sessionStorage.setItem('videoPreloaded', 'true');
+        });
+      });
+    </script>
     
     <!-- Service Worker for caching (optional) -->
     <script>
