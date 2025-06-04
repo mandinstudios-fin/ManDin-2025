@@ -7,12 +7,17 @@ import WhoWeServe from './components/whoweserve';
 const HomePage = () => {
   const sectionsRef = useRef([]);
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const toggleContact = () => {
     setIsContactOpen(!isContactOpen);
   };
 
   useEffect(() => {
+    setLoaded(true);
+    if (typeof window === 'undefined' || typeof window.IntersectionObserver === 'undefined') {
+      return;
+    }
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -42,7 +47,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="relative w-full overflow-visible bg-transparent">
+    <div className={`relative w-full overflow-visible bg-transparent ${loaded ? 'loaded' : ''}`}>
       {/* Contact Slide */}
       <div className={`contact-slide ${isContactOpen ? 'open' : ''}`}>
         <button className="close-contact" onClick={toggleContact}>×</button>
