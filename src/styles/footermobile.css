@@ -1,0 +1,1015 @@
+/* Mobile Footer Styles - Professional & Concise */
+
+/* Visibility Controls - Override existing CSS */
+/* FOOTER */
+.footer {
+  background: linear-gradient(to bottom, rgba(17, 27, 33, 1), #000000);
+  padding: 2rem 2rem 2rem;
+  margin-top: 4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+}
+
+.footer-section h3 {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.footer-section p,
+.footer-section .section-link {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+  display: block;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+  color: white;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link:hover {
+  color: var(--accent-color);
+}
+
+.footer-bottom {
+  max-width: 1300px;
+  margin: 2rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 4rem;
+  }
+}
+
+/* LOADER */
+.svg {
+  width: 200px;
+  height: 100px;
+  overflow: visible;
+}
+.loadertext {
+  fill: none;
+  stroke: #d6ad61;
+  stroke-width: 1;
+  stroke-dasharray: 510;
+  stroke-dashoffset: 510;
+  animation: loader 3s forwards;
+  font-family: "Denton-Bold";
+}
+@keyframes loader {
+  0% {
+    stroke-dashoffset: 400;
+  }
+  90%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+.fill {
+  fill: transparent;
+  opacity: 0;
+  animation: fillText 3s;
+  font-family: "Denton-Bold";
+}
+@keyframes fillText {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Hide scrollbar for webkit browsers */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* Smooth scrolling for horizontal scroll */
+.scrollbar-hide {
+  scroll-behavior: smooth;
+}
+
+/* Custom CSS for glassmorphism effect */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+
+/* NEW PROFESSIONAL FOOTER STYLES */
+.footer-new {
+  background: #131211;
+  position: relative;
+  margin-top: 4rem;
+  overflow: hidden;
+  border-top-right-radius: 5rem;
+  border-top-left-radius: 5rem;
+}
+
+.footer-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.watermark-text {
+  font-size: clamp(6rem, 25vw, 20rem);
+  font-family: "Denton-Bold", sans-serif;
+  font-weight: 900;
+  color: transparent;
+  text-align: center;
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  -webkit-text-stroke: 2px rgba(255, 149, 0, 0.2);
+  text-stroke: 2px rgba(255, 149, 0, 0.2);
+  user-select: none;
+}
+
+.watermark-outline {
+  display: none;
+}
+
+.footer-container {
+  position: relative;
+  z-index: 3;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 2rem 2rem;
+}
+
+.footer-content-new {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 4rem;
+  margin-bottom: 3rem;
+}
+
+.footer-section-new {
+  display: flex;
+  flex-direction: column;
+}
+
+.company-section {
+  padding-right: 2rem;
+}
+
+.company-logo {
+  margin-bottom: 1.5rem;
+}
+
+.company-name {
+  font-size: 2rem;
+  font-family: "Denton-Bold", sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.02em;
+}
+
+.company-tagline {
+  font-size: 0.9rem;
+  color: rgba(255, 149, 0, 0.9);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.company-description {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.company-stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ff9500;
+  font-family: "Denton-Bold", sans-serif;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.25rem;
+}
+
+.footer-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-family: "Denton-Bold", sans-serif;
+}
+
+.title-icon {
+  width: 20px;
+  height: 20px;
+  color: #ff9500;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  padding: 0.25rem 0;
+}
+
+.footer-link:hover {
+  color: #ff9500;
+  transform: translateX(5px);
+}
+
+.link-icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.footer-link:hover .link-icon {
+  opacity: 1;
+  color: #ff9500;
+}
+
+.contact-info-new {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-item-new {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+}
+
+.contact-item-new:hover {
+  color: #ff9500;
+}
+
+.contact-icon {
+  width: 18px;
+  height: 18px;
+  color: #ff9500;
+  flex-shrink: 0;
+}
+
+.social-section {
+  margin-top: 1rem;
+}
+
+.social-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-family: "Denton-Bold", sans-serif;
+}
+
+.social-links-new {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.social-link-new {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background: rgba(255, 149, 0, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 149, 0, 0.1);
+}
+
+.social-link-new:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 149, 0, 0.08);
+  border-color: rgba(255, 149, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(255, 149, 0, 0.1);
+}
+
+.social-link-new.instagram:hover {
+  color: #e4405f;
+  box-shadow: 0 8px 25px rgba(228, 64, 95, 0.3);
+}
+
+.social-link-new.linkedin:hover {
+  color: #0077b5;
+  box-shadow: 0 8px 25px rgba(0, 119, 181, 0.3);
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.footer-bottom-new {
+  border-top: 1px solid rgba(255, 149, 0, 0.1);
+  padding: 1.5rem 0;
+  background: transparent;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.copyright p {
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.bottom-link {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.bottom-link:hover {
+  color: #ff9500;
+}
+
+.made-with-love span {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .footer-container {
+    padding: 3rem 1.5rem 1.5rem;
+  }
+
+  .footer-content-new {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .company-section {
+    grid-column: 1 / -1;
+    padding-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .company-stats {
+    justify-content: center;
+  }
+
+  .watermark-text,
+  .watermark-outline {
+    font-size: clamp(6rem, 35vw, 18rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 2rem 1rem 1rem;
+  }
+
+  .footer-content-new {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .company-stats {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .footer-bottom-new {
+    padding: 1.25rem 0;
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.25rem;
+  }
+
+  .footer-bottom-links {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .watermark-text,
+  .watermark-outline {
+    font-size: clamp(5rem, 40vw, 12rem);
+    line-height: 0.9;
+  }
+
+  .footer-watermark {
+    opacity: 0.08;
+  }
+
+  .company-name {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .company-tagline {
+    text-align: center;
+  }
+
+  .company-description {
+    text-align: center;
+  }
+
+  .footer-title {
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .footer-links {
+    align-items: center;
+  }
+
+  .contact-info-new {
+    align-items: center;
+  }
+
+  .social-title {
+    text-align: center;
+  }
+
+  .social-links-new {
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 1.5rem 0.75rem 0.75rem;
+  }
+
+  .company-name {
+    font-size: 1.5rem;
+  }
+
+  .footer-title {
+    font-size: 1.1rem;
+  }
+
+  .social-links-new {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .footer-bottom-new {
+    padding: 1rem 0;
+  }
+
+  .footer-bottom-links {
+    flex-direction: column;
+  }
+
+  .company-stats {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .stat-number {
+    font-size: 1.3rem;
+  }
+
+  .watermark-text,
+  .watermark-outline {
+    font-size: clamp(4rem, 45vw, 10rem);
+    -webkit-text-stroke: 2px rgba(255, 149, 0, 0.3);
+    text-stroke: 2px rgba(255, 149, 0, 0.3);
+  }
+}
+
+@media (max-width: 1023.98px) {
+  .footer-content-new {
+    display: none !important;
+  }
+
+  .footer-mobile {
+    display: flex !important;
+  }
+
+  /* Ensure watermark is visible on mobile */
+  .footer-watermark {
+    z-index: 3 !important;
+    opacity: 1 !important;
+    pointer-events: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .watermark-text {
+    -webkit-text-stroke: 3px rgba(255, 149, 0, 0.4) !important;
+    text-stroke: 3px rgba(255, 149, 0, 0.4) !important;
+    font-size: clamp(3rem, 25vw, 8rem) !important;
+    color: rgba(255, 149, 0, 0.08) !important;
+    transform: rotate(-15deg) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-content-new {
+    display: grid !important;
+  }
+
+  .footer-mobile {
+    display: none !important;
+  }
+}
+
+/* Better text wrapping and alignment for small screens */
+@media (max-width: 768px) {
+  .mobile-company-name,
+  .mobile-company-tagline,
+  .mobile-follow-text {
+    text-align: center;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .mobile-contact-item span {
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.footer-mobile {
+  padding: 2.5rem 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  background: rgba(15, 15, 15, 0.85) !important;
+  border-top: 1px solid rgba(255, 149, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+  backdrop-filter: blur(8px);
+}
+
+/* Ensure parent container also has subtle background */
+@media (max-width: 1023.98px) {
+  .footer-new {
+    background: rgba(15, 15, 15, 0.95) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-new {
+    background: #0f0f0f !important;
+  }
+}
+
+/* Footer Bottom Section - Mobile Responsive */
+@media (max-width: 1023.98px) {
+  .footer-bottom-new {
+    background: rgba(15, 15, 15, 0.9) !important;
+    padding: 1.5rem 1rem 1rem;
+    border-top: 1px solid rgba(255, 149, 0, 0.05);
+    backdrop-filter: blur(8px);
+  }
+
+  .footer-bottom-content {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+    text-align: center !important;
+    max-width: 100% !important;
+  }
+
+  /* Force horizontal layout for policy links */
+  .footer-new .footer-bottom-new .footer-bottom-content .footer-bottom-links {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .copyright p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    font-family: "Gilroy-Regular", sans-serif;
+    margin: 0;
+  }
+
+  .footer-bottom-links {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    flex-wrap: nowrap !important;
+    flex-direction: row !important;
+  }
+
+  .bottom-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-decoration: none !important;
+    font-size: 0.8rem !important;
+    font-family: "Gilroy-Regular", sans-serif !important;
+    transition: color 0.3s ease !important;
+    display: inline !important;
+    white-space: nowrap !important;
+  }
+
+  .bottom-link:hover {
+    color: #ff9500 !important;
+  }
+
+  /* Style the separator */
+  .footer-bottom-links span {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 0.8rem !important;
+    display: inline !important;
+    margin: 0 !important;
+  }
+
+  .made-with-love span {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+    font-family: "Gilroy-Regular", sans-serif;
+  }
+}
+
+/* Company Section - Classic & Elegant */
+.footer-mobile-company {
+  text-align: center;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: rgba(255, 149, 0, 0.06);
+  border: 1px solid rgba(255, 149, 0, 0.15);
+  border-radius: 12px;
+  position: relative;
+  z-index: 5;
+  backdrop-filter: blur(4px);
+}
+
+.mobile-company-name {
+  font-family: "Denton-Bold", serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+
+.mobile-company-tagline {
+  font-family: "Gilroy-Regular", sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 149, 0, 0.9);
+  font-weight: 400;
+  line-height: 1.4;
+  opacity: 0.9;
+}
+
+/* Contact Section - Simplified */
+.footer-mobile-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+
+.mobile-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.mobile-contact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 0.5rem;
+  background: rgba(255, 149, 0, 0.05);
+  border: 1px solid rgba(255, 149, 0, 0.15);
+  border-radius: 8px;
+  text-decoration: none;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  font-family: "Gilroy-Regular", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  min-height: 80px;
+  backdrop-filter: blur(4px);
+}
+
+.mobile-contact-item:hover {
+  background: rgba(255, 149, 0, 0.06);
+  border-color: rgba(255, 149, 0, 0.2);
+  color: #ff9500;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 149, 0, 0.1);
+}
+
+.mobile-contact-item svg {
+  opacity: 0.9;
+  color: #ff9500;
+}
+
+.mobile-contact-item:hover svg {
+  opacity: 1;
+  color: #ff9500;
+}
+
+.mobile-location {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: "Gilroy-Regular", sans-serif;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.mobile-location svg {
+  opacity: 0.7;
+  color: #ff9500;
+}
+
+/* Social Section - Elegant */
+.footer-mobile-social {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 149, 0, 0.2);
+  position: relative;
+  z-index: 5;
+}
+
+.mobile-follow-text {
+  font-family: "Gilroy-Regular", sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.mobile-social-links {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.mobile-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 149, 0, 0.08);
+  border: 1px solid rgba(255, 149, 0, 0.3);
+  border-radius: 8px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.mobile-social-link:hover {
+  background: rgba(255, 149, 0, 0.15);
+  border-color: rgba(255, 149, 0, 0.6);
+  color: #ff9500;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 149, 0, 0.2);
+}
+
+/* Clean Responsive adjustments */
+@media (max-width: 480px) {
+  .footer-mobile {
+    padding: 2rem 1rem 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .mobile-company-name {
+    font-size: 1.5rem;
+  }
+
+  .mobile-company-tagline {
+    font-size: 0.85rem;
+  }
+
+  .mobile-contact-grid {
+    max-width: 320px;
+    gap: 0.625rem;
+  }
+
+  .mobile-contact-item {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+    min-height: 75px;
+    border-radius: 6px;
+  }
+
+  .mobile-location {
+    font-size: 0.8rem;
+  }
+
+  .mobile-social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+  }
+
+  .footer-bottom-new {
+    padding: 1.25rem 0.875rem 0.875rem !important;
+  }
+
+  .copyright p,
+  .bottom-link {
+    font-size: 0.75rem;
+  }
+
+  .made-with-love span {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .footer-mobile {
+    padding: 1.75rem 0.875rem 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .mobile-company-name {
+    font-size: 1.4rem;
+  }
+
+  .mobile-contact-grid {
+    max-width: 280px;
+    gap: 0.5rem;
+  }
+
+  .mobile-contact-item {
+    padding: 0.625rem 0.375rem;
+    font-size: 0.75rem;
+    min-height: 70px;
+  }
+
+  .footer-bottom-new {
+    padding: 1rem 0.75rem 0.75rem !important;
+  }
+
+  .footer-bottom-links {
+    gap: 0.375rem;
+  }
+}
+
+/* Dark theme optimization */
+@media (prefers-color-scheme: dark) {
+  .footer-mobile-company {
+    border-bottom-color: rgba(255, 149, 0, 0.15);
+  }
+
+  .mobile-contact-item {
+    background: rgba(255, 149, 0, 0.02);
+    border-color: rgba(255, 149, 0, 0.2);
+  }
+
+  .mobile-location {
+    background: rgba(255, 149, 0, 0.02);
+  }
+
+  .footer-mobile-social {
+    border-top-color: rgba(255, 149, 0, 0.15);
+  }
+}
+
+/* Smooth animations */
+@media (prefers-reduced-motion: no-preference) {
+  .mobile-contact-item,
+  .mobile-social-link {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .mobile-contact-item {
+    border-color: rgba(255, 149, 0, 0.4);
+  }
+
+  .mobile-social-link {
+    border-color: rgba(255, 149, 0, 0.3);
+  }
+
+  .mobile-company-tagline {
+    color: #ff9500;
+  }
+}
