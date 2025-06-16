@@ -1,8 +1,5 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const WaveSlideUp = ({ text, extraClassName }) => {
     const containerRef = useRef(null);
@@ -15,30 +12,21 @@ const WaveSlideUp = ({ text, extraClassName }) => {
             {
                 y: "100%",
                 opacity: 0,
-                blur: `10px`,
             },
             {
+                delay: 2.5,
                 y: "0%",
                 opacity: 1,
                 duration: 0.8,
                 ease: "power3.out",
                 stagger: 0.15,
-                blur: `0px`,
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top 90%",
-                    toggleActions: "play none none none",
-                },
+
             }
         );
-
-        return () => {
-            ScrollTrigger.getAll().forEach((t) => t.kill());
-        };
     }, []);
 
     const words = text.split(" ").map((word, idx) => (
-        <span key={idx} className="inline-block mr-[0.5rem]">
+        <span key={idx} className="inline-block mr-[0.5rem] will-change-transform will-change-opacity">
             {word}
         </span>
     ));

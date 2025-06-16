@@ -1,5 +1,6 @@
 import { ArrowRight, ExternalLink } from "lucide-react";
 import FadeInOnScroll from "./FadeInOnScroll";
+import { motion } from 'framer-motion'
 
 const CARDS = [
     {
@@ -11,16 +12,6 @@ const CARDS = [
         appStore: "https://apps.apple.com/app/radio-maria",
         playStore: "https://play.google.com/store/apps/details?id=com.radiomaria",
         image: '/rm.png'
-    },
-    {
-        title: "Culinary Artist",
-        description: "Revolutionary food delivery platform connecting local chefs with food enthusiasts through AI-powered matching.",
-        metrics: "Hyderabad's first nutrition centric platform",
-        impact: "80% faster delivery times",
-        website: "https://culinaryartist.com",
-        appStore: "https://apps.apple.com/app/culinary-artist",
-        playStore: "https://play.google.com/store/apps/details?id=com.culinaryartist",
-        image: '/chef.png'
     },
     {
         title: "Neon Pay",
@@ -41,6 +32,16 @@ const CARDS = [
         appStore: null,
         playStore: null,
         image: '/3.png'
+    },
+    {
+        title: "Culinary Artist",
+        description: "Revolutionary food delivery platform connecting local chefs with food enthusiasts through AI-powered matching.",
+        metrics: "Hyderabad's first nutrition centric platform",
+        impact: "80% faster delivery times",
+        website: "https://culinaryartist.com",
+        appStore: "https://apps.apple.com/app/culinary-artist",
+        playStore: "https://play.google.com/store/apps/details?id=com.culinaryartist",
+        image: '/chef.png'
     },
 ]
 
@@ -71,8 +72,9 @@ const WhoWeServe = () => {
 
                 <div className='relative lg:w-[70%] lg:flex-1 flex flex-col gap-[1rem] justify-end items-end ml-auto mr-[6rem] -mt-[34rem]'>
                     {CARDS.map((card, i) => (
-                        <div className="h-[58vh] sticky top-[22rem]">
-                            <div className='rounded-[1rem] overflow-hidden relative group cursor-pointer transition-all duration-300 ease-in-out flex flex-col gap-[1rem] lg:gap-[0.5rem] bg-white/5 backdrop-blur-[20px] p-[1rem]'>
+                        <div className="h-[58vh] sticky top-[23rem]">
+                            <div
+                                className='rounded-[1rem] overflow-hidden relative group cursor-pointer transition-all duration-300 ease-in-out flex flex-col gap-[1rem] lg:gap-[0.5rem] bg-white/5 backdrop-blur-[20px] p-[1rem]'>
                                 <div className='absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent'></div>
                                 <div className='absolute top-0 left-0 h-full w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent'></div>
                                 <div className='absolute bottom-0 right-0 w-full h-[1px] bg-gradient-to-l from-transparent via-white/20 to-transparent'></div>

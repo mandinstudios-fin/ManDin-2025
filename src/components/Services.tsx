@@ -1,10 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionTemplate } from "motion/react"
 import { useScroll, useTransform } from "motion/react"
 import { ArrowRight, ExternalLink } from 'lucide-react'
 
 import cardStyles from '../styles/cardStyles.module.css'
 import FadeInOnScroll from "./FadeInOnScroll";
+import MatrixBg from "./MatrixBg";
+import useContact from "../hooks/UseContact";
 
 const FEATURES = [
     {
@@ -35,23 +37,19 @@ const FEATURES = [
 ];
 
 const Services = () => {
+    const { toggleContact } = useContact();
+
     return (
-        <section className='relative min-h-screen' style={{ backgroundColor: '#000000' }}>
-            {/* Smooth gradient transition from Hero */}
-            <div
-                className="absolute top-0 left-0 w-full h-[200px] pointer-events-none z-0"
-                style={{
-                    background: 'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,1) 100%)'
-                }}
-            />
-            <div className='relative z-10 p-[2rem] max-w-[1300px] mx-auto'>
-                <div>
+        <section id="what-we-do" className='min-h-screen' style={{ backgroundColor: '#000000' }}>
+            <div className='p-[2rem] relative'>
+                <MatrixBg />
+                <div className="max-w-[1300px] mx-auto">
                     <FadeInOnScroll>
-                        <h2 className='text-center text-white text-[2rem] md:text-[3rem] lg:text-[3rem] leading-[1] font-semibold mt-[4rem] lg:mt-[6rem] font-["Denton-Bold"] relative z-10'>What We Do</h2>
+                        <h2 className='text-center text-white text-[2rem] md:text-[3rem] lg:text-[3rem] leading-[1] font-semibold font-["Denton-Bold"] relative'>What We Do</h2>
                     </FadeInOnScroll>
 
                     <FadeInOnScroll>
-                        <div className='mt-[4rem] relative z-10'>
+                        <div className='mt-[4rem] relative'>
                             <h2 style={{
                                 // backgroundImage: 'url(https://img.freepik.com/premium-photo/beige-silk-fabric-texture-satin-fashion-background-content_125966-3504.jpg?w=1380)', // Replace with your actual image path
                                 // backgroundSize: 'cover',
@@ -67,19 +65,17 @@ const Services = () => {
                                 innovations to AI -driven automation, our solutions are
                                 engineered for performance, scalability, and real-world impact.</p>
                             <div className={`mt-[3.7rem] lg:mt-[3rem] flex gap-[1rem] lg:justify-start justify-center group `}>
-                                <div className='flex items-center gap-[1rem] cursor-pointer' >
+                                <div className='flex items-center gap-[1rem] cursor-pointer' onClick={toggleContact}>
                                     <p className='text-white/70 text-[1.3rem] font-["Denton-Bold"] ml-[1.75rem] lg:ml-0'>Make the Switch</p>
                                     <ArrowRight className='text-white size-7 animate-arrow-move' />
                                 </div>
                             </div>
                         </div>
                     </FadeInOnScroll>
-
-                    <FadeInOnScroll>
-                        <WhatWeDo />
-                    </FadeInOnScroll>
                 </div>
+
             </div>
+            <WhatWeDo />
         </section>
     )
 }
